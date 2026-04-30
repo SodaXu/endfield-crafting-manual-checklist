@@ -337,6 +337,19 @@ async function main() {
     missing,
     enemyCount: Object.keys(enemyMap).length,
     energyAlluviumSource: energyAlluvium.source,
+    energyAlluviumRows: (energyAlluvium.rows || []).map(row => ({
+      region: row.region || '',
+      locationEn: row.locationEn || '',
+      locationZh: row.locationZh || locationNotes[row.mapId]?.zh || null,
+      mapId: row.mapId || '',
+      source: row.source || 'wiki.gg-operational-manual-energy-alluvium',
+      enemies: (row.enemies || []).map(enemy => ({
+        id: normalizeEnemyId(enemy.enemyId),
+        name: enemy.zhName || enemy.enName || enemy.enemyId,
+        enName: enemy.enName || '',
+        count: Object.prototype.hasOwnProperty.call(enemy, 'count') ? enemy.count : null,
+      })),
+    })),
     generatedAt: new Date().toISOString(),
   }, null, 0))
 

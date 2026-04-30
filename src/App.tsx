@@ -122,7 +122,10 @@ export default function App() {
         it.description.toLowerCase().includes(q) ||
         it.obtainWays?.some(w => w.desc.toLowerCase().includes(q)) ||
         it.droppedBy?.some(d => (d.name || d.id).toLowerCase().includes(q)) ||
-        it.sourceSummary?.grouped.some(g => g.area.toLowerCase().includes(q))
+        itemSourceGroups(it).some(g =>
+          g.area.toLowerCase().includes(q) ||
+          g.enemies.some(e => e.name.toLowerCase().includes(q) || e.id.toLowerCase().includes(q))
+        )
       )
     }
     if (rarity > 0) list = list.filter(it => it.rarity === rarity)
@@ -167,6 +170,29 @@ export default function App() {
               <li>大地图 SpawnerConfig 仅作敌人/地图辅助校验，不再作为淤积点刷怪来源。</li>
               <li>少量缺口使用人工备注修正，例如地图编号与「彪兽的长绒」位置。</li>
             </ul>
+            {data.energyAlluviumRows && data.energyAlluviumRows.length > 0 && (
+              <>
+                <h3>淤积点地图与刷怪比对表</h3>
+                <p>下表来自 wiki.gg Operational Manual 的 Energy Alluvium 表；「首墩」为游戏内手工补充，数量未知显示 ×?。</p>
+                <div className="alluvium-table">
+                  {data.energyAlluviumRows.map(row => (
+                    <div className="alluvium-row" key={row.mapId}>
+                      <div className="alluvium-place">
+                        <strong>重度能量淤积点 - {row.locationZh || row.locationEn || row.mapId}</strong>
+                        <span>{row.mapId}{row.locationEn ? ` · ${row.locationEn}` : ''}</span>
+                      </div>
+                      <div className="enemy-list">
+                        {row.enemies.map(enemy => (
+                          <span className="enemy-pill" key={enemy.id} title={enemy.enName || enemy.id}>
+                            {enemy.name}{enemy.count === null ? ' ×?' : ` ×${enemy.count}`}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
             <h3>Credits</h3>
             <ul>
               <li><a href="https://github.com/nagiyume/AKEDatabase" target="_blank" rel="noreferrer">AKEDatabase</a>：物品、图标、敌人名称等本地静态数据。</li>

@@ -55,6 +55,23 @@ export interface LocationNote {
   source: string
 }
 
+
+export interface EnergyAlluviumEnemy {
+  id: string
+  name: string
+  enName: string
+  count: number | null
+}
+
+export interface EnergyAlluviumRow {
+  region: string
+  locationEn: string
+  locationZh: string | null
+  mapId: string
+  source: string
+  enemies: EnergyAlluviumEnemy[]
+}
+
 export interface EnergyAlluviumSource {
   title: string
   url: string
@@ -68,5 +85,6 @@ export interface DataFile {
   missing: string[]
   enemyCount: number
   energyAlluviumSource?: EnergyAlluviumSource | null
+  energyAlluviumRows?: EnergyAlluviumRow[]
   generatedAt: string
 }

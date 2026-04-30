@@ -114,6 +114,29 @@ header h1 {
   line-height: 1;
   cursor: pointer;
 }
+
+.alluvium-table {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 4px;
+}
+.alluvium-row {
+  display: grid;
+  gap: 7px;
+  padding: 10px;
+  border: 1px solid #282828;
+  border-radius: 2px;
+  background: var(--surface2);
+}
+.alluvium-place {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+.alluvium-place strong { color: var(--text); font-size: 0.9rem; }
+.alluvium-place span { color: var(--muted); font-size: 0.78rem; }
+
 .copyright-note {
   margin-top: 14px;
   padding: 10px 12px;
