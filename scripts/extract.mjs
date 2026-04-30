@@ -129,7 +129,6 @@ async function loadSpawnerSources(enemyMap, locationNotes) {
     for (const f of files) {
       let data
       try { data = await readJSON(join(dir, f)) } catch { continue }
-      const forbidDrop = Boolean(data?.settings?.forbidDrop)
       const configId = data?.configId || f.replace(/\.json$/, '')
       for (const entry of data?.enemyLibrary || []) {
         const rawEnemyId = entry.enemyId
@@ -143,7 +142,6 @@ async function loadSpawnerSources(enemyMap, locationNotes) {
           enemyId: rawEnemyId,
           enemyName: enemyMap[rawEnemyId] || enemyMap[enemyId] || rawEnemyId,
           level: entry.enemyLevel ?? null,
-          forbidDrop,
           released,
         }
         if (!sourcesByEnemy.has(enemyId)) sourcesByEnemy.set(enemyId, [])
@@ -173,7 +171,6 @@ function buildEnergyAlluviumSources(energyAlluvium, locationNotes) {
         level: null,
         count: enemy.count ?? null,
         released: true,
-        source: row.source || 'wiki.gg-operational-manual-energy-alluvium',
       })
     }
   }
@@ -192,68 +189,46 @@ function uniqueBy(arr, keyFn) {
   return out
 }
 
-function compactSourceSummary(summary) {
-  return {
-    grouped: summary.grouped.map(group => ({
-      area: group.area,
-      enemies: group.enemies,
-    })),
-  }
-}
-
 function summarizeSources(dropEnemies, sourcesByEnemy) {
   const all = []
   for (const enemy of dropEnemies) {
     const normalized = normalizeEnemyId(enemy.id)
     const sources = sourcesByEnemy.get(normalized) || []
-    for (const source of sources) {
-      all.push({ ...source, itemEnemyId: enemy.id, itemEnemyName: enemy.name || enemy.id })
-    }
+    all.push(...sources)
   }
 
-  const mapAppearances = uniqueBy(
+  const sourceAppearances = uniqueBy(
     all.filter(s => s.released),
     s => `${s.mapId}:${s.configId}:${normalizeEnemyId(s.enemyId)}`,
   )
 
-  const grouped = []
   const byArea = new Map()
-  for (const s of mapAppearances) {
-    if (!byArea.has(s.area)) byArea.set(s.area, { area: s.area, mapId: s.mapId, enemies: new Map(), configs: new Set() })
-    const group = byArea.get(s.area)
-    group.configs.add(s.configId)
-    const eid = normalizeEnemyId(s.enemyId)
-    if (!group.enemies.has(eid)) group.enemies.set(eid, {
-      id: eid,
-      name: s.enemyName,
+  for (const source of sourceAppearances) {
+    if (!byArea.has(source.area)) byArea.set(source.area, { area: source.area, enemies: new Map() })
+    const group = byArea.get(source.area)
+    const enemyId = normalizeEnemyId(source.enemyId)
+    if (!group.enemies.has(enemyId)) group.enemies.set(enemyId, {
+      id: enemyId,
+      name: source.enemyName,
       levels: new Set(),
-      count: Object.prototype.hasOwnProperty.call(s, 'count') ? s.count : undefined,
+      count: Object.prototype.hasOwnProperty.call(source, 'count') ? source.count : undefined,
     })
-    if (s.level != null) group.enemies.get(eid).levels.add(s.level)
+    if (source.level != null) group.enemies.get(enemyId).levels.add(source.level)
   }
 
-  for (const group of byArea.values()) {
-    grouped.push({
-      area: group.area,
-      mapId: group.mapId,
-      enemies: [...group.enemies.values()].map(e => ({
-        id: e.id,
-        name: e.name,
-        levels: [...e.levels].sort((a, b) => a - b),
-        count: e.count,
-      })),
-      configCount: group.configs.size,
-    })
-  }
+  const grouped = [...byArea.values()].map(group => ({
+    area: group.area,
+    enemies: [...group.enemies.values()].map(enemy => ({
+      id: enemy.id,
+      name: enemy.name,
+      levels: [...enemy.levels].sort((a, b) => a - b),
+      count: enemy.count,
+    })),
+  }))
 
   grouped.sort((a, b) => a.area.localeCompare(b.area, 'zh'))
 
-  const unreleasedOnly = uniqueBy(
-    all.filter(s => !s.released),
-    s => `${s.mapId}:${s.configId}:${normalizeEnemyId(s.enemyId)}`,
-  )
-
-  return { grouped, dropEnabledCount: mapAppearances.length, disabledCount: unreleasedOnly.length }
+  return { grouped }
 }
 
 function extractMonsterIdsFromObtainWays(raw) {
@@ -304,8 +279,8 @@ async function main() {
     const phaseDrops = extractMonsterIdsFromObtainWays(raw)
     const dropIds = uniqueBy([...explicitDrops, ...phaseDrops].map(normalizeEnemyId).filter(Boolean), x => x)
     const droppedBy = dropIds.map(id => ({ id, name: enemyMap[id] || null }))
-    const alluviumSourceSummary = compactSourceSummary(summarizeSources(droppedBy, energyAlluviumSourcesByEnemy))
-    const mapSourceSummary = compactSourceSummary(summarizeSources(droppedBy, mapSourcesByEnemy))
+    const alluviumSourceSummary = summarizeSources(droppedBy, energyAlluviumSourcesByEnemy)
+    const mapSourceSummary = summarizeSources(droppedBy, mapSourcesByEnemy)
     const manualGroups = MANUAL_SOURCE_OVERRIDES[raw.name] || []
     const manualSourceSummary = {
       grouped: manualGroups.map(group => ({
