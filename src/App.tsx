@@ -153,6 +153,7 @@ export default function App() {
           <div>
             <h1>明日方舟终末地 简制手册来源掉落查询</h1>
             <p className="subtitle">自制项目，快速查询简制手册的奖励需求与淤积点掉落以方便挂机，参考挂机视频：<a href="https://www.bilibili.com/video/BV1xhd5B9EFd" target="_blank" rel="noreferrer">BV1xhd5B9EFd</a></p>
+            <p className="subtitle">大地图采集和怪物分布：<a href="https://opendfieldmap.cn/" target="_blank" rel="noreferrer">opendfieldmap.cn</a></p>
           </div>
           <button className="about-button" onClick={() => setShowAbout(true)}>数据说明</button>
         </div>
