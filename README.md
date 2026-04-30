@@ -14,10 +14,10 @@ npm run deploy    # 发布到 GitHub Pages
 
 ## 数据处理目标
 
-- 只展示截图中出现的简制手册条目。
+- 展示当前版本整理的简制手册物品。
 - 页面运行时使用静态 JSON，不在浏览器里动态请求外部 wiki 或 API。
 - 数据更新时先更新本地缓存，再重新执行抽取脚本。
-- 卡片顺序按截图从上到下、从左到右排列。
+- 卡片顺序按当前整理清单排列。
 
 ## 数据来源与 Credits
 
@@ -51,7 +51,7 @@ npm run extract
 
 流程：
 
-1. 读取 `MANUAL_ITEM_NAMES`，只保留截图里的 39 个手册条目。
+1. 读取 `MANUAL_ITEM_NAMES`，生成当前版本整理的简制手册物品。
 2. 从 `AKEDatabase/public/CH/item/*.json` 读取物品：
    - `id`
    - `name`
