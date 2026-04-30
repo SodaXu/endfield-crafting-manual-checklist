@@ -189,7 +189,13 @@ export default function App() {
 
       <div className="area-tags">
         {areas.map(area => (
-          <button key={area} onClick={() => setSearch(area)}>{area}</button>
+          <button
+            key={area}
+            className={search === area ? 'active' : undefined}
+            onClick={() => setSearch(area)}
+          >
+            {area}
+          </button>
         ))}
       </div>
 

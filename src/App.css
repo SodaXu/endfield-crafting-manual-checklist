@@ -185,6 +185,11 @@ header h1 {
   cursor: pointer;
 }
 .area-tags button:hover { border-color: var(--accent); color: var(--text); }
+.area-tags button.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent), 0 0 0 1px rgba(255, 250, 0, 0.12);
+}
 
 .count { color: var(--text2); font-size: 0.86rem; margin-bottom: 12px; }
 
