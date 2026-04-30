@@ -47,6 +47,12 @@ const MANUAL_SOURCE_OVERRIDES = {
   ],
 }
 
+const MANUAL_SOURCE_EXCLUDES = {
+  // 游戏内「敌方情报」未把潜地虬兽列在供能高地淤积点；AKEDatabase 的 SpawnerConfig
+  // `map01_lv007/sc_map01_lv007_2800200012` 虽包含该敌人，但不作为可查询来源展示。
+  '虬兽的须': new Set(['map01_lv007']),
+}
+
 const MAP_TYPE_HINTS = new Map([
   ['map01_lv001', '重度能量淤积点'],
   ['map01_lv006', '重度能量淤积点'],
@@ -164,12 +170,14 @@ function uniqueBy(arr, keyFn) {
   return out
 }
 
-function summarizeSources(dropEnemies, sourcesByEnemy) {
+function summarizeSources(dropEnemies, sourcesByEnemy, itemName) {
+  const excludedMaps = MANUAL_SOURCE_EXCLUDES[itemName] || new Set()
   const all = []
   for (const enemy of dropEnemies) {
     const normalized = normalizeEnemyId(enemy.id)
     const sources = sourcesByEnemy.get(normalized) || []
     for (const source of sources) {
+      if (excludedMaps.has(source.mapId)) continue
       all.push({ ...source, itemEnemyId: enemy.id, itemEnemyName: enemy.name || enemy.id })
     }
   }
@@ -259,7 +267,7 @@ async function main() {
     const phaseDrops = extractMonsterIdsFromObtainWays(raw)
     const dropIds = uniqueBy([...explicitDrops, ...phaseDrops].map(normalizeEnemyId).filter(Boolean), x => x)
     const droppedBy = dropIds.map(id => ({ id, name: enemyMap[id] || null }))
-    const sourceSummary = summarizeSources(droppedBy, sourcesByEnemy)
+    const sourceSummary = summarizeSources(droppedBy, sourcesByEnemy, raw.name)
     if (MANUAL_SOURCE_OVERRIDES[raw.name]) {
       sourceSummary.grouped = uniqueBy(
         [...sourceSummary.grouped, ...MANUAL_SOURCE_OVERRIDES[raw.name]],
