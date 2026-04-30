@@ -45,7 +45,7 @@ function ItemCard({ item }: { item: Item }) {
               <div className="enemy-list">
                 {group.enemies.map(enemy => (
                   <span className="enemy-pill" key={enemy.id}>
-                    {enemy.name}{enemy.count ? ` ×${enemy.count}` : ''}{enemy.levels.length > 0 ? ` Lv.${enemy.levels.join('/')}` : ''}
+                    {enemy.name}{enemy.count !== undefined ? (enemy.count === null ? ' ×?' : ` ×${enemy.count}`) : ''}{enemy.levels.length > 0 ? ` Lv.${enemy.levels.join('/')}` : ''}
                   </span>
                 ))}
               </div>

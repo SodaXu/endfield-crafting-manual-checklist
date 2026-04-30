@@ -48,8 +48,10 @@ const MANUAL_SOURCE_OVERRIDES = {
 
 const MAP_TYPE_HINTS = new Map([
   ['map01_lv001', '重度能量淤积点'],
+  ['map01_lv005', '重度能量淤积点'],
   ['map01_lv006', '重度能量淤积点'],
   ['map01_lv007', '重度能量淤积点'],
+  ['map02_lv002', '重度能量淤积点'],
   ['map02_lv003', '重度能量淤积点'],
   ['map02_lv004', '重度能量淤积点'],
   ['map02_lv005', '重度能量淤积点'],
@@ -91,6 +93,7 @@ function normalizeEnemyId(id) {
     .replace(/_settlement$/i, '')
     .replace(/_settlment$/i, '')
     .replace(/_nearspecial$/i, '')
+    .replace(/_sluggish$/i, '')
 }
 
 function cleanRichText(text) {
@@ -175,7 +178,7 @@ function buildEnergyAlluviumSources(energyAlluvium, locationNotes) {
         level: null,
         count: enemy.count ?? null,
         released: true,
-        source: 'wiki.gg-operational-manual-energy-alluvium',
+        source: row.source || 'wiki.gg-operational-manual-energy-alluvium',
       })
     }
   }
