@@ -21,15 +21,11 @@ export interface SourceEnemy {
 
 export interface SourceGroup {
   area: string
-  mapId: string
   enemies: SourceEnemy[]
-  configCount: number
 }
 
 export interface SourceSummary {
   grouped: SourceGroup[]
-  dropEnabledCount: number
-  disabledCount: number
 }
 
 export interface Item {
@@ -47,13 +43,6 @@ export interface Item {
   manualSourceSummary?: SourceSummary
 }
 
-export interface LocationNote {
-  zh: string | null
-  status: string
-  source: string
-}
-
-
 export interface EnergyAlluviumEnemy {
   id: string
   name: string
@@ -62,27 +51,15 @@ export interface EnergyAlluviumEnemy {
 }
 
 export interface EnergyAlluviumRow {
-  region: string
   locationEn: string
   locationZh: string | null
   mapId: string
-  source: string
   enemies: EnergyAlluviumEnemy[]
 }
 
-export interface EnergyAlluviumSource {
-  title: string
-  url: string
-  accessedAt: string
-  note: string
-}
-
 export interface DataFile {
-  scope: string
   items: Item[]
   missing: string[]
   enemyCount: number
-  energyAlluviumSource?: EnergyAlluviumSource | null
   energyAlluviumRows?: EnergyAlluviumRow[]
-  generatedAt: string
 }

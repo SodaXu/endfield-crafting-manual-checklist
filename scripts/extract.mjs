@@ -39,10 +39,10 @@ const MANUAL_SOURCE_OVERRIDES = {
   // SpawnerConfig 当前只在未开放 map02_lv005 / 副本里能看到彪兽，实际手册攻略源交叉指向武陵城岸边石窟。
   // Sources: B站 wiki/游侠/玩家攻略均确认百眼彪兽、怒目彪兽掉落彪兽的长绒；玩家攻略定位为武陵城岸边石窟。
   '彪兽的长绒': [
-    { area: '武陵城 · 岸边石窟', mapId: 'map02_lv002', enemies: [
+    { area: '武陵城 · 岸边石窟', enemies: [
       { id: 'eny_0083_hstiger', name: '百眼彪兽', levels: [] },
       { id: 'eny_0102_hstiger2', name: '怒目彪兽', levels: [] },
-    ], configCount: 0, source: 'manual-cross-check' },
+    ] },
   ],
 }
 
@@ -192,6 +192,15 @@ function uniqueBy(arr, keyFn) {
   return out
 }
 
+function compactSourceSummary(summary) {
+  return {
+    grouped: summary.grouped.map(group => ({
+      area: group.area,
+      enemies: group.enemies,
+    })),
+  }
+}
+
 function summarizeSources(dropEnemies, sourcesByEnemy) {
   const all = []
   for (const enemy of dropEnemies) {
@@ -295,13 +304,14 @@ async function main() {
     const phaseDrops = extractMonsterIdsFromObtainWays(raw)
     const dropIds = uniqueBy([...explicitDrops, ...phaseDrops].map(normalizeEnemyId).filter(Boolean), x => x)
     const droppedBy = dropIds.map(id => ({ id, name: enemyMap[id] || null }))
-    const alluviumSourceSummary = summarizeSources(droppedBy, energyAlluviumSourcesByEnemy)
-    const mapSourceSummary = summarizeSources(droppedBy, mapSourcesByEnemy)
+    const alluviumSourceSummary = compactSourceSummary(summarizeSources(droppedBy, energyAlluviumSourcesByEnemy))
+    const mapSourceSummary = compactSourceSummary(summarizeSources(droppedBy, mapSourcesByEnemy))
     const manualGroups = MANUAL_SOURCE_OVERRIDES[raw.name] || []
     const manualSourceSummary = {
-      grouped: manualGroups,
-      dropEnabledCount: manualGroups.reduce((sum, group) => sum + (group.enemies?.length || 0), 0),
-      disabledCount: 0,
+      grouped: manualGroups.map(group => ({
+        area: group.area,
+        enemies: group.enemies,
+      })),
     }
 
     byName.set(raw.name, {
@@ -330,17 +340,13 @@ async function main() {
 
   await mkdir(dirname(OUT), { recursive: true })
   await writeFile(OUT, JSON.stringify({
-    scope: '简制手册截图可见条目',
     items,
     missing,
     enemyCount: Object.keys(enemyMap).length,
-    energyAlluviumSource: energyAlluvium.source,
     energyAlluviumRows: (energyAlluvium.rows || []).map(row => ({
-      region: row.region || '',
       locationEn: row.locationEn || '',
       locationZh: row.locationZh || locationNotes[row.mapId]?.zh || null,
       mapId: row.mapId || '',
-      source: row.source || 'wiki.gg-operational-manual-energy-alluvium',
       enemies: (row.enemies || []).map(enemy => ({
         id: normalizeEnemyId(enemy.enemyId),
         name: enemy.zhName || enemy.enName || enemy.enemyId,
@@ -348,7 +354,6 @@ async function main() {
         count: Object.prototype.hasOwnProperty.call(enemy, 'count') ? enemy.count : null,
       })),
     })),
-    generatedAt: new Date().toISOString(),
   }, null, 0))
 
   console.log(`Extracted ${items.length} manual items`)

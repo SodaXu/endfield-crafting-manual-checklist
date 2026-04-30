@@ -3,7 +3,7 @@ import type { DataFile, Item, SourceGroup } from './types'
 
 const STARS = '★'
 
-function allSourceGroups(item: Item) {
+function sourceGroupsForItem(item: Item) {
   return [
     ...(item.alluviumSourceSummary?.grouped || []),
     ...(item.mapSourceSummary?.grouped || []),
@@ -122,14 +122,14 @@ export default function App() {
         it.description.toLowerCase().includes(q) ||
         it.obtainWays?.some(w => w.desc.toLowerCase().includes(q)) ||
         it.droppedBy?.some(d => (d.name || d.id).toLowerCase().includes(q)) ||
-        allSourceGroups(it).some(g =>
+        sourceGroupsForItem(it).some(g =>
           g.area.toLowerCase().includes(q) ||
           g.enemies.some(e => e.name.toLowerCase().includes(q) || e.id.toLowerCase().includes(q))
         )
       )
     }
     if (rarity > 0) list = list.filter(it => it.rarity === rarity)
-    if (sourceFilter === 'farm') list = list.filter(it => allSourceGroups(it).length > 0)
+    if (sourceFilter === 'source') list = list.filter(it => sourceGroupsForItem(it).length > 0)
     if (sourceFilter === 'gather') list = list.filter(it => it.obtainWays?.some(w => w.desc.includes('采集') || w.desc.includes('种植')))
     return list
   }, [data, search, rarity, sourceFilter])
@@ -138,7 +138,7 @@ export default function App() {
     if (!data) return []
     const set = new Set<string>()
     for (const item of data.items) {
-      for (const group of allSourceGroups(item)) set.add(group.area)
+      for (const group of sourceGroupsForItem(item)) set.add(group.area)
     }
     return [...set].sort((a, b) => a.localeCompare(b, 'zh'))
   }, [data])
@@ -168,7 +168,7 @@ export default function App() {
             <ul>
               <li>物品描述 = <code>description</code> + <code>obtainWays.desc</code> 合并展示。</li>
               <li>淤积点来源 = 物品掉落怪 → wiki.gg Operational Manual 的 Energy Alluvium 对比表 → 地图中文备注聚合。</li>
-              <li>大地图 SpawnerConfig 仅作敌人/地图辅助校验，不再作为淤积点刷怪来源。</li>
+              <li>大地图 SpawnerConfig 只表示普通大地图刷怪，与淤积点来源分开展示。</li>
               <li>少量缺口使用人工备注修正，例如地图编号与「彪兽的长绒」位置。</li>
             </ul>
             {data.energyAlluviumRows && data.energyAlluviumRows.length > 0 && (
@@ -228,7 +228,7 @@ export default function App() {
         </select>
         <select value={sourceFilter} onChange={e => setSourceFilter(e.target.value)}>
           <option value="all">全部来源</option>
-          <option value="farm">有刷新来源</option>
+          <option value="source">有来源区域</option>
           <option value="gather">采集/种植</option>
         </select>
       </div>

@@ -36,7 +36,7 @@ npm run deploy    # 发布到 GitHub Pages
 2. **wiki.gg · Operational Manual / Energy Alluvium**
    - 页面：https://endfield.wiki.gg/wiki/Operational_Manual#Energy_Alluvium
    - 本地备注文件：`energy-alluvium-notes.json`
-   - 用途：淤积点区域与刷怪对比表，是页面「淤积点来源」的主要依据；不要与同名大地图刷新混用。
+   - 用途：来源区域与刷怪比对表，是页面「淤积点来源」的主要依据；不要与同名大地图刷新混用。
    - 注：wiki.gg 表暂缺「首墩 / Marker Stone」；该行由 Soda 游戏内手动补充，数量未知时显示 `×?`。
    - Credit: 感谢 wiki.gg 社区维护的数据。
 
