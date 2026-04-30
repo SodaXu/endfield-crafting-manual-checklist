@@ -2,7 +2,7 @@
 
 一个用于整理《明日方舟：终末地》简制手册材料来源的静态页面。
 
-自制项目，快速查询简制手册的奖励需求与淤积点掉落以方便挂机，挂机视频：https://www.bilibili.com/video/BV1xhd5B9EFd
+自制项目，快速查询简制手册的奖励需求与淤积点掉落以方便挂机，参考挂机视频：https://www.bilibili.com/video/BV1xhd5B9EFd
 
 ## 使用方法
 
