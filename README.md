@@ -4,6 +4,8 @@
 
 自制项目，快速查询简制手册的奖励需求与淤积点掉落以方便挂机，参考挂机视频：https://www.bilibili.com/video/BV1xhd5B9EFd
 
+大地图采集和怪物分布参考：https://opendfieldmap.cn/
+
 ## 使用方法
 
 ```bash
@@ -35,16 +37,21 @@ npm run deploy    # 发布到 GitHub Pages
    - 页面：https://endfield.wiki.gg/wiki/Operational_Manual#Energy_Alluvium
    - 本地备注文件：`energy-alluvium-notes.json`
    - 用途：淤积点区域与刷怪对比表，是页面「淤积点来源」的主要依据；不要与同名大地图刷新混用。
-   - 注：wiki.gg 表暂缺「首墩」；该行由 Soda 游戏内手动补充，数量未知时显示 `×?`。
+   - 注：wiki.gg 表暂缺「首墩 / Marker Stone」；该行由 Soda 游戏内手动补充，数量未知时显示 `×?`。
    - Credit: 感谢 wiki.gg 社区维护的数据。
 
-3. **Bilibili 游戏 Wiki（明日方舟终末地 WIKI_BWIKI）**
+3. **OpenDField Map**
+   - 页面：https://opendfieldmap.cn/
+   - 用途：大地图采集点与怪物分布的外部参考入口；页面 header 中提供直达链接。
+   - Credit: 感谢 OpenDField Map 维护者整理的大地图数据。
+
+4. **Bilibili 游戏 Wiki（明日方舟终末地 WIKI_BWIKI）**
    - 物品图鉴：https://wiki.biligame.com/zmd/物品图鉴
    - 敌对图鉴：https://wiki.biligame.com/zmd/敌对图鉴
    - 用途：少量交叉校验物品掉落口径、敌人分布区域。
    - Credit: 感谢 Bilibili 游戏 Wiki 社区维护的数据。
 
-4. **人工备注**
+5. **人工备注**
    - 文件：`location-notes.json`
    - 用途：补充 AKEDatabase 中未直接展开的地图编号中文名，以及少量手工来源。
 
@@ -89,6 +96,7 @@ npm run extract
 - `description` + `obtainWays.desc` 合并后的描述文本
 - 淤积点来源与对应敌人数量
 - 大地图刷新来源与对应敌人等级
+- 数据说明弹窗内的淤积点地图与刷怪比对表（来自 Energy Alluvium 表与手工补充）
 
 这两个 scope 分开展示：`源石研究园` 是大地图，`重度能量淤积点 - 源石研究园` 是该大地图里的淤积点挑战区域。若两类来源都没有，只展示掉落怪并标为淤积点待补。
 
@@ -103,7 +111,7 @@ npm run extract
 - `map02_lv001` = 景玉谷
 - `map02_lv002` = 武陵城
 - `map02_lv003` = 清波寨
-- `map02_lv004` = 首墩
+- `map02_lv004` = 首墩 / Marker Stone
 - `map02_lv005` = 未开放
 
 ## 特殊 override
