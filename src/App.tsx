@@ -1,11 +1,11 @@
 import { useState, useEffect, useMemo } from 'react'
-import type { DataFile, Item } from './types'
+import type { DataFile, Item, SourceGroup } from './types'
 
 const STARS = '★'
 
-function itemSourceGroups(item: Item) {
+function allSourceGroups(item: Item) {
   return [
-    ...(item.alluviumSourceSummary?.grouped || item.sourceSummary?.grouped || []),
+    ...(item.alluviumSourceSummary?.grouped || []),
     ...(item.mapSourceSummary?.grouped || []),
     ...(item.manualSourceSummary?.grouped || []),
   ]
@@ -15,7 +15,7 @@ function cleanObtain(desc: string) {
   return desc.replace(/有概率/g, '概率').replace(/等地采集/g, '等地')
 }
 
-function SourceGroups({ title, groups }: { title: string, groups: NonNullable<Item['sourceSummary']>['grouped'] }) {
+function SourceGroups({ title, groups }: { title: string, groups: SourceGroup[] }) {
   if (groups.length === 0) return null
   return (
     <>
@@ -37,7 +37,7 @@ function SourceGroups({ title, groups }: { title: string, groups: NonNullable<It
 }
 
 function ItemCard({ item }: { item: Item }) {
-  const alluviumGroups = item.alluviumSourceSummary?.grouped || item.sourceSummary?.grouped || []
+  const alluviumGroups = item.alluviumSourceSummary?.grouped || []
   const mapGroups = item.mapSourceSummary?.grouped || []
   const manualGroups = item.manualSourceSummary?.grouped || []
   const hasAnySource = alluviumGroups.length > 0 || mapGroups.length > 0 || manualGroups.length > 0
@@ -122,14 +122,14 @@ export default function App() {
         it.description.toLowerCase().includes(q) ||
         it.obtainWays?.some(w => w.desc.toLowerCase().includes(q)) ||
         it.droppedBy?.some(d => (d.name || d.id).toLowerCase().includes(q)) ||
-        itemSourceGroups(it).some(g =>
+        allSourceGroups(it).some(g =>
           g.area.toLowerCase().includes(q) ||
           g.enemies.some(e => e.name.toLowerCase().includes(q) || e.id.toLowerCase().includes(q))
         )
       )
     }
     if (rarity > 0) list = list.filter(it => it.rarity === rarity)
-    if (sourceFilter === 'farm') list = list.filter(it => itemSourceGroups(it).length > 0)
+    if (sourceFilter === 'farm') list = list.filter(it => allSourceGroups(it).length > 0)
     if (sourceFilter === 'gather') list = list.filter(it => it.obtainWays?.some(w => w.desc.includes('采集') || w.desc.includes('种植')))
     return list
   }, [data, search, rarity, sourceFilter])
@@ -138,7 +138,7 @@ export default function App() {
     if (!data) return []
     const set = new Set<string>()
     for (const item of data.items) {
-      for (const group of itemSourceGroups(item)) set.add(group.area)
+      for (const group of allSourceGroups(item)) set.add(group.area)
     }
     return [...set].sort((a, b) => a.localeCompare(b, 'zh'))
   }, [data])
@@ -208,7 +208,7 @@ export default function App() {
 
       <div className="summary">
         <div><strong>{data.items.length}</strong><span>手册物品</span></div>
-        <div><strong>{areas.length}</strong><span>淤积点区域</span></div>
+        <div><strong>{areas.length}</strong><span>来源区域</span></div>
         <div><strong>{data.enemyCount}</strong><span>敌人映射</span></div>
       </div>
 

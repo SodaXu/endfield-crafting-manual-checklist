@@ -319,8 +319,6 @@ async function main() {
         blueprint: raw.craft.blueprintId || null,
       } : null,
       droppedBy,
-      // Backward-compatible alias: alluvium scope only. Do not mix with overworld map spawns.
-      sourceSummary: alluviumSourceSummary,
       alluviumSourceSummary,
       mapSourceSummary,
       manualSourceSummary,

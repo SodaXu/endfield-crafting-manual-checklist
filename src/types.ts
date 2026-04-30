@@ -42,8 +42,6 @@ export interface Item {
   obtainWays?: ObtainWay[]
   craft?: Craft | null
   droppedBy?: DroppedByEntry[]
-  /** Deprecated alias for alluviumSourceSummary. */
-  sourceSummary?: SourceSummary
   alluviumSourceSummary?: SourceSummary
   mapSourceSummary?: SourceSummary
   manualSourceSummary?: SourceSummary
