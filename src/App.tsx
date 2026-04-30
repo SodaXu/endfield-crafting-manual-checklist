@@ -129,7 +129,7 @@ export default function App() {
     <div className="app">
       <header className="hero">
         <div>
-          <h1>终末地 · 简制手册来源表</h1>
+          <h1>明日方舟终末地 简制手册来源掉落查询</h1>
         </div>
         <button className="about-button" onClick={() => setShowAbout(true)}>数据说明</button>
       </header>
@@ -139,7 +139,7 @@ export default function App() {
           <div className="modal" role="dialog" aria-modal="true" aria-label="数据说明" onClick={e => e.stopPropagation()}>
             <button className="modal-close" onClick={() => setShowAbout(false)} aria-label="关闭">×</button>
             <h2>数据处理说明</h2>
-            <p>页面只展示简制手册截图中的材料条目。构建时从本地 AKEDatabase 缓存提取物品、图标、敌人和大地图刷怪配置，生成静态 JSON；浏览器运行时不会请求外部 wiki 或 API。</p>
+            <p>页面展示当前版本整理的简制手册材料条目。构建时从本地 AKEDatabase 缓存提取物品、图标、敌人和大地图刷怪配置，生成静态 JSON；浏览器运行时不会请求外部 wiki 或 API。</p>
             <ul>
               <li>物品描述 = <code>description</code> + <code>obtainWays.desc</code> 合并展示。</li>
               <li>地图来源 = 物品掉落怪 → 大地图 SpawnerConfig → 地图中文备注聚合。</li>
