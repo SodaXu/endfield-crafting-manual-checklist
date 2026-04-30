@@ -16,6 +16,13 @@ npm run build     # 构建静态文件到 dist/
 npm run deploy    # 发布到 GitHub Pages
 ```
 
+## 技术栈与构建说明
+
+- 前端运行时只使用 React / ReactDOM，源码使用 TypeScript。
+- 本地预览与静态构建由 Vite 负责，构建产物输出到 `dist/`。
+- Vite 配置保持最小化：仅设置相对路径 `base: './'`，不使用 `@vitejs/plugin-react`。
+- 开发与发布工具保留 Vite、TypeScript、React 类型包和 `gh-pages`；`npm run deploy` 会先抽取数据、构建，再发布 `dist/`。
+
 ## 数据处理目标
 
 - 展示当前版本整理的简制手册物品。
