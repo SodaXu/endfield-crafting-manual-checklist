@@ -46,16 +46,7 @@ const MANUAL_SOURCE_OVERRIDES = {
   ],
 }
 
-const MAP_TYPE_HINTS = new Map([
-  ['map01_lv001', '重度能量淤积点'],
-  ['map01_lv005', '重度能量淤积点'],
-  ['map01_lv006', '重度能量淤积点'],
-  ['map01_lv007', '重度能量淤积点'],
-  ['map02_lv002', '重度能量淤积点'],
-  ['map02_lv003', '重度能量淤积点'],
-  ['map02_lv004', '重度能量淤积点'],
-  ['map02_lv005', '重度能量淤积点'],
-])
+const ALLUVIUM_LABEL_PREFIX = '重度能量淤积点'
 
 async function readJSON(path) {
   return JSON.parse(await readFile(path, 'utf-8'))
@@ -107,8 +98,12 @@ function areaLabel(mapId, locationNotes) {
   const note = locationNotes[mapId]
   if (note?.status === 'not_released_yet') return `未开放区域（${mapId}）`
   if (!note || !note.zh) return mapId
-  const type = MAP_TYPE_HINTS.get(mapId)
-  return type ? `${type} - ${note.zh}` : note.zh
+  return note.zh
+}
+
+function alluviumAreaLabel(row, locationNotes) {
+  const note = row.locationZh || locationNotes[row.mapId]?.zh || row.locationEn || row.mapId
+  return `${ALLUVIUM_LABEL_PREFIX} - ${note}`
 }
 
 async function loadSpawnerSources(enemyMap, locationNotes) {
@@ -164,7 +159,7 @@ function buildEnergyAlluviumSources(energyAlluvium, locationNotes) {
   const sourcesByEnemy = new Map()
   for (const row of energyAlluvium?.rows || []) {
     if (!row.mapId) continue
-    const area = areaLabel(row.mapId, locationNotes)
+    const area = alluviumAreaLabel(row, locationNotes)
     for (const enemy of row.enemies || []) {
       const enemyId = normalizeEnemyId(enemy.enemyId)
       if (!enemyId) continue
@@ -219,7 +214,12 @@ function summarizeSources(dropEnemies, sourcesByEnemy) {
     const group = byArea.get(s.area)
     group.configs.add(s.configId)
     const eid = normalizeEnemyId(s.enemyId)
-    if (!group.enemies.has(eid)) group.enemies.set(eid, { id: eid, name: s.enemyName, levels: new Set(), count: s.count ?? null })
+    if (!group.enemies.has(eid)) group.enemies.set(eid, {
+      id: eid,
+      name: s.enemyName,
+      levels: new Set(),
+      count: Object.prototype.hasOwnProperty.call(s, 'count') ? s.count : undefined,
+    })
     if (s.level != null) group.enemies.get(eid).levels.add(s.level)
   }
 
@@ -278,7 +278,8 @@ async function main() {
   const enemyMap = await loadEnemyMap()
   const locationNotes = await loadLocationNotes()
   const energyAlluvium = await loadEnergyAlluviumNotes()
-  const sourcesByEnemy = buildEnergyAlluviumSources(energyAlluvium, locationNotes)
+  const energyAlluviumSourcesByEnemy = buildEnergyAlluviumSources(energyAlluvium, locationNotes)
+  const mapSourcesByEnemy = await loadSpawnerSources(enemyMap, locationNotes)
 
   const itemDir = join(CH, 'item')
   const files = (await readdir(itemDir)).filter(f => f.endsWith('.json') && f !== 'manifest.json')
@@ -294,12 +295,13 @@ async function main() {
     const phaseDrops = extractMonsterIdsFromObtainWays(raw)
     const dropIds = uniqueBy([...explicitDrops, ...phaseDrops].map(normalizeEnemyId).filter(Boolean), x => x)
     const droppedBy = dropIds.map(id => ({ id, name: enemyMap[id] || null }))
-    const sourceSummary = summarizeSources(droppedBy, sourcesByEnemy)
-    if (MANUAL_SOURCE_OVERRIDES[raw.name]) {
-      sourceSummary.grouped = uniqueBy(
-        [...sourceSummary.grouped, ...MANUAL_SOURCE_OVERRIDES[raw.name]],
-        group => group.area,
-      )
+    const alluviumSourceSummary = summarizeSources(droppedBy, energyAlluviumSourcesByEnemy)
+    const mapSourceSummary = summarizeSources(droppedBy, mapSourcesByEnemy)
+    const manualGroups = MANUAL_SOURCE_OVERRIDES[raw.name] || []
+    const manualSourceSummary = {
+      grouped: manualGroups,
+      dropEnabledCount: manualGroups.reduce((sum, group) => sum + (group.enemies?.length || 0), 0),
+      disabledCount: 0,
     }
 
     byName.set(raw.name, {
@@ -317,7 +319,11 @@ async function main() {
         blueprint: raw.craft.blueprintId || null,
       } : null,
       droppedBy,
-      sourceSummary,
+      // Backward-compatible alias: alluvium scope only. Do not mix with overworld map spawns.
+      sourceSummary: alluviumSourceSummary,
+      alluviumSourceSummary,
+      mapSourceSummary,
+      manualSourceSummary,
     })
   }
 

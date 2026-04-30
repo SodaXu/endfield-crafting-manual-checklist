@@ -3,12 +3,44 @@ import type { DataFile, Item } from './types'
 
 const STARS = '★'
 
+function itemSourceGroups(item: Item) {
+  return [
+    ...(item.alluviumSourceSummary?.grouped || item.sourceSummary?.grouped || []),
+    ...(item.mapSourceSummary?.grouped || []),
+    ...(item.manualSourceSummary?.grouped || []),
+  ]
+}
+
 function cleanObtain(desc: string) {
   return desc.replace(/有概率/g, '概率').replace(/等地采集/g, '等地')
 }
 
+function SourceGroups({ title, groups }: { title: string, groups: NonNullable<Item['sourceSummary']>['grouped'] }) {
+  if (groups.length === 0) return null
+  return (
+    <>
+      <div className="section-label primary">{title}</div>
+      {groups.map(group => (
+        <div className="source-group" key={`${title}:${group.area}`}>
+          <div className="area">{group.area}</div>
+          <div className="enemy-list">
+            {group.enemies.map(enemy => (
+              <span className="enemy-pill" key={enemy.id}>
+                {enemy.name}{enemy.count !== undefined ? (enemy.count === null ? ' ×?' : ` ×${enemy.count}`) : ''}{enemy.levels.length > 0 ? ` Lv.${enemy.levels.join('/')}` : ''}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </>
+  )
+}
+
 function ItemCard({ item }: { item: Item }) {
-  const groups = item.sourceSummary?.grouped || []
+  const alluviumGroups = item.alluviumSourceSummary?.grouped || item.sourceSummary?.grouped || []
+  const mapGroups = item.mapSourceSummary?.grouped || []
+  const manualGroups = item.manualSourceSummary?.grouped || []
+  const hasAnySource = alluviumGroups.length > 0 || mapGroups.length > 0 || manualGroups.length > 0
   const hasDrops = item.droppedBy && item.droppedBy.length > 0
   const mergedDescription = [
     item.description,
@@ -36,25 +68,11 @@ function ItemCard({ item }: { item: Item }) {
         </div>
       )}
 
-      {groups.length > 0 && (
-        <>
-          <div className="section-label primary">淤积点来源</div>
-          {groups.map(group => (
-            <div className="source-group" key={group.area}>
-              <div className="area">{group.area}</div>
-              <div className="enemy-list">
-                {group.enemies.map(enemy => (
-                  <span className="enemy-pill" key={enemy.id}>
-                    {enemy.name}{enemy.count !== undefined ? (enemy.count === null ? ' ×?' : ` ×${enemy.count}`) : ''}{enemy.levels.length > 0 ? ` Lv.${enemy.levels.join('/')}` : ''}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </>
-      )}
+      <SourceGroups title="淤积点来源" groups={alluviumGroups} />
+      <SourceGroups title="大地图刷新" groups={mapGroups} />
+      <SourceGroups title="手工补充" groups={manualGroups} />
 
-      {hasDrops && groups.length === 0 && (
+      {hasDrops && !hasAnySource && (
         <>
           <div className="section-label primary">掉落怪（淤积点待补）</div>
           <div className="enemy-list">
@@ -108,7 +126,7 @@ export default function App() {
       )
     }
     if (rarity > 0) list = list.filter(it => it.rarity === rarity)
-    if (sourceFilter === 'farm') list = list.filter(it => (it.sourceSummary?.grouped.length || 0) > 0)
+    if (sourceFilter === 'farm') list = list.filter(it => itemSourceGroups(it).length > 0)
     if (sourceFilter === 'gather') list = list.filter(it => it.obtainWays?.some(w => w.desc.includes('采集') || w.desc.includes('种植')))
     return list
   }, [data, search, rarity, sourceFilter])
@@ -117,7 +135,7 @@ export default function App() {
     if (!data) return []
     const set = new Set<string>()
     for (const item of data.items) {
-      for (const group of item.sourceSummary?.grouped || []) set.add(group.area)
+      for (const group of itemSourceGroups(item)) set.add(group.area)
     }
     return [...set].sort((a, b) => a.localeCompare(b, 'zh'))
   }, [data])
@@ -183,7 +201,7 @@ export default function App() {
         </select>
         <select value={sourceFilter} onChange={e => setSourceFilter(e.target.value)}>
           <option value="all">全部来源</option>
-          <option value="farm">有地图来源</option>
+          <option value="farm">有刷新来源</option>
           <option value="gather">采集/种植</option>
         </select>
       </div>

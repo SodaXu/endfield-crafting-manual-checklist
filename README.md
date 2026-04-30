@@ -28,13 +28,13 @@ npm run deploy    # 发布到 GitHub Pages
 1. **AKEDatabase**
    - GitHub: https://github.com/nagiyume/AKEDatabase
    - 本地缓存路径：`../AKEDatabase/`
-   - 用途：物品基础信息、物品图标、敌人名称、掉落怪 ID、大地图 SpawnerConfig 辅助校验。
+   - 用途：物品基础信息、物品图标、敌人名称、掉落怪 ID、大地图 SpawnerConfig 刷新来源。
    - Credit: 数据与静态资源整理来自 AKEDatabase 项目；游戏数据与图片版权归鹰角网络 / Gryphline 所有。
 
 2. **wiki.gg · Operational Manual / Energy Alluvium**
    - 页面：https://endfield.wiki.gg/wiki/Operational_Manual#Energy_Alluvium
    - 本地备注文件：`energy-alluvium-notes.json`
-   - 用途：淤积点地图与刷怪对比表，是页面「淤积点来源」的主要依据。
+   - 用途：淤积点区域与刷怪对比表，是页面「淤积点来源」的主要依据；不要与同名大地图刷新混用。
    - 注：wiki.gg 表暂缺「首墩」；该行由 Soda 游戏内手动补充，数量未知时显示 `×?`。
    - Credit: 感谢 wiki.gg 社区维护的数据。
 
@@ -72,8 +72,10 @@ npm run extract
    - `icon`
 3. 复制物品图标到 `public/icons/`，避免页面直接引用整个 AKEDatabase 图片目录。
 4. 从 `AKEDatabase/public/CH/enemy/*.json` 建立敌人 ID → 中文名映射。
-5. 读取 `../energy-alluvium-notes.json` 中整理的 wiki.gg Energy Alluvium 表。
-6. 将物品掉落怪与 Energy Alluvium 敌人表聚合，生成「淤积点来源」。
+5. 读取 `energy-alluvium-notes.json` 中整理的 wiki.gg Energy Alluvium 表。
+6. 将物品掉落怪分别与两类 scope 聚合：
+   - 大地图刷新：AKEDatabase `SpawnerConfig`，表示怪物在某个大地图内出现。
+   - 淤积点来源：wiki.gg Energy Alluvium 表，表示怪物在该大地图内的重度能量淤积点挑战中出现。
 7. 写出 `public/data/items.json`。
 
 ## 页面展示逻辑
@@ -86,8 +88,9 @@ npm run extract
 - 物品 ID
 - `description` + `obtainWays.desc` 合并后的描述文本
 - 淤积点来源与对应敌人数量
+- 大地图刷新来源与对应敌人等级
 
-若没有淤积点来源，只展示掉落怪并标为淤积点待补。
+这两个 scope 分开展示：`源石研究园` 是大地图，`重度能量淤积点 - 源石研究园` 是该大地图里的淤积点挑战区域。若两类来源都没有，只展示掉落怪并标为淤积点待补。
 
 ## 地图编号补充
 
