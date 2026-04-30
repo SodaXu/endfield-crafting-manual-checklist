@@ -1,5 +1,5 @@
 {
-  "name": "endfield-farm-page",
+  "name": "endfield-crafting-manual-checklist",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -22,5 +22,5 @@
     "vite": "^6.0.0",
     "gh-pages": "^6.3.0"
   },
-  "homepage": "https://sodalol.github.io/endfield-handbook/"
+  "homepage": "https://sodaxu.github.io/endfield-crafting-manual-checklist/"
 }
