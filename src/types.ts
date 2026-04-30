@@ -16,6 +16,7 @@ export interface SourceEnemy {
   id: string
   name: string
   levels: number[]
+  count?: number | null
 }
 
 export interface SourceGroup {
@@ -50,10 +51,18 @@ export interface LocationNote {
   source: string
 }
 
+export interface EnergyAlluviumSource {
+  title: string
+  url: string
+  accessedAt: string
+  note: string
+}
+
 export interface DataFile {
   scope: string
   items: Item[]
   missing: string[]
   enemyCount: number
+  energyAlluviumSource?: EnergyAlluviumSource | null
   generatedAt: string
 }

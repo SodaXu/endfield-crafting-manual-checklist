@@ -28,17 +28,23 @@ npm run deploy    # 发布到 GitHub Pages
 1. **AKEDatabase**
    - GitHub: https://github.com/nagiyume/AKEDatabase
    - 本地缓存路径：`../AKEDatabase/`
-   - 用途：物品基础信息、物品图标、敌人名称、掉落怪 ID、SpawnerConfig 地图刷怪配置。
+   - 用途：物品基础信息、物品图标、敌人名称、掉落怪 ID、大地图 SpawnerConfig 辅助校验。
    - Credit: 数据与静态资源整理来自 AKEDatabase 项目；游戏数据与图片版权归鹰角网络 / Gryphline 所有。
 
-2. **Bilibili 游戏 Wiki（明日方舟终末地 WIKI_BWIKI）**
+2. **wiki.gg · Operational Manual / Energy Alluvium**
+   - 页面：https://endfield.wiki.gg/wiki/Operational_Manual#Energy_Alluvium
+   - 本地备注文件：`energy-alluvium-notes.json`
+   - 用途：淤积点地图与刷怪对比表，是页面「淤积点来源」的主要依据。
+   - Credit: 感谢 wiki.gg 社区维护的数据。
+
+3. **Bilibili 游戏 Wiki（明日方舟终末地 WIKI_BWIKI）**
    - 物品图鉴：https://wiki.biligame.com/zmd/物品图鉴
    - 敌对图鉴：https://wiki.biligame.com/zmd/敌对图鉴
    - 用途：少量交叉校验物品掉落口径、敌人分布区域。
    - Credit: 感谢 Bilibili 游戏 Wiki 社区维护的数据。
 
-3. **人工备注**
-   - 文件：`../location-notes.json`
+4. **人工备注**
+   - 文件：`location-notes.json`
    - 用途：补充 AKEDatabase 中未直接展开的地图编号中文名，以及少量手工来源。
 
 ## 抽取流程
@@ -65,12 +71,8 @@ npm run extract
    - `icon`
 3. 复制物品图标到 `public/icons/`，避免页面直接引用整个 AKEDatabase 图片目录。
 4. 从 `AKEDatabase/public/CH/enemy/*.json` 建立敌人 ID → 中文名映射。
-5. 从 `AKEDatabase/public/Json/SpawnerConfig/**/sc_*.json` 读取大地图刷怪配置：
-   - 只保留 `mapXX_lvXXX` 形式的大地图目录。
-   - 过滤测试图、活动副本、独立副本图。
-   - 过滤 `location-notes.json` 中标记为 `not_released_yet` 的地图。
-   - 不使用 `settings.forbidDrop` 过滤；该字段和实际掉落口径存在歧义。
-6. 将物品掉落怪与地图刷怪配置聚合，生成「出现地图」。
+5. 读取 `../energy-alluvium-notes.json` 中整理的 wiki.gg Energy Alluvium 表。
+6. 将物品掉落怪与 Energy Alluvium 敌人表聚合，生成「淤积点来源」。
 7. 写出 `public/data/items.json`。
 
 ## 页面展示逻辑
@@ -82,9 +84,9 @@ npm run extract
 - 星级
 - 物品 ID
 - `description` + `obtainWays.desc` 合并后的描述文本
-- 出现地图与对应敌人
+- 淤积点来源与对应敌人数量
 
-若没有地图来源，只展示掉落怪并标为地图待补。
+若没有淤积点来源，只展示掉落怪并标为淤积点待补。
 
 ## 地图编号补充
 
@@ -102,7 +104,7 @@ npm run extract
 
 ## 特殊 override
 
-`彪兽的长绒` 当前在本地 SpawnerConfig 中只在未开放地图或副本配置里出现。交叉检索玩家攻略后，暂时手工补充：
+`彪兽的长绒` 当前在 Energy Alluvium 表中没有对应淤积点来源。交叉检索玩家攻略后，暂时手工补充：
 
 - 武陵城 · 岸边石窟
 - 百眼彪兽 / 怒目彪兽

@@ -1,0 +1,95 @@
+{
+  "source": {
+    "title": "Operational Manual - Energy Alluvium",
+    "url": "https://endfield.wiki.gg/wiki/Operational_Manual#Energy_Alluvium",
+    "accessedAt": "2026-04-30T07:42:00Z",
+    "note": "Pulled via MediaWiki parse API from endfield.wiki.gg; used only for the Energy Alluvium location/enemy comparison table."
+  },
+  "rows": [
+    {
+      "region": "Valley IV",
+      "locationEn": "The Hub",
+      "mapId": "map01_lv001",
+      "enemies": [
+        { "enName": "Axe Armorbeast", "zhName": "斧甲兽", "enemyId": "eny_0071_sandb", "count": 1 },
+        { "enName": "Tunneling Nidwyrm", "zhName": "潜地虬兽", "enemyId": "eny_0007_mimicw", "count": 1 },
+        { "enName": "Acid Originium Slug α", "zhName": "酸液源石虫·α", "enemyId": "eny_0100_slimerg2", "count": 3 },
+        { "enName": "Acid Originium Slug", "zhName": "酸液源石虫", "enemyId": "eny_0073_slimerg", "count": 6 },
+        { "enName": "Brutal Pincerbeast", "zhName": "残暴原生钳兽", "enemyId": "eny_0099_slimeml2", "count": 3 },
+        { "enName": "Indigenous Pincerbeast", "zhName": "原生钳兽", "enemyId": "eny_0072_slimeml", "count": 14 }
+      ]
+    },
+    {
+      "region": "Valley IV",
+      "locationEn": "Originium Science Park",
+      "mapId": "map01_lv005",
+      "enemies": [
+        { "enName": "Bonekrusher Arsonist", "zhName": "碾骨清道夫", "enemyId": "eny_0047_firebat", "count": 1 },
+        { "enName": "Bonekrusher Pyromancer", "zhName": "碾骨焰术师", "enemyId": "eny_0046_lbshamman", "count": 1 },
+        { "enName": "Hazefyre Claw", "zhName": "雾火爪牙", "enemyId": "eny_0060_lbmad", "count": 4 },
+        { "enName": "Hazefyre Tuskbeast", "zhName": "雾火牙兽", "enemyId": "eny_0059_erhound", "count": 2 },
+        { "enName": "Elite Ripptusk", "zhName": "精锐撕裂牙兽", "enemyId": "eny_0067_hound2", "count": 2 },
+        { "enName": "Bonekrusher Ambusher", "zhName": "碾骨伏击射手", "enemyId": "eny_0033_lbhunt", "count": 4 },
+        { "enName": "Bonekrusher Raider", "zhName": "碾骨劫掠者", "enemyId": "eny_0029_lbmob", "count": 12 },
+        { "enName": "Bonekrusher Ripptusk", "zhName": "碾骨撕裂牙兽", "enemyId": "eny_0050_hound", "count": 2 }
+      ]
+    },
+    {
+      "region": "Valley IV",
+      "locationEn": "Origin Lodespring",
+      "mapId": "map01_lv006",
+      "enemies": [
+        { "enName": "Heavy Sting α", "zhName": "重刺天使α", "enemyId": "eny_0070_agscorp2", "count": 1 },
+        { "enName": "Heavy Ram α", "zhName": "刚角天使α", "enemyId": "eny_0069_aghornb2", "count": 1 },
+        { "enName": "Falsewings α", "zhName": "仿生翅天使α", "enemyId": "eny_0101_agfly2", "count": 1 },
+        { "enName": "Sting α", "zhName": "钉刺天使α", "enemyId": "eny_0064_agrange2", "count": 1 },
+        { "enName": "Ram α", "zhName": "大角天使α", "enemyId": "eny_0063_agmelee2", "count": 1 },
+        { "enName": "Falsewings", "zhName": "仿生翅天使", "enemyId": "eny_0076_agfly", "count": 2 },
+        { "enName": "Sting", "zhName": "钉刺天使", "enemyId": "eny_0025_agrange", "count": 4 },
+        { "enName": "Ram", "zhName": "大角天使", "enemyId": "eny_0021_agmelee", "count": 14 }
+      ]
+    },
+    {
+      "region": "Valley IV",
+      "locationEn": "Power Plateau",
+      "mapId": "map01_lv007",
+      "enemies": [
+        { "enName": "Bonekrusher Ballista", "zhName": "碾骨射手", "enemyId": "eny_0048_hvybow", "count": 1 },
+        { "enName": "Bonekrusher Executioner", "zhName": "碾骨行刑人", "enemyId": "eny_0018_lbtough", "count": 1 },
+        { "enName": "Bonekrusher Vanguard", "zhName": "碾骨先锋", "enemyId": "eny_0074_lbshield", "count": 1 },
+        { "enName": "Bonekrusher Infiltrator", "zhName": "碾骨渗透者", "enemyId": "eny_0049_rogue", "count": 1 },
+        { "enName": "Elite Ambusher", "zhName": "精锐伏击射手", "enemyId": "eny_0066_lbhunt2", "count": 1 },
+        { "enName": "Elite Raider", "zhName": "精锐劫掠者", "enemyId": "eny_0065_lbmob2", "count": 1 },
+        { "enName": "Hazefyre Tuskbeast", "zhName": "雾火牙兽", "enemyId": "eny_0059_erhound", "count": 4 },
+        { "enName": "Bonekrusher Ripptusk", "zhName": "碾骨撕裂牙兽", "enemyId": "eny_0050_hound", "count": 10 }
+      ]
+    },
+    {
+      "region": "Wuling",
+      "locationEn": "Wuling City",
+      "mapId": "map02_lv002",
+      "enemies": [
+        { "enName": "Tidewalker", "zhName": "潮行天使", "enemyId": "eny_0091_wgshoal", "count": 2 },
+        { "enName": "Prism", "zhName": "棱镜天使", "enemyId": "eny_0089_wgreflec", "count": 2 },
+        { "enName": "Hedron δ", "zhName": "晶锥天使δ", "enemyId": "eny_0106_wgthorns2", "count": 1 },
+        { "enName": "Hedron", "zhName": "晶锥天使", "enemyId": "eny_0088_wgthorns", "count": 2 },
+        { "enName": "Mudflow δ", "zhName": "浊流天使δ", "enemyId": "eny_0105_wgslime2", "count": 1 },
+        { "enName": "Mudflow", "zhName": "浊流天使", "enemyId": "eny_0087_wgslime", "count": 10 }
+      ]
+    },
+    {
+      "region": "Wuling",
+      "locationEn": "Qingbo Stockade",
+      "mapId": "map02_lv003",
+      "enemies": [
+        { "enName": "Hill Smasher", "zhName": "摧山将", "enemyId": "eny_0054_hsmino", "count": 1 },
+        { "enName": "Nimbus Razor", "zhName": "割云翁", "enemyId": "eny_0085_hsrogue", "count": 1 },
+        { "enName": "Cloud Stalker", "zhName": "劫云客", "enemyId": "eny_0055_hscrane", "count": 1 },
+        { "enName": "Sweeping Wind", "zhName": "穿林箭", "enemyId": "eny_0084_hshunt", "count": 2 },
+        { "enName": "Grove Archer", "zhName": "过堂风", "enemyId": "eny_0103_hshunt2", "count": 4 },
+        { "enName": "Highway Reaver", "zhName": "莫惜命", "enemyId": "eny_0096_hsmob2", "count": 1 },
+        { "enName": "Road Plunderer", "zhName": "莫留财", "enemyId": "eny_0053_hsmob", "count": 9 }
+      ]
+    }
+  ]
+}

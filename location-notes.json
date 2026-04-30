@@ -1,0 +1,57 @@
+{
+  "map02_lv003": {
+    "zh": "清波寨",
+    "status": "known",
+    "source": "Soda note 2026-04-30 13:57 Asia/Shanghai"
+  },
+  "map02_lv004": {
+    "zh": "首墩",
+    "status": "known",
+    "source": "Soda note 2026-04-30 13:57 Asia/Shanghai"
+  },
+  "map02_lv005": {
+    "zh": null,
+    "status": "not_released_yet",
+    "source": "Soda note 2026-04-30 13:57 Asia/Shanghai"
+  },
+  "map01_lv001": {
+    "zh": "枢纽区",
+    "status": "known",
+    "source": "AKEDatabase obtainWays / Soda prior analysis"
+  },
+  "map01_lv002": {
+    "zh": "谷地通道",
+    "status": "known",
+    "source": "AKEDatabase obtainWays"
+  },
+  "map01_lv005": {
+    "zh": "源石研究园",
+    "status": "known",
+    "source": "AKEDatabase obtainWays"
+  },
+  "map01_lv006": {
+    "zh": "矿脉源区",
+    "status": "known",
+    "source": "AKEDatabase obtainWays"
+  },
+  "map01_lv007": {
+    "zh": "供能高地",
+    "status": "known",
+    "source": "AKEDatabase obtainWays"
+  },
+  "map02_lv001": {
+    "zh": "景玉谷",
+    "status": "known",
+    "source": "Soda note 2026-04-30 14:29 Asia/Shanghai"
+  },
+  "map02_lv002": {
+    "zh": "武陵城",
+    "status": "known",
+    "source": "Soda note 2026-04-30 14:29 Asia/Shanghai"
+  },
+  "map01_lv003": {
+    "zh": "阿伯莉采石场",
+    "status": "known",
+    "source": "AKEDatabase activity_conditional_multistage_1 levelId map01_lv003"
+  }
+}

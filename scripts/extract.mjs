@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * 从 AKEDatabase 提取「简制手册」截图中出现的物品，生成紧凑 items.json。
- * 不做全量物品库，不访问线上 wiki/API。
+ * 从本地缓存提取当前版本整理的「简制手册」物品，生成紧凑 items.json。
+ * 页面运行时不访问线上 wiki/API。
  */
 import { readdir, readFile, writeFile, mkdir, copyFile } from 'fs/promises'
 import { join, dirname } from 'path'
@@ -15,8 +15,7 @@ const CH = join(AKE, 'CH')
 const OUT = join(ROOT, 'public', 'data', 'items.json')
 const ICON_OUT_DIR = join(ROOT, 'public', 'icons')
 
-// 只保留 Soda 截图里「简制手册」可见的条目。
-// OCR/肉眼校正：清波竹铃、黯银柑实、萤壳虫、彪兽的长绒等。
+// 当前版本整理的「简制手册」条目。
 const MANUAL_ITEM_NAMES = [
   '新笋', '兽肉', '苦涩麦粉',
   '中空异香石', '水灯虫的灯坠', '回响尘埃',
@@ -45,12 +44,6 @@ const MANUAL_SOURCE_OVERRIDES = {
       { id: 'eny_0102_hstiger2', name: '怒目彪兽', levels: [] },
     ], configCount: 0, source: 'manual-cross-check' },
   ],
-}
-
-const MANUAL_SOURCE_EXCLUDES = {
-  // 游戏内「敌方情报」未把潜地虬兽列在供能高地淤积点；AKEDatabase 的 SpawnerConfig
-  // `map01_lv007/sc_map01_lv007_2800200012` 虽包含该敌人，但不作为可查询来源展示。
-  '虬兽的须': new Set(['map01_lv007']),
 }
 
 const MAP_TYPE_HINTS = new Map([
@@ -83,8 +76,14 @@ async function loadEnemyMap() {
 
 async function loadLocationNotes() {
   try {
-    return await readJSON(join(DATA_ROOT, 'location-notes.json'))
+    return await readJSON(join(ROOT, 'location-notes.json'))
   } catch { return {} }
+}
+
+async function loadEnergyAlluviumNotes() {
+  try {
+    return await readJSON(join(ROOT, 'energy-alluvium-notes.json'))
+  } catch { return { source: null, rows: [] } }
 }
 
 function normalizeEnemyId(id) {
@@ -158,6 +157,31 @@ async function loadSpawnerSources(enemyMap, locationNotes) {
   return sourcesByEnemy
 }
 
+function buildEnergyAlluviumSources(energyAlluvium, locationNotes) {
+  const sourcesByEnemy = new Map()
+  for (const row of energyAlluvium?.rows || []) {
+    if (!row.mapId) continue
+    const area = areaLabel(row.mapId, locationNotes)
+    for (const enemy of row.enemies || []) {
+      const enemyId = normalizeEnemyId(enemy.enemyId)
+      if (!enemyId) continue
+      if (!sourcesByEnemy.has(enemyId)) sourcesByEnemy.set(enemyId, [])
+      sourcesByEnemy.get(enemyId).push({
+        mapId: row.mapId,
+        area,
+        configId: `energy_alluvium:${row.mapId}`,
+        enemyId,
+        enemyName: enemy.zhName || enemy.enName || enemyId,
+        level: null,
+        count: enemy.count ?? null,
+        released: true,
+        source: 'wiki.gg-operational-manual-energy-alluvium',
+      })
+    }
+  }
+  return sourcesByEnemy
+}
+
 function uniqueBy(arr, keyFn) {
   const seen = new Set()
   const out = []
@@ -170,14 +194,12 @@ function uniqueBy(arr, keyFn) {
   return out
 }
 
-function summarizeSources(dropEnemies, sourcesByEnemy, itemName) {
-  const excludedMaps = MANUAL_SOURCE_EXCLUDES[itemName] || new Set()
+function summarizeSources(dropEnemies, sourcesByEnemy) {
   const all = []
   for (const enemy of dropEnemies) {
     const normalized = normalizeEnemyId(enemy.id)
     const sources = sourcesByEnemy.get(normalized) || []
     for (const source of sources) {
-      if (excludedMaps.has(source.mapId)) continue
       all.push({ ...source, itemEnemyId: enemy.id, itemEnemyName: enemy.name || enemy.id })
     }
   }
@@ -194,7 +216,7 @@ function summarizeSources(dropEnemies, sourcesByEnemy, itemName) {
     const group = byArea.get(s.area)
     group.configs.add(s.configId)
     const eid = normalizeEnemyId(s.enemyId)
-    if (!group.enemies.has(eid)) group.enemies.set(eid, { id: eid, name: s.enemyName, levels: new Set() })
+    if (!group.enemies.has(eid)) group.enemies.set(eid, { id: eid, name: s.enemyName, levels: new Set(), count: s.count ?? null })
     if (s.level != null) group.enemies.get(eid).levels.add(s.level)
   }
 
@@ -206,6 +228,7 @@ function summarizeSources(dropEnemies, sourcesByEnemy, itemName) {
         id: e.id,
         name: e.name,
         levels: [...e.levels].sort((a, b) => a - b),
+        count: e.count,
       })),
       configCount: group.configs.size,
     })
@@ -251,7 +274,8 @@ async function copyIcon(iconPath) {
 async function main() {
   const enemyMap = await loadEnemyMap()
   const locationNotes = await loadLocationNotes()
-  const sourcesByEnemy = await loadSpawnerSources(enemyMap, locationNotes)
+  const energyAlluvium = await loadEnergyAlluviumNotes()
+  const sourcesByEnemy = buildEnergyAlluviumSources(energyAlluvium, locationNotes)
 
   const itemDir = join(CH, 'item')
   const files = (await readdir(itemDir)).filter(f => f.endsWith('.json') && f !== 'manifest.json')
@@ -267,7 +291,7 @@ async function main() {
     const phaseDrops = extractMonsterIdsFromObtainWays(raw)
     const dropIds = uniqueBy([...explicitDrops, ...phaseDrops].map(normalizeEnemyId).filter(Boolean), x => x)
     const droppedBy = dropIds.map(id => ({ id, name: enemyMap[id] || null }))
-    const sourceSummary = summarizeSources(droppedBy, sourcesByEnemy, raw.name)
+    const sourceSummary = summarizeSources(droppedBy, sourcesByEnemy)
     if (MANUAL_SOURCE_OVERRIDES[raw.name]) {
       sourceSummary.grouped = uniqueBy(
         [...sourceSummary.grouped, ...MANUAL_SOURCE_OVERRIDES[raw.name]],
@@ -303,6 +327,7 @@ async function main() {
     items,
     missing,
     enemyCount: Object.keys(enemyMap).length,
+    energyAlluviumSource: energyAlluvium.source,
     generatedAt: new Date().toISOString(),
   }, null, 0))
 
@@ -310,6 +335,7 @@ async function main() {
   console.log(`Missing: ${missing.length}${missing.length ? ' - ' + missing.join(', ') : ''}`)
   console.log(`Enemy map: ${Object.keys(enemyMap).length} entries`)
   console.log(`Location notes: ${Object.keys(locationNotes).length} entries`)
+  console.log(`Energy Alluvium rows: ${energyAlluvium?.rows?.length || 0}`)
   console.log(`Output: ${OUT}`)
 }
 

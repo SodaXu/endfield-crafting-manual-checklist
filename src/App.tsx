@@ -38,14 +38,14 @@ function ItemCard({ item }: { item: Item }) {
 
       {groups.length > 0 && (
         <>
-          <div className="section-label primary">出现地图</div>
+          <div className="section-label primary">淤积点来源</div>
           {groups.map(group => (
             <div className="source-group" key={group.area}>
               <div className="area">{group.area}</div>
               <div className="enemy-list">
                 {group.enemies.map(enemy => (
                   <span className="enemy-pill" key={enemy.id}>
-                    {enemy.name}{enemy.levels.length > 0 ? ` Lv.${enemy.levels.join('/')}` : ''}
+                    {enemy.name}{enemy.count ? ` ×${enemy.count}` : ''}{enemy.levels.length > 0 ? ` Lv.${enemy.levels.join('/')}` : ''}
                   </span>
                 ))}
               </div>
@@ -56,7 +56,7 @@ function ItemCard({ item }: { item: Item }) {
 
       {hasDrops && groups.length === 0 && (
         <>
-          <div className="section-label primary">掉落怪（地图待补）</div>
+          <div className="section-label primary">掉落怪（淤积点待补）</div>
           <div className="enemy-list">
             {item.droppedBy!.map(enemy => (
               <span className="enemy-pill muted" key={enemy.id}>{enemy.name || enemy.id}</span>
@@ -145,14 +145,15 @@ export default function App() {
             <p>页面展示当前版本整理的简制手册材料条目。构建时从本地 AKEDatabase 缓存提取物品、图标、敌人和大地图刷怪配置，生成静态 JSON；浏览器运行时不会请求外部 wiki 或 API。</p>
             <ul>
               <li>物品描述 = <code>description</code> + <code>obtainWays.desc</code> 合并展示。</li>
-              <li>地图来源 = 物品掉落怪 → 大地图 SpawnerConfig → 地图中文备注聚合。</li>
-              <li>不使用 <code>forbidDrop</code> 过滤；该字段和实际掉落口径存在歧义。</li>
+              <li>淤积点来源 = 物品掉落怪 → wiki.gg Operational Manual 的 Energy Alluvium 对比表 → 地图中文备注聚合。</li>
+              <li>大地图 SpawnerConfig 仅作敌人/地图辅助校验，不再作为淤积点刷怪来源。</li>
               <li>少量缺口使用人工备注修正，例如地图编号与「彪兽的长绒」位置。</li>
             </ul>
             <h3>Credits</h3>
             <ul>
-              <li><a href="https://github.com/nagiyume/AKEDatabase" target="_blank" rel="noreferrer">AKEDatabase</a>：物品、图标、敌人名称、SpawnerConfig 等本地静态数据。</li>
+              <li><a href="https://github.com/nagiyume/AKEDatabase" target="_blank" rel="noreferrer">AKEDatabase</a>：物品、图标、敌人名称等本地静态数据。</li>
               <li><a href="https://wiki.biligame.com/zmd/%E7%89%A9%E5%93%81%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer">Bilibili 游戏 Wiki · 物品图鉴</a>：少量物品掉落口径交叉校验。</li>
+              <li><a href="https://endfield.wiki.gg/wiki/Operational_Manual#Energy_Alluvium" target="_blank" rel="noreferrer">wiki.gg · Operational Manual / Energy Alluvium</a>：淤积点地图与刷怪对比表。</li>
               <li><a href="https://wiki.biligame.com/zmd/%E6%95%8C%E5%AF%B9%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer">Bilibili 游戏 Wiki · 敌对图鉴</a>：少量敌人分布区域交叉校验。</li>
             </ul>
             <p className="copyright-note">游戏数据与图片版权归鹰角网络 / Gryphline 所有。本页面仅作个人整理与查询使用。</p>
@@ -162,7 +163,7 @@ export default function App() {
 
       <div className="summary">
         <div><strong>{data.items.length}</strong><span>手册物品</span></div>
-        <div><strong>{areas.length}</strong><span>出现地图区域</span></div>
+        <div><strong>{areas.length}</strong><span>淤积点区域</span></div>
         <div><strong>{data.enemyCount}</strong><span>敌人映射</span></div>
       </div>
 
