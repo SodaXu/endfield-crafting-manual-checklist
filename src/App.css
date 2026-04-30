@@ -47,6 +47,18 @@ header h1 {
   letter-spacing: 0.03em;
   color: var(--text);
 }
+.subtitle {
+  max-width: 780px;
+  margin-top: 8px;
+  color: var(--text2);
+  font-size: 0.92rem;
+}
+.subtitle a {
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+.subtitle a:hover { text-decoration: underline; }
 
 .about-button {
   border: 1px solid var(--line);

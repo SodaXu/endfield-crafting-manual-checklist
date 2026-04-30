@@ -127,11 +127,14 @@ export default function App() {
 
   return (
     <div className="app">
-      <header className="hero">
-        <div>
-          <h1>明日方舟终末地 简制手册来源掉落查询</h1>
+      <header>
+        <div className="hero">
+          <div>
+            <h1>明日方舟终末地 简制手册来源掉落查询</h1>
+            <p className="subtitle">自制项目，快速查询简制手册的奖励需求与淤积点掉落以方便挂机，挂机视频：<a href="https://www.bilibili.com/video/BV1xhd5B9EFd" target="_blank" rel="noreferrer">BV1xhd5B9EFd</a></p>
+          </div>
+          <button className="about-button" onClick={() => setShowAbout(true)}>数据说明</button>
         </div>
-        <button className="about-button" onClick={() => setShowAbout(true)}>数据说明</button>
       </header>
 
       {showAbout && (
