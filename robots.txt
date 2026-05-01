@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sodaxu.github.io/endfield-crafting-manual-checklist/sitemap.xml
