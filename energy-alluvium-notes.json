@@ -311,49 +311,49 @@
       "locationEn": "Marker Stone",
       "locationZh": "首墩",
       "mapId": "map02_lv004",
-      "source": "Soda in-game manual supplement 2026-04-30; counts unknown",
+      "source": "wiki.gg Operational Manual / Energy Alluvium, fetched 2026-05-27; Marker Stone row now official",
       "enemies": [
         {
-          "enName": "破潮之像",
+          "enName": "Tidalklast",
           "zhName": "破潮之像",
           "enemyId": "eny_0090_wgabyss",
-          "count": null
+          "count": 1
         },
         {
-          "enName": "潮行天使δ",
+          "enName": "Tidewalker δ",
           "zhName": "潮行天使δ",
           "enemyId": "eny_0107_wgshoal2",
-          "count": null
+          "count": 1
         },
         {
-          "enName": "棱镜天使",
+          "enName": "Prism",
           "zhName": "棱镜天使",
           "enemyId": "eny_0089_wgreflec",
-          "count": null
+          "count": 1
         },
         {
-          "enName": "晶锥天使δ",
+          "enName": "Hedron δ",
           "zhName": "晶锥天使δ",
           "enemyId": "eny_0106_wgthorns2",
-          "count": null
+          "count": 2
         },
         {
-          "enName": "晶锥天使",
+          "enName": "Hedron",
           "zhName": "晶锥天使",
           "enemyId": "eny_0088_wgthorns",
-          "count": null
+          "count": 4
         },
         {
-          "enName": "浊流天使δ",
+          "enName": "Mudflow δ",
           "zhName": "浊流天使δ",
           "enemyId": "eny_0105_wgslime2",
-          "count": null
+          "count": 1
         },
         {
-          "enName": "表象",
+          "enName": "Æthillu",
           "zhName": "表象",
           "enemyId": "eny_0095_ethillu",
-          "count": null
+          "count": 9
         }
       ]
     },
