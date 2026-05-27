@@ -356,6 +356,57 @@
           "count": null
         }
       ]
+    },
+    {
+      "region": "Wuling",
+      "locationEn": "Trial Park",
+      "locationZh": "试验园区",
+      "mapId": "map02_lv005",
+      "source": "Soda in-game screenshots 2026-05-27; cross-checked with AKEDatabase SpawnerConfig map02_lv005/sc_map02_lv005_23200120003",
+      "enemies": [
+        {
+          "enName": "Howlerbeast",
+          "zhName": "百眼彪兽",
+          "enemyId": "eny_0083_hstiger",
+          "count": 1
+        },
+        {
+          "enName": "Tiangu",
+          "zhName": "天鼓",
+          "enemyId": "eny_0082_hsbear",
+          "count": 1
+        },
+        {
+          "enName": "Energized Spineball",
+          "zhName": "充能球刺兽",
+          "enemyId": "eny_0109_hshog2",
+          "count": 1
+        },
+        {
+          "enName": "Spineball",
+          "zhName": "球刺兽",
+          "enemyId": "eny_0093_hshog",
+          "count": 1
+        },
+        {
+          "enName": "Burning Haze Originium Slug",
+          "zhName": "焚雾源石虫",
+          "enemyId": "eny_0108_slbomb2",
+          "count": 1
+        },
+        {
+          "enName": "Fire Haze Originium Slug",
+          "zhName": "火雾源石虫",
+          "enemyId": "eny_0092_slbomb",
+          "count": 1
+        },
+        {
+          "enName": "Waterlight Bug",
+          "zhName": "水灯虫",
+          "enemyId": "eny_0094_hsfly",
+          "count": 1
+        }
+      ]
     }
   ]
 }

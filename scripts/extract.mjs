@@ -21,7 +21,7 @@ const MANUAL_ITEM_NAMES = [
   '中空异香石', '水灯虫的灯坠', '回响尘埃',
   '软骨碎屑', '竹林虫蛹', '球刺兽的肝脏',
   '崩碎斧刃', '浸雾大弩', '清波竹铃',
-  '彪兽的长绒', '荞花', '映火荞花',
+  '彪兽的长绒', '咆兽的辫束', '荞花', '映火荞花',
   '柑实', '黯银柑实', '酮化灌木',
   '锦草', '芽针', '蓬茸锦草',
   '荆刺芽针', '灰芦麦', '苦叶椒',
@@ -35,16 +35,7 @@ const MANUAL_ITEM_NAMES = [
 const MANUAL_ITEM_SET = new Set(MANUAL_ITEM_NAMES)
 
 
-const MANUAL_SOURCE_OVERRIDES = {
-  // SpawnerConfig 当前只在未开放 map02_lv005 / 副本里能看到彪兽，实际手册攻略源交叉指向武陵城岸边石窟。
-  // Sources: B站 wiki/游侠/玩家攻略均确认百眼彪兽、怒目彪兽掉落彪兽的长绒；玩家攻略定位为武陵城岸边石窟。
-  '彪兽的长绒': [
-    { area: '武陵城 · 岸边石窟', enemies: [
-      { id: 'eny_0083_hstiger', name: '百眼彪兽', levels: [] },
-      { id: 'eny_0102_hstiger2', name: '怒目彪兽', levels: [] },
-    ] },
-  ],
-}
+const MANUAL_SOURCE_OVERRIDES = {}
 
 const ALLUVIUM_LABEL_PREFIX = '重度能量淤积点'
 

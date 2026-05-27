@@ -38,7 +38,7 @@ npm run deploy    # 发布到 GitHub Pages
    - 页面：https://endfield.wiki.gg/wiki/Operational_Manual#Energy_Alluvium
    - 本地备注文件：`energy-alluvium-notes.json`
    - 用途：来源区域与刷怪比对表，是页面「淤积点来源」的主要依据；不要与同名大地图刷新混用。
-   - 注：wiki.gg 表暂缺「首墩 / Marker Stone」；该行由 Soda 游戏内手动补充，数量未知时显示 `×?`。
+   - 注：wiki.gg 表暂缺「首墩 / Marker Stone」与「试验园区 / Trial Park」；这两行由 Soda 游戏内截图/手工补充，首墩数量未知时显示 `×?`。
    - Credit: 感谢 wiki.gg 社区维护的数据。
 
 3. **OpenDField Map**
@@ -113,13 +113,13 @@ npm run extract
 - `map02_lv002` = 武陵城
 - `map02_lv003` = 清波寨
 - `map02_lv004` = 首墩 / Marker Stone
-- `map02_lv005` = 未开放
+- `map02_lv005` = 试验园区 / Trial Park
 
-## 特殊 override
+## 手工补充
 
-`彪兽的长绒` 当前在 Energy Alluvium 表中没有对应淤积点来源。交叉检索玩家攻略后，暂时手工补充：
+wiki.gg Energy Alluvium 表暂缺以下淤积点，已写入 `energy-alluvium-notes.json`：
 
-- 武陵城 · 岸边石窟
-- 百眼彪兽 / 怒目彪兽
+- `map02_lv004` 首墩 / Marker Stone：Soda 游戏内手工补充，数量未知显示 `×?`。
+- `map02_lv005` 试验园区 / Trial Park：Soda 2026-05-27 游戏内截图补充，并用 AKEDatabase `SpawnerConfig/map02_lv005/sc_map02_lv005_23200120003.json` 交叉校验。
 
-该 override 写在 `scripts/extract.mjs` 的 `MANUAL_SOURCE_OVERRIDES` 中。后续若 AKEDatabase 数据补全，应优先改回结构化来源。
+试验园区淤积点当前怪物组成：百眼彪兽、天鼓、充能球刺兽、球刺兽、焚雾源石虫、火雾源石虫、水灯虫。
