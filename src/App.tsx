@@ -174,7 +174,7 @@ export default function App() {
             {data.energyAlluviumRows && data.energyAlluviumRows.length > 0 && (
               <>
                 <h3>淤积点地图与刷怪比对表</h3>
-                <p>下表主要来自 wiki.gg Operational Manual 的 Energy Alluvium 表；「试验园区」为游戏内截图补充，数量未知显示 ×?。</p>
+                <p>下表主要来自 wiki.gg Operational Manual 的 Energy Alluvium 表；本地备注只补中文地图名、mapId 与来源说明，数量未知显示 ×?。</p>
                 <div className="alluvium-table">
                   {data.energyAlluviumRows.map(row => (
                     <div className="alluvium-row" key={row.mapId}>

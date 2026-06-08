@@ -38,7 +38,7 @@ npm run deploy    # 发布到 GitHub Pages
    - 页面：https://endfield.wiki.gg/wiki/Operational_Manual#Energy_Alluvium
    - 本地备注文件：`energy-alluvium-notes.json`
    - 用途：来源区域与刷怪比对表，是页面「淤积点来源」的主要依据；不要与同名大地图刷新混用。
-   - 注：wiki.gg 表已包含「首墩 / Marker Stone」；「试验园区 / Trial Park」暂由 Soda 游戏内截图补充。
+   - 注：wiki.gg 表已包含「首墩 / Marker Stone」「Test Area（试验园区）」「Sword Vault Dale（藏剑谷）」等当前淤积点行；本地文件保留中文地图名与 mapId 映射。
    - Credit: 感谢 wiki.gg 社区维护的数据。
 
 3. **OpenDField Map**
@@ -113,13 +113,15 @@ npm run extract
 - `map02_lv002` = 武陵城
 - `map02_lv003` = 清波寨
 - `map02_lv004` = 首墩 / Marker Stone
-- `map02_lv005` = 试验园区 / Trial Park
+- `map02_lv005` = 试验园区 / Test Area
+- `map02_lv006` = 藏剑谷 / Sword Vault Dale
 
 ## 手工补充
 
-wiki.gg Energy Alluvium 表暂缺以下淤积点，已写入 `energy-alluvium-notes.json`：
+`energy-alluvium-notes.json` 当前按 wiki.gg Operational Manual / Energy Alluvium 的正式表维护；手工部分只补中文名、mapId 与来源说明，不用大地图 SpawnerConfig 推断淤积点组成。
 
-- `map02_lv004` 首墩 / Marker Stone：已从 wiki.gg Operational Manual / Energy Alluvium 更新为正式数量。
-- `map02_lv005` 试验园区 / Trial Park：Soda 2026-05-27 游戏内截图补充，并用 AKEDatabase `SpawnerConfig/map02_lv005/sc_map02_lv005_23200120003.json` 交叉校验。
+- `map02_lv004` 首墩 / Marker Stone：wiki.gg 正式数量。
+- `map02_lv005` 试验园区 / Test Area：wiki.gg 正式数量；中文名和 mapId 由 AKEDatabase / Soda 截图确认。
+- `map02_lv006` 藏剑谷 / Sword Vault Dale：wiki.gg 正式数量；mapId 由 AKEDatabase `activity_map02_guide_006` / `distribution_map02_lv006` 确认。
 
-试验园区淤积点当前怪物组成：百眼彪兽、天鼓、充能球刺兽、球刺兽、焚雾源石虫、火雾源石虫、水灯虫。
+新增简制手册物品：百年陈皮、尾尖金甲。

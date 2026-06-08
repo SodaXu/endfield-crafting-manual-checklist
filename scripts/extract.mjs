@@ -3,7 +3,7 @@
  * 从本地缓存提取当前版本整理的「简制手册」物品，生成紧凑 items.json。
  * 页面运行时不访问线上 wiki/API。
  */
-import { readdir, readFile, writeFile, mkdir, copyFile } from 'fs/promises'
+import { access, readdir, readFile, writeFile, mkdir, copyFile } from 'fs/promises'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
@@ -30,6 +30,7 @@ const MANUAL_ITEM_NAMES = [
   '草籽干粉', '刺鼻干肉', '虫肉',
   '坚韧的水', '天然气泡水', '虬兽的须',
   '异色油脂', '甜腻黑水', '大斧角',
+  '百年陈皮', '尾尖金甲',
 ]
 
 const MANUAL_ITEM_SET = new Set(MANUAL_ITEM_NAMES)
@@ -245,7 +246,15 @@ async function copyIcon(iconPath) {
     await copyFile(src, join(ICON_OUT_DIR, fileName))
     return `./icons/${fileName}`
   } catch {
-    return null
+    // Some newly-added AKEDatabase item JSON can reference icons before the
+    // upstream image files are published. Keep manually-supplied fallbacks in
+    // public/icons/ reproducible across extract runs.
+    try {
+      await access(join(ICON_OUT_DIR, fileName))
+      return `./icons/${fileName}`
+    } catch {
+      return null
+    }
   }
 }
 

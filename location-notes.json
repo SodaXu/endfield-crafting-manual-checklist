@@ -53,5 +53,10 @@
     "zh": "阿伯莉采石场",
     "status": "known",
     "source": "AKEDatabase activity_conditional_multistage_1 levelId map01_lv003"
+  },
+  "map02_lv006": {
+    "zh": "藏剑谷",
+    "status": "known",
+    "source": "AKEDatabase activity_map02_guide_006 and v2_enemy distribution_map02_lv006"
   }
 }

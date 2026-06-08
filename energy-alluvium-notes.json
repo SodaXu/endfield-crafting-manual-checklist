@@ -2,8 +2,8 @@
   "source": {
     "title": "Operational Manual - Energy Alluvium",
     "url": "https://endfield.wiki.gg/wiki/Operational_Manual#Energy_Alluvium",
-    "accessedAt": "2026-04-30T07:42:00Z",
-    "note": "Pulled via MediaWiki parse API from endfield.wiki.gg; used only for the Energy Alluvium location/enemy comparison table."
+    "accessedAt": "2026-06-08T10:08:24Z",
+    "note": "Pulled via MediaWiki parse API from endfield.wiki.gg; used only for the Energy Alluvium location/enemy comparison table. Updated rows verified from Operational Manual section wikitext."
   },
   "rows": [
     {
@@ -282,14 +282,14 @@
         },
         {
           "enName": "Sweeping Wind",
-          "zhName": "穿林箭",
-          "enemyId": "eny_0084_hshunt",
+          "zhName": "过堂风",
+          "enemyId": "eny_0103_hshunt2",
           "count": 2
         },
         {
           "enName": "Grove Archer",
-          "zhName": "过堂风",
-          "enemyId": "eny_0103_hshunt2",
+          "zhName": "穿林箭",
+          "enemyId": "eny_0084_hshunt",
           "count": 4
         },
         {
@@ -311,7 +311,7 @@
       "locationEn": "Marker Stone",
       "locationZh": "首墩",
       "mapId": "map02_lv004",
-      "source": "wiki.gg Operational Manual / Energy Alluvium, fetched 2026-05-27; Marker Stone row now official",
+      "source": "wiki.gg Operational Manual / Energy Alluvium, fetched 2026-06-08 via MediaWiki parse API",
       "enemies": [
         {
           "enName": "Tidalklast",
@@ -335,13 +335,13 @@
           "enName": "Hedron δ",
           "zhName": "晶锥天使δ",
           "enemyId": "eny_0106_wgthorns2",
-          "count": 2
+          "count": 1
         },
         {
           "enName": "Hedron",
           "zhName": "晶锥天使",
           "enemyId": "eny_0088_wgthorns",
-          "count": 4
+          "count": 1
         },
         {
           "enName": "Mudflow δ",
@@ -353,57 +353,102 @@
           "enName": "Æthillu",
           "zhName": "表象",
           "enemyId": "eny_0095_ethillu",
-          "count": 9
+          "count": 1
         }
       ]
     },
     {
       "region": "Wuling",
-      "locationEn": "Trial Park",
+      "locationEn": "Test Area",
       "locationZh": "试验园区",
       "mapId": "map02_lv005",
-      "source": "Soda in-game screenshots 2026-05-27; cross-checked with AKEDatabase SpawnerConfig map02_lv005/sc_map02_lv005_23200120003",
+      "source": "wiki.gg Operational Manual / Energy Alluvium row is named Test Area; fetched 2026-06-08 via MediaWiki parse API. map02_lv005/试验园区 mapping from AKEDatabase activity_map02_guide_005 and prior Soda screenshot.",
       "enemies": [
         {
-          "enName": "Howlerbeast",
+          "enName": "Spotted Rakerbeast",
           "zhName": "百眼彪兽",
           "enemyId": "eny_0083_hstiger",
           "count": 1
         },
         {
-          "enName": "Tiangu",
+          "enName": "Skydrummer",
           "zhName": "天鼓",
           "enemyId": "eny_0082_hsbear",
           "count": 1
         },
         {
-          "enName": "Energized Spineball",
+          "enName": "Imbued Quillbeast",
           "zhName": "充能球刺兽",
           "enemyId": "eny_0109_hshog2",
           "count": 1
         },
         {
-          "enName": "Spineball",
+          "enName": "Quillbeast",
           "zhName": "球刺兽",
           "enemyId": "eny_0093_hshog",
           "count": 1
         },
         {
-          "enName": "Burning Haze Originium Slug",
+          "enName": "Blazemist Originium Slug",
           "zhName": "焚雾源石虫",
           "enemyId": "eny_0108_slbomb2",
           "count": 1
         },
         {
-          "enName": "Fire Haze Originium Slug",
+          "enName": "Firemist Originium Slug",
           "zhName": "火雾源石虫",
           "enemyId": "eny_0092_slbomb",
           "count": 1
         },
         {
-          "enName": "Waterlight Bug",
+          "enName": "Waterlamp",
           "zhName": "水灯虫",
           "enemyId": "eny_0094_hsfly",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "region": "Wuling",
+      "locationEn": "Sword Vault Dale",
+      "locationZh": "藏剑谷",
+      "mapId": "map02_lv006",
+      "source": "wiki.gg Operational Manual / Energy Alluvium, fetched 2026-06-08 via MediaWiki parse API; mapId confirmed by AKEDatabase activity_map02_guide_006 and v2_enemy distribution_map02_lv006",
+      "enemies": [
+        {
+          "enName": "Armored Manglerbeast",
+          "zhName": "披甲裂兽",
+          "enemyId": "eny_0113_jzogre",
+          "count": 1
+        },
+        {
+          "enName": "Cloud Stalker",
+          "zhName": "劫云客",
+          "enemyId": "eny_0055_hscrane",
+          "count": 1
+        },
+        {
+          "enName": "Nimbus Razor",
+          "zhName": "割云翁",
+          "enemyId": "eny_0085_hsrogue",
+          "count": 1
+        },
+        {
+          "enName": "Road Plunderer",
+          "zhName": "莫留财",
+          "enemyId": "eny_0053_hsmob",
+          "count": 1
+        },
+        {
+          "enName": "Grove Archer",
+          "zhName": "穿林箭",
+          "enemyId": "eny_0084_hshunt",
+          "count": 1
+        },
+        {
+          "enName": "Rockhowler",
+          "zhName": "山犼兽",
+          "enemyId": "eny_0112_jzmonk",
           "count": 1
         }
       ]
