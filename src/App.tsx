@@ -148,12 +148,22 @@ export default function App() {
 
   return (
     <div className="app">
-      <header>
+      <header className="operator-header">
+        <img className="operator-art gilberta-art" src="./operators/gilberta.png" alt="Gilberta" />
+        <img className="operator-art avywenna-art" src="./operators/avywenna.png" alt="Avywenna" />
         <div className="hero">
-          <div>
-            <h1>明日方舟终末地 简制手册来源掉落查询</h1>
-            <p className="subtitle">自制项目，快速查询简制手册的奖励需求与淤积点掉落以方便挂机，参考挂机视频：<a href="https://www.bilibili.com/video/BV1xhd5B9EFd" target="_blank" rel="noreferrer">BV1xhd5B9EFd</a></p>
-            <p className="subtitle">大地图采集和怪物分布：<a href="https://opendfieldmap.cn/" target="_blank" rel="noreferrer">opendfieldmap.cn</a></p>
+          <div className="hero-copy">
+            <div className="eyebrow">TALOS-II · MATERIAL FIELD GUIDE</div>
+            <h1>终末地<br /><em>简制手册</em>来源查询</h1>
+            <p className="subtitle">快速查询简制手册的奖励需求、怪物掉落与重度能量淤积点，方便挂机刷取。</p>
+            <div className="hero-links">
+              <a href="https://www.bilibili.com/video/BV1xhd5B9EFd" target="_blank" rel="noreferrer">挂机视频 ↗</a>
+              <a href="https://opendfieldmap.cn/" target="_blank" rel="noreferrer">大地图 ↗</a>
+            </div>
+          </div>
+          <div className="tangtang-wrap">
+            <img className="tangtang-art" src="./operators/tangtang.png" alt="唐唐" />
+            <span>QINGBO STOCKADE</span>
           </div>
           <button className="about-button" onClick={() => setShowAbout(true)}>数据说明</button>
         </div>
@@ -204,6 +214,7 @@ export default function App() {
               <li><a href="https://wiki.biligame.com/zmd/%E7%89%A9%E5%93%81%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer">Bilibili 游戏 Wiki · 物品图鉴</a>：少量物品掉落口径交叉校验。</li>
               <li><a href="https://endfield.wiki.gg/wiki/Energy_Alluvium" target="_blank" rel="noreferrer">wiki.gg · Energy Alluvium</a>：淤积点地图、刷怪阵容与数量。</li>
               <li>wiki.gg 物品页：<a href="https://endfield.wiki.gg/wiki/Blightshade_Bezoar" target="_blank" rel="noreferrer">影兽衔石</a>、<a href="https://endfield.wiki.gg/wiki/Shadow_Dew" target="_blank" rel="noreferrer">残影露滴</a>、<a href="https://endfield.wiki.gg/wiki/Glaive_Fragment" target="_blank" rel="noreferrer">破阵刀碎片</a>。</li>
+              <li>角色立绘：<a href="https://endfield.wiki.gg/wiki/Gilberta" target="_blank" rel="noreferrer">Gilberta</a>、<a href="https://endfield.wiki.gg/wiki/Tangtang" target="_blank" rel="noreferrer">唐唐</a>、<a href="https://endfield.wiki.gg/wiki/Avywenna" target="_blank" rel="noreferrer">Avywenna</a>（wiki.gg）。</li>
               <li><a href="https://wiki.biligame.com/zmd/%E6%95%8C%E5%AF%B9%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer">Bilibili 游戏 Wiki · 敌对图鉴</a>：少量敌人分布区域交叉校验。</li>
             </ul>
             <p className="copyright-note">游戏数据与图片版权归鹰角网络 / Gryphline 所有。本页面仅作个人整理与查询使用。</p>
