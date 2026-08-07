@@ -149,8 +149,8 @@ export default function App() {
   return (
     <div className="app">
       <header className="operator-header">
-        <img className="operator-art gilberta-art" src="./operators/gilberta.png" alt="Gilberta" />
-        <img className="operator-art avywenna-art" src="./operators/avywenna.png" alt="Avywenna" />
+        <img className="operator-art gilberta-art" src="./operator-banners/gilberta.png" alt="Gilberta" />
+        <img className="operator-art avywenna-art" src="./operator-banners/avywenna.png" alt="Avywenna" />
         <div className="hero">
           <div className="hero-copy">
             <div className="eyebrow">TALOS-II · MATERIAL FIELD GUIDE</div>
@@ -162,7 +162,7 @@ export default function App() {
             </div>
           </div>
           <div className="tangtang-wrap">
-            <img className="tangtang-art" src="./operators/tangtang.png" alt="唐唐" />
+            <img className="tangtang-art" src="./operator-banners/tangtang.png" alt="唐唐" />
             <span>QINGBO STOCKADE</span>
           </div>
           <button className="about-button" onClick={() => setShowAbout(true)}>数据说明</button>
