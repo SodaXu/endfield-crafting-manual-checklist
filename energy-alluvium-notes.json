@@ -1,9 +1,9 @@
 {
   "source": {
-    "title": "Operational Manual - Energy Alluvium",
-    "url": "https://endfield.wiki.gg/wiki/Operational_Manual#Energy_Alluvium",
-    "accessedAt": "2026-06-08T10:08:24Z",
-    "note": "Pulled via MediaWiki parse API from endfield.wiki.gg; used only for the Energy Alluvium location/enemy comparison table. Updated rows verified from Operational Manual section wikitext."
+    "title": "Energy Alluvium",
+    "url": "https://endfield.wiki.gg/wiki/Energy_Alluvium",
+    "accessedAt": "2026-08-07T13:38:00Z",
+    "note": "Pulled from the wiki.gg MediaWiki parse API. Enemy names and counts mirror the Energy Alluvium page; TBA counts are stored as null rather than inferred."
   },
   "rows": [
     {
@@ -311,7 +311,7 @@
       "locationEn": "Marker Stone",
       "locationZh": "首墩",
       "mapId": "map02_lv004",
-      "source": "wiki.gg Operational Manual / Energy Alluvium, fetched 2026-06-08 via MediaWiki parse API",
+      "source": "wiki.gg Energy Alluvium, fetched 2026-08-07 via MediaWiki parse API",
       "enemies": [
         {
           "enName": "Tidalklast",
@@ -329,31 +329,31 @@
           "enName": "Prism",
           "zhName": "棱镜天使",
           "enemyId": "eny_0089_wgreflec",
-          "count": 1
+          "count": 4
         },
         {
           "enName": "Hedron δ",
           "zhName": "晶锥天使δ",
           "enemyId": "eny_0106_wgthorns2",
-          "count": 1
+          "count": 6
         },
         {
           "enName": "Hedron",
           "zhName": "晶锥天使",
           "enemyId": "eny_0088_wgthorns",
-          "count": 1
+          "count": 4
         },
         {
           "enName": "Mudflow δ",
           "zhName": "浊流天使δ",
           "enemyId": "eny_0105_wgslime2",
-          "count": 1
+          "count": 4
         },
         {
           "enName": "Æthillu",
           "zhName": "表象",
           "enemyId": "eny_0095_ethillu",
-          "count": 1
+          "count": 6
         }
       ]
     },
@@ -362,7 +362,7 @@
       "locationEn": "Test Area",
       "locationZh": "试验园区",
       "mapId": "map02_lv005",
-      "source": "wiki.gg Operational Manual / Energy Alluvium row is named Test Area; fetched 2026-06-08 via MediaWiki parse API. map02_lv005/试验园区 mapping from AKEDatabase activity_map02_guide_005 and prior Soda screenshot.",
+      "source": "wiki.gg Energy Alluvium, fetched 2026-08-07 via MediaWiki parse API",
       "enemies": [
         {
           "enName": "Spotted Rakerbeast",
@@ -392,19 +392,19 @@
           "enName": "Blazemist Originium Slug",
           "zhName": "焚雾源石虫",
           "enemyId": "eny_0108_slbomb2",
-          "count": 1
+          "count": 2
         },
         {
           "enName": "Firemist Originium Slug",
           "zhName": "火雾源石虫",
           "enemyId": "eny_0092_slbomb",
-          "count": 1
+          "count": 8
         },
         {
           "enName": "Waterlamp",
           "zhName": "水灯虫",
           "enemyId": "eny_0094_hsfly",
-          "count": 1
+          "count": 8
         }
       ]
     },
@@ -413,13 +413,13 @@
       "locationEn": "Sword Vault Dale",
       "locationZh": "藏剑谷",
       "mapId": "map02_lv006",
-      "source": "wiki.gg Operational Manual / Energy Alluvium, fetched 2026-06-08 via MediaWiki parse API; mapId confirmed by AKEDatabase activity_map02_guide_006 and v2_enemy distribution_map02_lv006",
+      "source": "wiki.gg Energy Alluvium, fetched 2026-08-07 via MediaWiki parse API",
       "enemies": [
         {
           "enName": "Armored Manglerbeast",
           "zhName": "披甲裂兽",
           "enemyId": "eny_0113_jzogre",
-          "count": 1
+          "count": 3
         },
         {
           "enName": "Cloud Stalker",
@@ -437,19 +437,101 @@
           "enName": "Road Plunderer",
           "zhName": "莫留财",
           "enemyId": "eny_0053_hsmob",
-          "count": 1
+          "count": 2
         },
         {
           "enName": "Grove Archer",
           "zhName": "穿林箭",
           "enemyId": "eny_0084_hshunt",
-          "count": 1
+          "count": 4
         },
         {
           "enName": "Rockhowler",
           "zhName": "山犼兽",
           "enemyId": "eny_0112_jzmonk",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "region": "Wuling",
+      "locationEn": "Yinglung Pass",
+      "locationZh": "应龙关",
+      "mapId": "map02_lv007",
+      "status": "verified",
+      "source": "wiki.gg Energy Alluvium, fetched 2026-08-07 via MediaWiki parse API; mapId is a local provisional mapping",
+      "note": "敌人名称与数量由 wiki.gg Energy Alluvium 表确认；mapId 待 AKEDatabase 更新确认。",
+      "enemies": [
+        {
+          "enName": "Tuskbeast Blightshade",
+          "zhName": "蚀影牙兽",
+          "enemyId": "eny_0117_klhound",
+          "count": 8
+        },
+        {
+          "enName": "Quillbeast Blightshade",
+          "zhName": "蚀影球刺兽",
+          "enemyId": "eny_0118_klhog",
+          "count": 2
+        },
+        {
+          "enName": "Rakerbeast Blightshade",
+          "zhName": "蚀影彪兽",
+          "enemyId": "eny_0119_kltiger",
           "count": 1
+        },
+        {
+          "enName": "YSTF Vanguard Blightshade",
+          "zhName": "蚀影应龙前锋",
+          "enemyId": "eny_0121_klbud",
+          "count": 6
+        },
+        {
+          "enName": "YSTF Elite Blightshade",
+          "zhName": "蚀影应龙尖兵",
+          "enemyId": "eny_0122_kltdbud",
+          "count": 6
+        }
+      ]
+    },
+    {
+      "region": "Wuling",
+      "locationEn": "North Wuling EZ",
+      "locationZh": "北部禁区",
+      "mapId": "map02_lv008",
+      "status": "partial",
+      "source": "wiki.gg Energy Alluvium, fetched 2026-08-07 via MediaWiki parse API; the page marks every enemy count TBA; mapId is a local provisional mapping",
+      "note": "敌人名称由 wiki.gg 确认，但该表将五种敌人的数量全部标为 TBA；以 ×? 展示，不作推断。mapId 亦待 AKEDatabase 更新确认。",
+      "enemies": [
+        {
+          "enName": "Tuskbeast Blightshade",
+          "zhName": "蚀影牙兽",
+          "enemyId": "eny_0117_klhound",
+          "count": null
+        },
+        {
+          "enName": "YSTF Vanguard Blightshade",
+          "zhName": "蚀影应龙前锋",
+          "enemyId": "eny_0121_klbud",
+          "count": null
+        },
+        {
+          "enName": "YSTF Elite Blightshade",
+          "zhName": "蚀影应龙尖兵",
+          "enemyId": "eny_0122_kltdbud",
+          "count": null
+        },
+        {
+          "enName": "YSTF Glaiver Blightshade",
+          "zhName": "蚀影应龙破阵手",
+          "enemyId": "eny_0123_klcap",
+          "count": null
+        },
+        {
+          "enName": "YSTF Captain Blightshade",
+          "zhName": "蚀影应龙队长",
+          "enemyId": "eny_0124_kltdcap",
+          "count": null
         }
       ]
     }

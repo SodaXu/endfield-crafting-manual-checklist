@@ -58,5 +58,15 @@
     "zh": "藏剑谷",
     "status": "known",
     "source": "AKEDatabase activity_map02_guide_006 and v2_enemy distribution_map02_lv006"
+  },
+  "map02_lv007": {
+    "zh": "应龙关",
+    "status": "known",
+    "source": "wiki.gg Yinglung Pass / Energy Alluvium; mapId sequence is provisional pending AKEDatabase update"
+  },
+  "map02_lv008": {
+    "zh": "北部禁区",
+    "status": "known",
+    "source": "wiki.gg North Wuling Exclusion Zone / Energy Alluvium; mapId sequence is provisional pending AKEDatabase update"
   }
 }

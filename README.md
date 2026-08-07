@@ -34,12 +34,13 @@ npm run deploy    # 发布到 GitHub Pages
    - 用途：物品基础信息、物品图标、敌人名称、掉落怪 ID、大地图 SpawnerConfig 刷新来源。
    - Credit: 数据与静态资源整理来自 AKEDatabase 项目；游戏数据与图片版权归鹰角网络 / Gryphline 所有。
 
-2. **wiki.gg · Operational Manual / Energy Alluvium**
-   - 页面：https://endfield.wiki.gg/wiki/Operational_Manual#Energy_Alluvium
-   - 本地备注文件：`energy-alluvium-notes.json`
-   - 用途：来源区域与刷怪比对表，是页面「淤积点来源」的主要依据；不要与同名大地图刷新混用。
-   - 注：wiki.gg 表已包含「首墩 / Marker Stone」「Test Area（试验园区）」「Sword Vault Dale（藏剑谷）」等当前淤积点行；本地文件保留中文地图名与 mapId 映射。
-   - Credit: 感谢 wiki.gg 社区维护的数据。
+2. **wiki.gg · Energy Alluvium / 物品与敌人页**
+   - 淤积点页面：https://endfield.wiki.gg/wiki/Energy_Alluvium
+   - 物品页：`Blightshade_Bezoar`、`Shadow_Dew`、`Glaive_Fragment`
+   - 本地缓存：`energy-alluvium-notes.json`、`wiki-item-notes.json`
+   - 用途：淤积点阵容/数量，以及 AKEDatabase 尚未收录的《向渊行》物品、掉落怪和 ID。
+   - 注：页面静态生成，不在浏览器运行时请求 wiki；wiki 标为 TBA 的数量保留为未知。
+   - Credit: 感谢 wiki.gg 社区维护的数据（CC BY-SA 4.0）。
 
 3. **OpenDField Map**
    - 页面：https://opendfieldmap.cn/
@@ -81,10 +82,11 @@ npm run extract
 3. 复制物品图标到 `public/icons/`，避免页面直接引用整个 AKEDatabase 图片目录。
 4. 从 `AKEDatabase/public/CH/enemy/*.json` 建立敌人 ID → 中文名映射。
 5. 读取 `energy-alluvium-notes.json` 中整理的 wiki.gg Energy Alluvium 表。
-6. 将物品掉落怪分别与两类 scope 聚合：
+6. 对 AKEDatabase 尚未收录的新物品，读取 `wiki-item-notes.json` 中的 wiki.gg 物品/敌人数据作为构建期 fallback。
+7. 将物品掉落怪分别与两类 scope 聚合：
    - 大地图刷新：AKEDatabase `SpawnerConfig`，表示怪物在某个大地图内出现。
    - 淤积点来源：wiki.gg Energy Alluvium 表，表示怪物在该大地图内的重度能量淤积点挑战中出现。
-7. 写出 `public/data/items.json`。
+8. 写出 `public/data/items.json`。
 
 ## 页面展示逻辑
 
@@ -115,6 +117,8 @@ npm run extract
 - `map02_lv004` = 首墩 / Marker Stone
 - `map02_lv005` = 试验园区 / Test Area
 - `map02_lv006` = 藏剑谷 / Sword Vault Dale
+- `map02_lv007` = 应龙关（暂定 mapId，待 AKEDatabase 更新确认）
+- `map02_lv008` = 北部禁区（暂定 mapId，待 AKEDatabase 更新确认）
 
 ## 手工补充
 
@@ -124,4 +128,12 @@ npm run extract
 - `map02_lv005` 试验园区 / Test Area：wiki.gg 正式数量；中文名和 mapId 由 AKEDatabase / Soda 截图确认。
 - `map02_lv006` 藏剑谷 / Sword Vault Dale：wiki.gg 正式数量；mapId 由 AKEDatabase `activity_map02_guide_006` / `distribution_map02_lv006` 确认。
 
-新增简制手册物品：百年陈皮、尾尖金甲。
+新增简制手册物品：百年陈皮、尾尖金甲、影兽衔石（用户原称「影兽衍石」）、残影露滴、破阵刀碎片。
+
+- 百年陈皮：AKEDatabase 与 wiki.gg 均确认掉落怪为山犼兽；当前 wiki.gg Energy Alluvium 的藏剑谷行确认数量为 12，数据完整。
+- 影兽衔石：wiki.gg 简中名为「影兽衔石」，掉落怪为蚀影牙兽、蚀影球刺兽、蚀影彪兽。
+- 残影露滴：掉落怪为蚀影应龙前锋、蚀影应龙尖兵。
+- 破阵刀碎片：掉落怪为蚀影应龙破阵手、蚀影应龙队长。
+- 应龙关：wiki.gg 已给出五种敌人的精确数量，标为已核验。
+- 北部禁区：wiki.gg 已确认五种敌人，但数量仍全部标为 TBA；页面显示 `×?`，不作推断。
+- `map02_lv007` / `map02_lv008` 仍是本地暂定映射，等待 AKEDatabase 更新确认。

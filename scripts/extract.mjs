@@ -30,11 +30,10 @@ const MANUAL_ITEM_NAMES = [
   '草籽干粉', '刺鼻干肉', '虫肉',
   '坚韧的水', '天然气泡水', '虬兽的须',
   '异色油脂', '甜腻黑水', '大斧角',
-  '百年陈皮', '尾尖金甲',
+  '百年陈皮', '尾尖金甲', '影兽衔石', '残影露滴', '破阵刀碎片',
 ]
 
 const MANUAL_ITEM_SET = new Set(MANUAL_ITEM_NAMES)
-
 
 const MANUAL_SOURCE_OVERRIDES = {}
 
@@ -69,6 +68,12 @@ async function loadEnergyAlluviumNotes() {
   try {
     return await readJSON(join(ROOT, 'energy-alluvium-notes.json'))
   } catch { return { source: null, rows: [] } }
+}
+
+async function loadWikiItemNotes() {
+  try {
+    return await readJSON(join(ROOT, 'wiki-item-notes.json'))
+  } catch { return { source: null, items: [] } }
 }
 
 function normalizeEnemyId(id) {
@@ -162,7 +167,7 @@ function buildEnergyAlluviumSources(energyAlluvium, locationNotes) {
         enemyName: enemy.zhName || enemy.enName || enemyId,
         level: null,
         count: enemy.count ?? null,
-        released: true,
+        released: row.status !== 'pending_verification',
       })
     }
   }
@@ -262,6 +267,23 @@ async function main() {
   const enemyMap = await loadEnemyMap()
   const locationNotes = await loadLocationNotes()
   const energyAlluvium = await loadEnergyAlluviumNotes()
+  const wikiItemNotes = await loadWikiItemNotes()
+
+  // Homecoming data may reach wiki.gg before the local AKEDatabase cache.
+  // Fill only absent enemy names so newer AKEDatabase records stay authoritative.
+  for (const row of energyAlluvium.rows || []) {
+    for (const enemy of row.enemies || []) {
+      const id = normalizeEnemyId(enemy.enemyId)
+      if (id && !enemyMap[id]) enemyMap[id] = enemy.zhName || enemy.enName || id
+    }
+  }
+  for (const item of wikiItemNotes.items || []) {
+    for (const enemy of item.droppedBy || []) {
+      const id = normalizeEnemyId(enemy.enemyId)
+      if (id && !enemyMap[id]) enemyMap[id] = enemy.zhName || enemy.enName || id
+    }
+  }
+
   const energyAlluviumSourcesByEnemy = buildEnergyAlluviumSources(energyAlluvium, locationNotes)
   const mapSourcesByEnemy = await loadSpawnerSources(enemyMap, locationNotes)
 
@@ -310,6 +332,28 @@ async function main() {
     })
   }
 
+  for (const raw of wikiItemNotes.items || []) {
+    if (!MANUAL_ITEM_SET.has(raw.name) || byName.has(raw.name)) continue
+    const droppedBy = (raw.droppedBy || []).map(enemy => ({
+      id: normalizeEnemyId(enemy.enemyId),
+      name: enemy.zhName || enemy.enName || enemy.enemyId,
+    }))
+    byName.set(raw.name, {
+      id: raw.id,
+      name: raw.name,
+      rarity: raw.rarity,
+      type: raw.type,
+      description: cleanRichText(raw.description),
+      icon: raw.icon || null,
+      obtainWays: (raw.obtainWays || []).map(way => ({ desc: cleanRichText(way.desc) })),
+      craft: null,
+      droppedBy,
+      alluviumSourceSummary: summarizeSources(droppedBy, energyAlluviumSourcesByEnemy),
+      mapSourceSummary: summarizeSources(droppedBy, mapSourcesByEnemy),
+      manualSourceSummary: { grouped: [] },
+    })
+  }
+
   const items = MANUAL_ITEM_NAMES.map(name => byName.get(name)).filter(Boolean)
   const missing = MANUAL_ITEM_NAMES.filter(name => !byName.has(name))
 
@@ -322,6 +366,8 @@ async function main() {
       locationEn: row.locationEn || '',
       locationZh: row.locationZh || locationNotes[row.mapId]?.zh || null,
       mapId: row.mapId || '',
+      status: row.status || 'verified',
+      note: row.note || '',
       enemies: (row.enemies || []).map(enemy => ({
         id: normalizeEnemyId(enemy.enemyId),
         name: enemy.zhName || enemy.enName || enemy.enemyId,
@@ -336,6 +382,7 @@ async function main() {
   console.log(`Enemy map: ${Object.keys(enemyMap).length} entries`)
   console.log(`Location notes: ${Object.keys(locationNotes).length} entries`)
   console.log(`Energy Alluvium rows: ${energyAlluvium?.rows?.length || 0}`)
+  console.log(`wiki.gg fallback items: ${wikiItemNotes?.items?.length || 0}`)
   console.log(`Output: ${OUT}`)
 }
 

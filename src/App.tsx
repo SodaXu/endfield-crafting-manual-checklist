@@ -167,28 +167,32 @@ export default function App() {
             <p>页面展示当前版本整理的简制手册材料条目。构建时从本地 AKEDatabase 缓存提取物品、图标、敌人和大地图刷怪配置，生成静态 JSON；浏览器运行时不会请求外部 wiki 或 API。</p>
             <ul>
               <li>物品描述 = <code>description</code> + <code>obtainWays.desc</code> 合并展示。</li>
-              <li>淤积点来源 = 物品掉落怪 → wiki.gg Operational Manual 的 Energy Alluvium 对比表 → 地图中文备注聚合。</li>
+              <li>淤积点来源 = 物品掉落怪 → wiki.gg Energy Alluvium 对比表 → 地图中文备注聚合。</li>
               <li>大地图 SpawnerConfig 只表示普通大地图刷怪，与淤积点来源分开展示。</li>
               <li>少量缺口使用人工备注修正，例如地图编号与「彪兽的长绒」位置。</li>
             </ul>
             {data.energyAlluviumRows && data.energyAlluviumRows.length > 0 && (
               <>
                 <h3>淤积点地图与刷怪比对表</h3>
-                <p>下表主要来自 wiki.gg Operational Manual 的 Energy Alluvium 表；本地备注只补中文地图名、mapId 与来源说明，数量未知显示 ×?。</p>
+                <p>下表来自 wiki.gg Energy Alluvium；本地备注只补中文地图名、mapId 与来源说明，wiki 尚标为 TBA 的数量显示 ×?。</p>
                 <div className="alluvium-table">
                   {data.energyAlluviumRows.map(row => (
                     <div className="alluvium-row" key={row.mapId}>
                       <div className="alluvium-place">
                         <strong>重度能量淤积点 - {row.locationZh || row.locationEn || row.mapId}</strong>
                         <span>{row.mapId}{row.locationEn ? ` · ${row.locationEn}` : ''}</span>
+                        {row.status === 'partial' && <span className="pending-badge">数量待补</span>}
+                        {row.status === 'pending_verification' && <span className="pending-badge">阵容待核验</span>}
                       </div>
-                      <div className="enemy-list">
-                        {row.enemies.map(enemy => (
-                          <span className="enemy-pill" key={enemy.id} title={enemy.enName || enemy.id}>
-                            {enemy.name}{enemy.count === null ? ' ×?' : ` ×${enemy.count}`}
-                          </span>
-                        ))}
-                      </div>
+                      {row.enemies.length > 0 ? (
+                        <div className="enemy-list">
+                          {row.enemies.map(enemy => (
+                            <span className="enemy-pill" key={enemy.id} title={enemy.enName || enemy.id}>
+                              {enemy.name}{enemy.count === null ? ' ×?' : ` ×${enemy.count}`}
+                            </span>
+                          ))}
+                        </div>
+                      ) : <p className="pending-note">{row.note || '敌人名称与数量待可靠数据源更新。'}</p>}
                     </div>
                   ))}
                 </div>
@@ -198,7 +202,8 @@ export default function App() {
             <ul>
               <li><a href="https://github.com/nagiyume/AKEDatabase" target="_blank" rel="noreferrer">AKEDatabase</a>：物品、图标、敌人名称等本地静态数据。</li>
               <li><a href="https://wiki.biligame.com/zmd/%E7%89%A9%E5%93%81%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer">Bilibili 游戏 Wiki · 物品图鉴</a>：少量物品掉落口径交叉校验。</li>
-              <li><a href="https://endfield.wiki.gg/wiki/Operational_Manual#Energy_Alluvium" target="_blank" rel="noreferrer">wiki.gg · Operational Manual / Energy Alluvium</a>：淤积点地图与刷怪对比表。</li>
+              <li><a href="https://endfield.wiki.gg/wiki/Energy_Alluvium" target="_blank" rel="noreferrer">wiki.gg · Energy Alluvium</a>：淤积点地图、刷怪阵容与数量。</li>
+              <li>wiki.gg 物品页：<a href="https://endfield.wiki.gg/wiki/Blightshade_Bezoar" target="_blank" rel="noreferrer">影兽衔石</a>、<a href="https://endfield.wiki.gg/wiki/Shadow_Dew" target="_blank" rel="noreferrer">残影露滴</a>、<a href="https://endfield.wiki.gg/wiki/Glaive_Fragment" target="_blank" rel="noreferrer">破阵刀碎片</a>。</li>
               <li><a href="https://wiki.biligame.com/zmd/%E6%95%8C%E5%AF%B9%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer">Bilibili 游戏 Wiki · 敌对图鉴</a>：少量敌人分布区域交叉校验。</li>
             </ul>
             <p className="copyright-note">游戏数据与图片版权归鹰角网络 / Gryphline 所有。本页面仅作个人整理与查询使用。</p>

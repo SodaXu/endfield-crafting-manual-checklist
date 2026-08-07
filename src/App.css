@@ -136,6 +136,12 @@ header h1 {
 }
 .alluvium-place strong { color: var(--text); font-size: 0.9rem; }
 .alluvium-place span { color: var(--muted); font-size: 0.78rem; }
+.alluvium-place .pending-badge {
+  padding: 1px 6px;
+  border: 1px solid rgba(255, 250, 0, 0.4);
+  color: var(--accent);
+}
+.pending-note { color: var(--muted) !important; font-size: 0.82rem !important; }
 
 .copyright-note {
   margin-top: 14px;

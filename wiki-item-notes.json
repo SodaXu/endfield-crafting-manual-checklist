@@ -1,0 +1,98 @@
+{
+  "source": {
+    "site": "Endfield Talos Wiki (wiki.gg)",
+    "accessedAt": "2026-08-07T13:38:00Z",
+    "note": "Item and enemy metadata fetched through the MediaWiki parse API. Used as a local fallback until AKEDatabase publishes the Homecoming records."
+  },
+  "items": [
+    {
+      "id": "item_drop_klcreatures_1",
+      "name": "影兽衔石",
+      "aliases": [
+        "影兽衍石"
+      ],
+      "enName": "Blightshade Bezoar",
+      "sourceUrl": "https://endfield.wiki.gg/wiki/Blightshade_Bezoar",
+      "rarity": 4,
+      "type": 8,
+      "description": "击败蚀影牙兽、蚀影球刺兽、蚀影彪兽的掉落物，可用于精制食药制作。",
+      "obtainWays": [
+        {
+          "desc": "击败兽形蚀影有概率掉落"
+        }
+      ],
+      "droppedBy": [
+        {
+          "enemyId": "eny_0117_klhound",
+          "zhName": "蚀影牙兽",
+          "enName": "Tuskbeast Blightshade"
+        },
+        {
+          "enemyId": "eny_0118_klhog",
+          "zhName": "蚀影球刺兽",
+          "enName": "Quillbeast Blightshade"
+        },
+        {
+          "enemyId": "eny_0119_kltiger",
+          "zhName": "蚀影彪兽",
+          "enName": "Rakerbeast Blightshade"
+        }
+      ],
+      "icon": "./icons/item_drop_klcreatures_1.png"
+    },
+    {
+      "id": "item_drop_klbuds_1",
+      "name": "残影露滴",
+      "enName": "Shadow Dew",
+      "sourceUrl": "https://endfield.wiki.gg/wiki/Shadow_Dew",
+      "rarity": 4,
+      "type": 8,
+      "description": "击败蚀影应龙前锋、蚀影应龙尖兵的掉落物，可用于精制食药制作。",
+      "obtainWays": [
+        {
+          "desc": "击败前锋类蚀影有概率掉落"
+        }
+      ],
+      "droppedBy": [
+        {
+          "enemyId": "eny_0121_klbud",
+          "zhName": "蚀影应龙前锋",
+          "enName": "YSTF Vanguard Blightshade"
+        },
+        {
+          "enemyId": "eny_0122_kltdbud",
+          "zhName": "蚀影应龙尖兵",
+          "enName": "YSTF Elite Blightshade"
+        }
+      ],
+      "icon": "./icons/item_drop_klbuds_1.png"
+    },
+    {
+      "id": "item_drop_klcaps_1",
+      "name": "破阵刀碎片",
+      "enName": "Glaive Fragment",
+      "sourceUrl": "https://endfield.wiki.gg/wiki/Glaive_Fragment",
+      "rarity": 4,
+      "type": 8,
+      "description": "击败蚀影应龙破阵手、蚀影应龙队长的掉落物，可用于精制食药制作。",
+      "obtainWays": [
+        {
+          "desc": "击败破阵手类蚀影有概率掉落"
+        }
+      ],
+      "droppedBy": [
+        {
+          "enemyId": "eny_0123_klcap",
+          "zhName": "蚀影应龙破阵手",
+          "enName": "YSTF Glaiver Blightshade"
+        },
+        {
+          "enemyId": "eny_0124_kltdcap",
+          "zhName": "蚀影应龙队长",
+          "enName": "YSTF Captain Blightshade"
+        }
+      ],
+      "icon": "./icons/item_drop_klcaps_1.png"
+    }
+  ]
+}

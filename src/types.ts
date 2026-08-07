@@ -54,6 +54,8 @@ export interface EnergyAlluviumRow {
   locationEn: string
   locationZh: string | null
   mapId: string
+  status: 'verified' | 'partial' | 'pending_verification'
+  note: string
   enemies: EnergyAlluviumEnemy[]
 }
 
