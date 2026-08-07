@@ -149,8 +149,6 @@ export default function App() {
   return (
     <div className="app">
       <header className="operator-header">
-        <img className="operator-art gilberta-art" src="./operator-banners/gilberta.png" alt="Gilberta" />
-        <img className="operator-art avywenna-art" src="./operator-banners/avywenna.png" alt="Avywenna" />
         <div className="hero">
           <div className="hero-copy">
             <div className="eyebrow">TALOS-II · MATERIAL FIELD GUIDE</div>
@@ -161,9 +159,10 @@ export default function App() {
               <a href="https://opendfieldmap.cn/" target="_blank" rel="noreferrer">大地图 ↗</a>
             </div>
           </div>
-          <div className="tangtang-wrap">
-            <img className="tangtang-art" src="./operator-banners/tangtang.png" alt="唐唐" />
-            <span>QINGBO STOCKADE</span>
+          <div className="operator-roster" aria-label="终末地干员">
+            <img className="roster-card tangtang-card" src="./operator-banners/tangtang.png" alt="唐唐" />
+            <img className="roster-card gilberta-card" src="./operator-banners/gilberta.png" alt="Gilberta" />
+            <img className="roster-card avywenna-card" src="./operator-banners/avywenna.png" alt="Avywenna" />
           </div>
           <button className="about-button" onClick={() => setShowAbout(true)}>数据说明</button>
         </div>
