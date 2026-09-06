@@ -171,25 +171,43 @@ export default function App() {
 
   return (
     <div className="app">
-      <header className="operator-header">
+      <a className="skip-link" href="#materials">跳到材料索引</a>
+      <nav className="side-rail" aria-label="手册导航">
+        <a className="rail-brand" href="#overview" aria-label="简制手册概览">简制<span>FIELD GUIDE</span></a>
+        <div className="rail-links">
+          <a href="#overview"><span aria-hidden="true">01</span>概览</a>
+          <a href="#materials"><span aria-hidden="true">02</span>材料索引</a>
+          <button className="about-button" onClick={() => setShowAbout(true)}><span aria-hidden="true">[ i ]</span>数据说明</button>
+        </div>
+        <span className="rail-note" aria-hidden="true">TALOS-II / UNOFFICIAL HANDBOOK</span>
+      </nav>
+      <header className="operator-header" id="overview">
         <div className="masthead">
           <div className="site-identity"><span className="identity-mark" aria-hidden="true">//</span> 终末地 <span className="masthead-label">FIELD GUIDE</span></div>
-          <button className="about-button" onClick={() => setShowAbout(true)}>数据说明 <span aria-hidden="true">↗</span></button>
+          <span className="unofficial-label">非官方材料查询</span>
         </div>
         <div className="hero">
+          <div className="hero-art" aria-hidden="true">
+            <img src="./official-inspired/frontier-kv.webp" alt="" width="1920" height="1536" fetchPriority="high" />
+          </div>
           <div className="hero-copy">
-            <div className="eyebrow"><span aria-hidden="true">01 /</span> TALOS-II · MATERIAL INDEX</div>
+            <div className="eyebrow"><span>[ 01 / OVERVIEW ]</span> TALOS-II</div>
             <h1><em>简制手册</em><span>材料来源查询</span></h1>
-            <p className="subtitle">查找材料获取途径、淤积点掉落与大地图刷新。<br className="desktop-break" />按物品、怪物或地区检索，快速找到刷取位置。</p>
+            <p className="subtitle">查找材料获取途径、淤积点掉落与大地图刷新。按物品、怪物或地区检索，快速找到刷取位置。</p>
+            <a className="primary-link" href="#materials">查找材料 <span aria-hidden="true">↘</span></a>
             <div className="hero-links">
               <a href="https://www.bilibili.com/video/BV1xhd5B9EFd" target="_blank" rel="noreferrer">挂机视频 ↗</a>
               <a href="https://opendfieldmap.cn/" target="_blank" rel="noreferrer">大地图 ↗</a>
             </div>
           </div>
+          <span className="hero-marker" aria-hidden="true">[ ENDFIELD / FIELD ARCHIVE ]</span>
+        </div>
+        <div className="operator-strip">
+          <div className="roster-label"><span aria-hidden="true">[ OPERATORS ]</span><span>同行干员</span></div>
           <div className="operator-roster" aria-label="终末地干员">
-            <img className="roster-card tangtang-card" src="./operator-banners/tangtang.png" alt="唐唐" />
-            <img className="roster-card gilberta-card" src="./operator-banners/gilberta.png" alt="Gilberta" />
-            <img className="roster-card avywenna-card" src="./operator-banners/avywenna.png" alt="Avywenna" />
+            <img className="roster-card tangtang-card" src="./operator-banners/tangtang.png" alt="唐唐" loading="lazy" />
+            <img className="roster-card gilberta-card" src="./operator-banners/gilberta.png" alt="Gilberta" loading="lazy" />
+            <img className="roster-card avywenna-card" src="./operator-banners/avywenna.png" alt="Avywenna" loading="lazy" />
           </div>
         </div>
       </header>
@@ -244,6 +262,7 @@ export default function App() {
               <li><a href="https://wiki.biligame.com/zmd/%E7%89%A9%E5%93%81%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer">Bilibili 游戏 Wiki · 物品图鉴</a>：少量物品掉落口径交叉校验。</li>
               <li><a href="https://endfield.wiki.gg/wiki/Energy_Alluvium" target="_blank" rel="noreferrer">wiki.gg · Energy Alluvium</a>：淤积点地图、刷怪阵容与数量。</li>
               <li>wiki.gg 物品页：<a href="https://endfield.wiki.gg/wiki/Blightshade_Bezoar" target="_blank" rel="noreferrer">影兽衔石</a>、<a href="https://endfield.wiki.gg/wiki/Shadow_Dew" target="_blank" rel="noreferrer">残影露滴</a>、<a href="https://endfield.wiki.gg/wiki/Glaive_Fragment" target="_blank" rel="noreferrer">破阵刀碎片</a>、<a href="https://endfield.wiki.gg/wiki/Tender_Moss" target="_blank" rel="noreferrer">柔嫩苔藓</a>、<a href="https://endfield.wiki.gg/wiki/Slug_Sprig" target="_blank" rel="noreferrer">虫角嫩枝</a>。</li>
+              <li>首页主视觉：<a href="https://endfield.gryphline.com/en-us#home" target="_blank" rel="noreferrer">《明日方舟：终末地》官网</a>，使用本地压缩副本；本页为非官方手册，与官方无隶属或背书关系。</li>
               <li>角色立绘：<a href="https://endfield.wiki.gg/wiki/Gilberta" target="_blank" rel="noreferrer">Gilberta</a>、<a href="https://endfield.wiki.gg/wiki/Tangtang" target="_blank" rel="noreferrer">唐唐</a>、<a href="https://endfield.wiki.gg/wiki/Avywenna" target="_blank" rel="noreferrer">Avywenna</a>（wiki.gg）。</li>
               <li><a href="https://wiki.biligame.com/zmd/%E6%95%8C%E5%AF%B9%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer">Bilibili 游戏 Wiki · 敌对图鉴</a>：少量敌人分布区域交叉校验。</li>
             </ul>
@@ -262,7 +281,8 @@ export default function App() {
       )}
 
       <main>
-        <section className="browse-panel" aria-labelledby="materials-title">
+        <section className="browse-panel" id="materials" aria-labelledby="materials-title" tabIndex={-1}>
+          <div className="index-display" aria-hidden="true">MATERIALS</div>
           <div className="section-heading">
             <h2 id="materials-title"><span className="index-label" aria-hidden="true">02 /</span> 材料索引</h2>
             <span className="count" role="status" aria-live="polite">显示 <strong>{filtered.length}</strong> / {data.items.length} 项</span>
@@ -316,7 +336,7 @@ export default function App() {
         </div>
         {filtered.length === 0 && <div className="empty-state"><h3>未找到匹配材料</h3><p>试试其他物品、怪物或地区名称，或清除筛选重新查看。</p><button className="reset-button" onClick={resetFilters}>清除筛选</button></div>}
       </main>
-      <footer className="footer"><span>终末地 / MATERIAL FIELD GUIDE</span><span>非官方整理 · 游戏数据与图片版权归鹰角网络 / Gryphline 所有</span></footer>
+      <footer className="footer"><span>终末地 / MATERIAL FIELD GUIDE</span><span>非官方整理 · 游戏数据与图片 © 鹰角网络 / Gryphline</span></footer>
     </div>
   )
 }

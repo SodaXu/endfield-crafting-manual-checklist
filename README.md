@@ -6,6 +6,15 @@
 
 大地图采集和怪物分布参考：https://opendfieldmap.cn/
 
+## 视觉设计与图片来源
+
+- 页面为**非官方材料查询手册**，视觉参考 [《明日方舟：终末地》官网](https://endfield.gryphline.com/en-us#home) 的亮黄 `#fffa00`、黑色主视觉、浅灰分区、技术细线和方形控件，不代表官方制作或背书。
+- 首页主视觉原图：https://web-static.hg-cdn.com/endfield/official-v4/_next/static/media/kv_v1d5.d98af17e.jpg
+- 本地压缩副本：`public/official-inspired/frontier-kv.webp`（1920 × 1536，385,504 字节）。页面仅加载本地图像，未引入远程字体、视频或新依赖。详细记录见 [SOURCES.md](public/official-inspired/SOURCES.md)。
+- 唐唐 / Gilberta / Avywenna 原有干员横幅完整保留，作为主视觉下方的辅助展示，使用 `object-fit: contain`，不裁切图片。
+- 桌面左侧导航与移动端顶部导航均提供概览、材料索引和数据说明入口；保留关键词、星级、来源与可切换区域筛选、清除筛选、空结果提示及原生数据说明弹窗。所有材料仍由原静态数据与筛选逻辑展示。
+- 游戏数据与图片 © 鹰角网络 / Gryphline。官网视觉参考不构成图片授权声明。
+
 ## 使用方法
 
 ```bash
