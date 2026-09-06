@@ -1,7 +1,8 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import type { DataFile, Item, SourceGroup } from './types'
 
 const STARS = '★'
+const ALLUVIUM_PREFIX = '重度能量淤积点 - '
 
 function sourceGroupsForItem(item: Item) {
   return [
@@ -15,14 +16,14 @@ function cleanObtain(desc: string) {
   return desc.replace(/有概率/g, '概率').replace(/等地采集/g, '等地')
 }
 
-function SourceGroups({ title, groups }: { title: string, groups: SourceGroup[] }) {
+function SourceGroups({ title, groups, kind }: { title: string, groups: SourceGroup[], kind: string }) {
   if (groups.length === 0) return null
   return (
-    <>
-      <div className="section-label primary">{title}</div>
+    <section className={`source-section ${kind}`} aria-label={title}>
+      <h4 className="section-label">{title}</h4>
       {groups.map(group => (
         <div className="source-group" key={`${title}:${group.area}`}>
-          <div className="area">{group.area}</div>
+          <div className="area">{kind === 'alluvium' && group.area.startsWith(ALLUVIUM_PREFIX) ? group.area.slice(ALLUVIUM_PREFIX.length) : group.area}</div>
           <div className="enemy-list">
             {group.enemies.map(enemy => (
               <span className="enemy-pill" key={enemy.id}>
@@ -32,7 +33,7 @@ function SourceGroups({ title, groups }: { title: string, groups: SourceGroup[] 
           </div>
         </div>
       ))}
-    </>
+    </section>
   )
 }
 
@@ -48,15 +49,15 @@ function ItemCard({ item }: { item: Item }) {
   ].filter(Boolean)
 
   return (
-    <div className={`card r${item.rarity}`}>
+    <article className={`card r${item.rarity}`}>
       <div className="card-top">
         <div className="icon-wrap">
           {item.icon ? <img className="item-icon" src={item.icon} alt="" loading="lazy" /> : <span className="icon-fallback">?</span>}
         </div>
         <div className="title-block">
           <div className="card-header">
-            <span className="name">{item.name}</span>
-            <span className="rarity">{STARS.repeat(item.rarity)}</span>
+            <h3 className="name">{item.name}</h3>
+            <span className="rarity" aria-label={`${item.rarity} 星`}>{STARS.repeat(item.rarity)}</span>
           </div>
           <div className="item-id">{item.id}</div>
         </div>
@@ -68,9 +69,9 @@ function ItemCard({ item }: { item: Item }) {
         </div>
       )}
 
-      <SourceGroups title="淤积点来源" groups={alluviumGroups} />
-      <SourceGroups title="大地图刷新" groups={mapGroups} />
-      <SourceGroups title="手工补充" groups={manualGroups} />
+      <SourceGroups title="淤积点来源" groups={alluviumGroups} kind="alluvium" />
+      <SourceGroups title="大地图刷新" groups={mapGroups} kind="open-world" />
+      <SourceGroups title="手工补充" groups={manualGroups} kind="manual" />
 
       {hasDrops && !hasAnySource && (
         <>
@@ -92,7 +93,7 @@ function ItemCard({ item }: { item: Item }) {
           </div>
         </>
       )}
-    </div>
+    </article>
   )
 }
 
@@ -103,6 +104,28 @@ export default function App() {
   const [rarity, setRarity] = useState(0)
   const [sourceFilter, setSourceFilter] = useState('all')
   const [showAbout, setShowAbout] = useState(false)
+  const aboutRef = useRef<HTMLDialogElement>(null)
+  const hasFilters = search !== '' || rarity !== 0 || sourceFilter !== 'all'
+  const resetFilters = () => {
+    setSearch('')
+    setRarity(0)
+    setSourceFilter('all')
+  }
+
+  useEffect(() => {
+    if (!showAbout) return
+    const dialog = aboutRef.current
+    if (!dialog) return
+    const previousOverflow = document.body.style.overflow
+    const previousFocus = document.activeElement
+    dialog.showModal()
+    document.body.style.overflow = 'hidden'
+    return () => {
+      dialog.close()
+      document.body.style.overflow = previousOverflow
+      if (previousFocus instanceof HTMLElement && previousFocus.isConnected) previousFocus.focus()
+    }
+  }, [showAbout])
 
   useEffect(() => {
     fetch('./data/items.json')
@@ -149,11 +172,15 @@ export default function App() {
   return (
     <div className="app">
       <header className="operator-header">
+        <div className="masthead">
+          <div className="site-identity"><span className="identity-mark" aria-hidden="true">//</span> 终末地 <span className="masthead-label">FIELD GUIDE</span></div>
+          <button className="about-button" onClick={() => setShowAbout(true)}>数据说明 <span aria-hidden="true">↗</span></button>
+        </div>
         <div className="hero">
           <div className="hero-copy">
-            <div className="eyebrow">TALOS-II · MATERIAL FIELD GUIDE</div>
-            <h1>终末地<br /><em>简制手册</em>来源查询</h1>
-            <p className="subtitle">快速查询简制手册的奖励需求、怪物掉落与重度能量淤积点，方便挂机刷取。</p>
+            <div className="eyebrow"><span aria-hidden="true">01 /</span> TALOS-II · MATERIAL INDEX</div>
+            <h1><em>简制手册</em><span>材料来源查询</span></h1>
+            <p className="subtitle">查找材料获取途径、淤积点掉落与大地图刷新。<br className="desktop-break" />按物品、怪物或地区检索，快速找到刷取位置。</p>
             <div className="hero-links">
               <a href="https://www.bilibili.com/video/BV1xhd5B9EFd" target="_blank" rel="noreferrer">挂机视频 ↗</a>
               <a href="https://opendfieldmap.cn/" target="_blank" rel="noreferrer">大地图 ↗</a>
@@ -164,15 +191,19 @@ export default function App() {
             <img className="roster-card gilberta-card" src="./operator-banners/gilberta.png" alt="Gilberta" />
             <img className="roster-card avywenna-card" src="./operator-banners/avywenna.png" alt="Avywenna" />
           </div>
-          <button className="about-button" onClick={() => setShowAbout(true)}>数据说明</button>
         </div>
       </header>
 
       {showAbout && (
-        <div className="modal-backdrop" role="presentation" onClick={() => setShowAbout(false)}>
-          <div className="modal" role="dialog" aria-modal="true" aria-label="数据说明" onClick={e => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setShowAbout(false)} aria-label="关闭">×</button>
-            <h2>数据处理说明</h2>
+        <dialog ref={aboutRef} className="modal" aria-labelledby="about-title" onCancel={() => setShowAbout(false)} onClick={e => {
+          if (e.target === e.currentTarget) {
+            const bounds = e.currentTarget.getBoundingClientRect()
+            if (e.clientX < bounds.left || e.clientX > bounds.right || e.clientY < bounds.top || e.clientY > bounds.bottom) setShowAbout(false)
+          }
+        }}>
+            <button className="modal-close" onClick={() => setShowAbout(false)} aria-label="关闭" autoFocus>×</button>
+            <div className="eyebrow">FIELD NOTES / 数据与来源</div>
+            <h2 id="about-title">数据处理说明</h2>
             <p>页面展示当前版本整理的简制手册材料条目。构建时从本地 AKEDatabase 缓存提取物品、图标、敌人和大地图刷怪配置，生成静态 JSON；浏览器运行时不会请求外部 wiki 或 API。</p>
             <ul>
               <li>物品描述 = <code>description</code> + <code>obtainWays.desc</code> 合并展示。</li>
@@ -217,11 +248,10 @@ export default function App() {
               <li><a href="https://wiki.biligame.com/zmd/%E6%95%8C%E5%AF%B9%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer">Bilibili 游戏 Wiki · 敌对图鉴</a>：少量敌人分布区域交叉校验。</li>
             </ul>
             <p className="copyright-note">游戏数据与图片版权归鹰角网络 / Gryphline 所有。本页面仅作个人整理与查询使用。</p>
-          </div>
-        </div>
+        </dialog>
       )}
 
-      <div className="summary">
+      <div className="summary" aria-label="收录概览">
         <div><strong>{data.items.length}</strong><span>手册物品</span></div>
         <div><strong>{areas.length}</strong><span>来源区域</span></div>
         <div><strong>{data.enemyCount}</strong><span>敌人映射</span></div>
@@ -231,40 +261,62 @@ export default function App() {
         <div className="notice">未匹配：{data.missing.join('、')}</div>
       )}
 
-      <div className="filters">
-        <input
-          placeholder="搜物品 / 怪物 / 地区 / 获取途径…"
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-        />
-        <select value={rarity} onChange={e => setRarity(Number(e.target.value))}>
-          <option value={0}>全部星级</option>
-          {[1,2,3,4,5,6].map(r => <option key={r} value={r}>{STARS.repeat(r)}</option>)}
-        </select>
-        <select value={sourceFilter} onChange={e => setSourceFilter(e.target.value)}>
-          <option value="all">全部来源</option>
-          <option value="source">有来源区域</option>
-          <option value="gather">采集/种植</option>
-        </select>
-      </div>
+      <main>
+        <section className="browse-panel" aria-labelledby="materials-title">
+          <div className="section-heading">
+            <h2 id="materials-title"><span className="index-label" aria-hidden="true">02 /</span> 材料索引</h2>
+            <span className="count" role="status" aria-live="polite">显示 <strong>{filtered.length}</strong> / {data.items.length} 项</span>
+          </div>
+          <div className="filters" role="search" aria-label="筛选材料">
+            <label className="search-field">
+              <span className="control-label">关键词查询</span>
+              <span className="search-input">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg>
+                <input type="search" placeholder="搜物品 / 怪物 / 地区 / 获取途径…" value={search} onChange={e => setSearch(e.target.value)} />
+              </span>
+            </label>
+            <label>
+              <span className="control-label">稀有度</span>
+              <select value={rarity} onChange={e => setRarity(Number(e.target.value))}>
+                <option value={0}>全部星级</option>
+                {[1,2,3,4,5,6].map(r => <option key={r} value={r}>{STARS.repeat(r)}</option>)}
+              </select>
+            </label>
+            <label>
+              <span className="control-label">获取来源</span>
+              <select value={sourceFilter} onChange={e => setSourceFilter(e.target.value)}>
+                <option value="all">全部来源</option>
+                <option value="source">有来源区域</option>
+                <option value="gather">采集/种植</option>
+              </select>
+            </label>
+          </div>
+          <div className="area-index">
+            {[
+              { title: '淤积点', alluvium: true },
+              { title: '大地图', alluvium: false },
+            ].map(group => (
+              <div className="area-group" key={group.title}>
+                <h3>{group.title}</h3>
+                <div className="area-tags">
+                  {areas.filter(area => area.startsWith(ALLUVIUM_PREFIX) === group.alluvium).map(area => (
+                    <button key={area} className={search === area ? 'active' : undefined} aria-pressed={search === area} title={area} onClick={() => setSearch(search === area ? '' : area)}>
+                      {group.alluvium ? area.slice(ALLUVIUM_PREFIX.length) : area}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          {hasFilters && <div className="filter-actions"><span>已启用筛选{areas.includes(search) ? ` · ${search}` : ''}</span><button className="reset-button" onClick={resetFilters}>清除筛选 <span aria-hidden="true">×</span></button></div>}
+        </section>
 
-      <div className="area-tags">
-        {areas.map(area => (
-          <button
-            key={area}
-            className={search === area ? 'active' : undefined}
-            onClick={() => setSearch(area)}
-          >
-            {area}
-          </button>
-        ))}
-      </div>
-
-      <div className="count">显示 {filtered.length} / {data.items.length} 项</div>
-
-      <div className="cards-grid">
-        {filtered.map(item => <ItemCard key={item.id} item={item} />)}
-      </div>
+        <div className="cards-grid">
+          {filtered.map(item => <ItemCard key={item.id} item={item} />)}
+        </div>
+        {filtered.length === 0 && <div className="empty-state"><h3>未找到匹配材料</h3><p>试试其他物品、怪物或地区名称，或清除筛选重新查看。</p><button className="reset-button" onClick={resetFilters}>清除筛选</button></div>}
+      </main>
+      <footer className="footer"><span>终末地 / MATERIAL FIELD GUIDE</span><span>非官方整理 · 游戏数据与图片版权归鹰角网络 / Gryphline 所有</span></footer>
     </div>
   )
 }
