@@ -21,7 +21,7 @@ npm run deploy    # 发布到 GitHub Pages
 
 - 展示当前版本整理的简制手册物品。
 - 页面运行时使用静态 JSON，不在浏览器里动态请求外部 wiki 或 API。
-- 数据更新时先更新本地缓存，再重新执行抽取脚本。
+- 数据更新时维护已核验的本地缓存与 wiki fallback，再重新执行抽取脚本；不要盲目拉取 AKEDatabase 上游。
 - 卡片顺序按当前整理清单排列。
 
 ## 数据来源与 Credits
@@ -30,15 +30,16 @@ npm run deploy    # 发布到 GitHub Pages
 
 1. **AKEDatabase**
    - GitHub: https://github.com/nagiyume/AKEDatabase
-   - 本地缓存路径：`../AKEDatabase/`
+   - 本地缓存路径：`../AKEDatabase/`，保持固定在 `597c2492`。已知最新上游 `d1b571cb` 切换加载器后移除了 `CH/item`、`CH/enemy`、`Json` 与图片目录，直接拉取会破坏现有抽取流程；新版本缺口继续维护 wiki fallback，待适配加载器后再升级缓存。
    - 用途：物品基础信息、物品图标、敌人名称、掉落怪 ID、大地图 SpawnerConfig 刷新来源。
    - Credit: 数据与静态资源整理来自 AKEDatabase 项目；游戏数据与图片版权归鹰角网络 / Gryphline 所有。
 
 2. **wiki.gg · Energy Alluvium / 物品与敌人页**
    - 淤积点页面：https://endfield.wiki.gg/wiki/Energy_Alluvium
-   - 物品页：`Blightshade_Bezoar`、`Shadow_Dew`、`Glaive_Fragment`
+   - 物品页：`Blightshade_Bezoar`、`Shadow_Dew`、`Glaive_Fragment`、[Tender Moss / 柔嫩苔藓](https://endfield.wiki.gg/wiki/Tender_Moss)、[Slug Sprig / 虫角嫩枝](https://endfield.wiki.gg/wiki/Slug_Sprig)
+   - 九月敌人与地图页：[Woodcraft Wanderer](https://endfield.wiki.gg/wiki/Woodcraft_Wanderer)、[Woodcraft Slug](https://endfield.wiki.gg/wiki/Woodcraft_Slug)、[Snowy Forest](https://endfield.wiki.gg/wiki/Snowy_Forest)
    - 本地缓存：`energy-alluvium-notes.json`、`wiki-item-notes.json`
-   - 用途：淤积点阵容/数量，以及 AKEDatabase 尚未收录的《向渊行》物品、掉落怪和 ID。
+   - 用途：淤积点阵容/数量，以及固定 AKEDatabase 缓存尚未收录的新版本物品、图标、掉落怪和 ID。
    - 注：页面静态生成，不在浏览器运行时请求 wiki；wiki 标为 TBA 的数量保留为未知。
    - Credit: 感谢 wiki.gg 社区维护的数据（CC BY-SA 4.0）。
 
@@ -119,6 +120,7 @@ npm run extract
 - `map02_lv006` = 藏剑谷 / Sword Vault Dale
 - `map02_lv007` = 应龙关（暂定 mapId，待 AKEDatabase 更新确认）
 - `map02_lv008` = 北部禁区（暂定 mapId，待 AKEDatabase 更新确认）
+- `wiki:snowy_forest` = 雪松林 / Snowy Forest（仅为本地分组键，不是游戏 mapId；数据说明显示「地图编号待核验」）
 
 ## 手工补充
 
@@ -137,3 +139,22 @@ npm run extract
 - 应龙关：wiki.gg 已给出五种敌人的精确数量，标为已核验。
 - 北部禁区：wiki.gg 已确认五种敌人，但数量仍全部标为 TBA；页面显示 `×?`，不作推断。
 - `map02_lv007` / `map02_lv008` 仍是本地暂定映射，等待 AKEDatabase 更新确认。
+
+## 2026-09-06 更新与复核
+
+- 在原 45 项之后追加柔嫩苔藓、虫角嫩枝，共 47 项。前者由徘徊树傀掉落，用于仓储节点装箱运送；后者由虫体树傀掉落，用于精制食药制作。
+- 两张图标直接下载自 wiki.gg 原图，保存在 `public/icons/item_drop_babyents_1.png`、`public/icons/item_drop_slwood_1.png`；来源 URL 和核验日期记录于 `wiki-item-notes.json`。
+- 通过 MediaWiki parse API 核验全量 Energy Alluvium 表，共 12 行；原 11 行敌人与数量不变，应龙关仍为 8/2/1/6/6，北部禁区仍为五项 TBA。
+- 新增武陵雪松林（中文名由用户提供）：潜地虬兽、酸液源石虫、酸液源石虫·α、徘徊树傀、虫体树傀，五项数量全部保留 `null` / `×?`。虬兽的须、虫肉通过敌人匹配自动获得该淤积点来源。
+- 普通雪松林分布只在获取描述中注明 wiki 证据；没有新敌人的 SpawnerConfig 点位、数量或等级证据，不生成大地图刷新数据。不新增奖励状态功能。
+
+更新清单、wiki 备注与真实图标后运行（无需新增依赖）：
+
+```bash
+npm run extract
+node scripts/check-september.mjs  # 需要 Git 中的更新前基线 925d8af
+npm run build
+./node_modules/.bin/tsc --noEmit
+```
+
+复核页面后才执行 `npm run deploy` 发布；仅 push main 不会部署。

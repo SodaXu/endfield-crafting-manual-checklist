@@ -2,8 +2,8 @@
   "source": {
     "title": "Energy Alluvium",
     "url": "https://endfield.wiki.gg/wiki/Energy_Alluvium",
-    "accessedAt": "2026-08-07T13:38:00Z",
-    "note": "Pulled from the wiki.gg MediaWiki parse API. Enemy names and counts mirror the Energy Alluvium page; TBA counts are stored as null rather than inferred."
+    "accessedAt": "2026-09-06",
+    "note": "Rechecked against the full wiki.gg MediaWiki parse API table on 2026-09-06: 12 rows, with enemy names and counts unchanged in the previous 11 rows (their row-level sources record the original import). Added Snowy Forest; all five counts are TBA, stored as null rather than inferred. wiki:snowy_forest is a local grouping key, not a verified game mapId."
   },
   "rows": [
     {
@@ -531,6 +531,47 @@
           "enName": "YSTF Captain Blightshade",
           "zhName": "蚀影应龙队长",
           "enemyId": "eny_0124_kltdcap",
+          "count": null
+        }
+      ]
+    },
+    {
+      "region": "Wuling",
+      "locationEn": "Snowy Forest",
+      "locationZh": "雪松林",
+      "mapId": "wiki:snowy_forest",
+      "status": "partial",
+      "source": "wiki.gg Energy Alluvium and Snowy Forest, checked 2026-09-06 via MediaWiki parse API; Chinese map name supplied by user; mapId is unknown",
+      "note": "wiki:snowy_forest 仅为本地分组键，不是游戏地图编号；地图编号待核验。wiki.gg 确认五种敌人，数量全部为 TBA，以 ×? 展示，不作推断。",
+      "enemies": [
+        {
+          "enName": "Tunneling Nidwyrm",
+          "zhName": "潜地虬兽",
+          "enemyId": "eny_0007_mimicw",
+          "count": null
+        },
+        {
+          "enName": "Acid Originium Slug",
+          "zhName": "酸液源石虫",
+          "enemyId": "eny_0073_slimerg",
+          "count": null
+        },
+        {
+          "enName": "Acid Originium Slug α",
+          "zhName": "酸液源石虫·α",
+          "enemyId": "eny_0100_slimerg2",
+          "count": null
+        },
+        {
+          "enName": "Woodcraft Wanderer",
+          "zhName": "徘徊树傀",
+          "enemyId": "eny_0128_babyents",
+          "count": null
+        },
+        {
+          "enName": "Woodcraft Slug",
+          "zhName": "虫体树傀",
+          "enemyId": "eny_0129_slwood",
           "count": null
         }
       ]

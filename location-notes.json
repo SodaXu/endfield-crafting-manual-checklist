@@ -68,5 +68,10 @@
     "zh": "北部禁区",
     "status": "known",
     "source": "wiki.gg North Wuling Exclusion Zone / Energy Alluvium; mapId sequence is provisional pending AKEDatabase update"
+  },
+  "wiki:snowy_forest": {
+    "zh": "雪松林",
+    "status": "local_key",
+    "source": "https://endfield.wiki.gg/wiki/Snowy_Forest checked 2026-09-06; Chinese name supplied by user. Local grouping key only; game mapId unknown (地图编号待核验)."
   }
 }

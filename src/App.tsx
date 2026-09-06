@@ -189,7 +189,7 @@ export default function App() {
                     <div className="alluvium-row" key={row.mapId}>
                       <div className="alluvium-place">
                         <strong>重度能量淤积点 - {row.locationZh || row.locationEn || row.mapId}</strong>
-                        <span>{row.mapId}{row.locationEn ? ` · ${row.locationEn}` : ''}</span>
+                        <span>{row.mapId.startsWith('wiki:') ? '地图编号待核验' : row.mapId}{row.locationEn ? ` · ${row.locationEn}` : ''}</span>
                         {row.status === 'partial' && <span className="pending-badge">数量待补</span>}
                         {row.status === 'pending_verification' && <span className="pending-badge">阵容待核验</span>}
                       </div>
@@ -212,7 +212,7 @@ export default function App() {
               <li><a href="https://github.com/nagiyume/AKEDatabase" target="_blank" rel="noreferrer">AKEDatabase</a>：物品、图标、敌人名称等本地静态数据。</li>
               <li><a href="https://wiki.biligame.com/zmd/%E7%89%A9%E5%93%81%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer">Bilibili 游戏 Wiki · 物品图鉴</a>：少量物品掉落口径交叉校验。</li>
               <li><a href="https://endfield.wiki.gg/wiki/Energy_Alluvium" target="_blank" rel="noreferrer">wiki.gg · Energy Alluvium</a>：淤积点地图、刷怪阵容与数量。</li>
-              <li>wiki.gg 物品页：<a href="https://endfield.wiki.gg/wiki/Blightshade_Bezoar" target="_blank" rel="noreferrer">影兽衔石</a>、<a href="https://endfield.wiki.gg/wiki/Shadow_Dew" target="_blank" rel="noreferrer">残影露滴</a>、<a href="https://endfield.wiki.gg/wiki/Glaive_Fragment" target="_blank" rel="noreferrer">破阵刀碎片</a>。</li>
+              <li>wiki.gg 物品页：<a href="https://endfield.wiki.gg/wiki/Blightshade_Bezoar" target="_blank" rel="noreferrer">影兽衔石</a>、<a href="https://endfield.wiki.gg/wiki/Shadow_Dew" target="_blank" rel="noreferrer">残影露滴</a>、<a href="https://endfield.wiki.gg/wiki/Glaive_Fragment" target="_blank" rel="noreferrer">破阵刀碎片</a>、<a href="https://endfield.wiki.gg/wiki/Tender_Moss" target="_blank" rel="noreferrer">柔嫩苔藓</a>、<a href="https://endfield.wiki.gg/wiki/Slug_Sprig" target="_blank" rel="noreferrer">虫角嫩枝</a>。</li>
               <li>角色立绘：<a href="https://endfield.wiki.gg/wiki/Gilberta" target="_blank" rel="noreferrer">Gilberta</a>、<a href="https://endfield.wiki.gg/wiki/Tangtang" target="_blank" rel="noreferrer">唐唐</a>、<a href="https://endfield.wiki.gg/wiki/Avywenna" target="_blank" rel="noreferrer">Avywenna</a>（wiki.gg）。</li>
               <li><a href="https://wiki.biligame.com/zmd/%E6%95%8C%E5%AF%B9%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer">Bilibili 游戏 Wiki · 敌对图鉴</a>：少量敌人分布区域交叉校验。</li>
             </ul>

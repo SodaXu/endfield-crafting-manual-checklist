@@ -2,7 +2,7 @@
   "source": {
     "site": "Endfield Talos Wiki (wiki.gg)",
     "accessedAt": "2026-08-07T13:38:00Z",
-    "note": "Item and enemy metadata fetched through the MediaWiki parse API. Used as a local fallback until AKEDatabase publishes the Homecoming records."
+    "note": "Item and enemy metadata fetched through the MediaWiki parse API. Homecoming records accessed 2026-08-07; September additions carry per-item accessedAt dates. Used as a local fallback for records absent from the pinned AKEDatabase cache."
   },
   "items": [
     {
@@ -93,6 +93,56 @@
         }
       ],
       "icon": "./icons/item_drop_klcaps_1.png"
+    },
+    {
+      "id": "item_drop_babyents_1",
+      "name": "柔嫩苔藓",
+      "enName": "Tender Moss",
+      "sourceUrl": "https://endfield.wiki.gg/wiki/Tender_Moss",
+      "accessedAt": "2026-09-06",
+      "rarity": 4,
+      "type": 8,
+      "description": "击败徘徊树傀的掉落物，可用于仓储节点装箱运送。",
+      "obtainWays": [
+        {
+          "desc": "在武陵雪松林击败徘徊树傀有概率掉落；wiki.gg 确认其分布于雪松林及该地重度能量淤积点。"
+        }
+      ],
+      "droppedBy": [
+        {
+          "enemyId": "eny_0128_babyents",
+          "zhName": "徘徊树傀",
+          "enName": "Woodcraft Wanderer",
+          "sourceUrl": "https://endfield.wiki.gg/wiki/Woodcraft_Wanderer"
+        }
+      ],
+      "icon": "./icons/item_drop_babyents_1.png",
+      "iconSourceUrl": "https://endfield.wiki.gg/images/Tender_Moss.png"
+    },
+    {
+      "id": "item_drop_slwood_1",
+      "name": "虫角嫩枝",
+      "enName": "Slug Sprig",
+      "sourceUrl": "https://endfield.wiki.gg/wiki/Slug_Sprig",
+      "accessedAt": "2026-09-06",
+      "rarity": 1,
+      "type": 8,
+      "description": "击败虫体树傀的掉落物，可用于精制食药制作。",
+      "obtainWays": [
+        {
+          "desc": "在武陵雪松林击败虫体树傀有概率掉落；wiki.gg 确认其分布于雪松林及该地重度能量淤积点。"
+        }
+      ],
+      "droppedBy": [
+        {
+          "enemyId": "eny_0129_slwood",
+          "zhName": "虫体树傀",
+          "enName": "Woodcraft Slug",
+          "sourceUrl": "https://endfield.wiki.gg/wiki/Woodcraft_Slug"
+        }
+      ],
+      "icon": "./icons/item_drop_slwood_1.png",
+      "iconSourceUrl": "https://endfield.wiki.gg/images/Slug_Sprig.png"
     }
   ]
 }
