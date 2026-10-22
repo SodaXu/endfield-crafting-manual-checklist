@@ -4,15 +4,15 @@
 
 自制项目，快速查询简制手册的奖励需求与淤积点掉落以方便挂机，参考挂机视频：https://www.bilibili.com/video/BV1xhd5B9EFd
 
-大地图采集和怪物分布参考：https://opendfieldmap.cn/
+大地图采集和怪物分布参考：https://opendfieldmap.org/
 
 ## 视觉设计与图片来源
 
 - 页面为**非官方材料查询手册**，视觉参考 [《明日方舟：终末地》官网](https://endfield.gryphline.com/en-us#home) 的亮黄 `#fffa00`、黑色主视觉、浅灰分区、技术细线和方形控件，不代表官方制作或背书。
-- 首页主视觉原图：https://web-static.hg-cdn.com/endfield/official-v4/_next/static/media/kv_v1d5.d98af17e.jpg
-- 本地压缩副本：`public/official-inspired/frontier-kv.webp`（1920 × 1536，385,504 字节）。页面仅加载本地图像，未引入远程字体、视频或新依赖。详细记录见 [SOURCES.md](public/official-inspired/SOURCES.md)。
-- 唐唐 / Gilberta / Avywenna 原有干员横幅完整保留，作为主视觉下方的辅助展示，使用 `object-fit: contain`，不裁切图片。
-- 桌面左侧导航与移动端顶部导航均提供概览、材料索引和数据说明入口；保留关键词、星级、来源与可切换区域筛选、清除筛选、空结果提示及原生数据说明弹窗。所有材料仍由原静态数据与筛选逻辑展示。
+- 首页主视觉：[祀 / Si Splash Art](https://endfield.wiki.gg/wiki/File:Si_Splash_Art.png)，使用本地压缩副本 `public/official-inspired/si-splash.webp`（1600 × 1600，747,224 字节）。桌面图文分栏，手机纵向排列，完整展示立绘。
+- 页面仅加载本地图像，未引入远程字体、视频或新依赖。图片原始来源与版权说明见 [SOURCES.md](public/official-inspired/SOURCES.md)。
+- 桌面左侧导航与移动端顶部导航提供概览、材料索引、工具 / Wiki 和数据说明入口；保留关键词、星级、来源与可切换区域筛选、清除筛选、空结果提示及原生数据说明弹窗。
+- 常驻「实用工具与 Wiki」模块提供 [Open Endfield Map](https://opendfieldmap.org/)、[CEP 终末地规划器](https://end.canmoe.com/zh-CN)、[超级玩家](https://ef.exgamer.top/)、[MaaEnd](https://maaend.com/)，以及 wiki.gg、BWIKI、AKEDatabase 与具体参考条目。
 - 游戏数据与图片 © 鹰角网络 / Gryphline。官网视觉参考不构成图片授权声明。
 
 ## 使用方法
@@ -46,14 +46,15 @@ npm run deploy    # 发布到 GitHub Pages
 2. **wiki.gg · Energy Alluvium / 物品与敌人页**
    - 淤积点页面：https://endfield.wiki.gg/wiki/Energy_Alluvium
    - 物品页：`Blightshade_Bezoar`、`Shadow_Dew`、`Glaive_Fragment`、[Tender Moss / 柔嫩苔藓](https://endfield.wiki.gg/wiki/Tender_Moss)、[Slug Sprig / 虫角嫩枝](https://endfield.wiki.gg/wiki/Slug_Sprig)
+   - 十月手册表：[Crafting/Crafting Manual](https://endfield.wiki.gg/wiki/Crafting/Crafting_Manual)；新增物品：[Ink Droplet / 小墨团](https://endfield.wiki.gg/wiki/Ink_Droplet)、[Calamity's Raindew / 降劫雨露](https://endfield.wiki.gg/wiki/Calamity%27s_Raindew)、[Edified Jade Orb / 敕律玉球](https://endfield.wiki.gg/wiki/Edified_Jade_Orb)。敌人页 URL 与原图 URL、SHA-256、核验时间逐项记录于 `wiki-item-notes.json`。
    - 九月敌人与地图页：[Woodcraft Wanderer](https://endfield.wiki.gg/wiki/Woodcraft_Wanderer)、[Woodcraft Slug](https://endfield.wiki.gg/wiki/Woodcraft_Slug)、[Snowy Forest](https://endfield.wiki.gg/wiki/Snowy_Forest)
    - 本地缓存：`energy-alluvium-notes.json`、`wiki-item-notes.json`
    - 用途：淤积点阵容/数量，以及固定 AKEDatabase 缓存尚未收录的新版本物品、图标、掉落怪和 ID。
-   - 注：页面静态生成，不在浏览器运行时请求 wiki；wiki 标为 TBA 的数量保留为未知。
+   - 注：页面静态生成，不在浏览器运行时请求 wiki；wiki 标为 TBA / N 的数量保留为未知。
    - Credit: 感谢 wiki.gg 社区维护的数据（CC BY-SA 4.0）。
 
 3. **OpenDField Map**
-   - 页面：https://opendfieldmap.cn/
+   - 页面：https://opendfieldmap.org/
    - 用途：大地图采集点与怪物分布的外部参考入口；页面 header 中提供直达链接。
    - Credit: 感谢 OpenDField Map 维护者整理的大地图数据。
 
@@ -127,9 +128,11 @@ npm run extract
 - `map02_lv004` = 首墩 / Marker Stone
 - `map02_lv005` = 试验园区 / Test Area
 - `map02_lv006` = 藏剑谷 / Sword Vault Dale
-- `map02_lv007` = 应龙关（暂定 mapId，待 AKEDatabase 更新确认）
-- `map02_lv008` = 北部禁区（暂定 mapId，待 AKEDatabase 更新确认）
-- `wiki:snowy_forest` = 雪松林 / Snowy Forest（仅为本地分组键，不是游戏 mapId；数据说明显示「地图编号待核验」）
+- `wiki:yinglung_pass` = 应龙关 / Yinglung Pass
+- `wiki:north_wuling_ez` = 北部禁区 / North Wuling EZ
+- `wiki:snowy_forest` = 雪松林 / Snowy Forest
+- `wiki:sis_painting` = Si's Painting（中文名待核验，暂保留英文，不作翻译）
+- 以上 `wiki:` 均仅为本地分组键，不是游戏 mapId；数据说明显示「地图编号待核验」。十月复核移除了此前未经证实的 `map02_lv007` / `map02_lv008` 暂定编号。
 
 ## 手工补充
 
@@ -146,10 +149,10 @@ npm run extract
 - 残影露滴：掉落怪为蚀影应龙前锋、蚀影应龙尖兵。
 - 破阵刀碎片：掉落怪为蚀影应龙破阵手、蚀影应龙队长。
 - 应龙关：wiki.gg 已给出五种敌人的精确数量，标为已核验。
-- 北部禁区：wiki.gg 已确认五种敌人，但数量仍全部标为 TBA；页面显示 `×?`，不作推断。
-- `map02_lv007` / `map02_lv008` 仍是本地暂定映射，等待 AKEDatabase 更新确认。
+- 北部禁区：十月 wiki.gg 已补齐五种敌人的数量，依次为 12/9/6/1/1。
+- 未知地图编号统一使用 `wiki:` 分组键，不用猜测的游戏 mapId。
 
-## 2026-09-06 更新与复核
+## 2026-09-06 更新与复核（历史快照）
 
 - 在原 45 项之后追加柔嫩苔藓、虫角嫩枝，共 47 项。前者由徘徊树傀掉落，用于仓储节点装箱运送；后者由虫体树傀掉落，用于精制食药制作。
 - 两张图标直接下载自 wiki.gg 原图，保存在 `public/icons/item_drop_babyents_1.png`、`public/icons/item_drop_slwood_1.png`；来源 URL 和核验日期记录于 `wiki-item-notes.json`。
@@ -161,9 +164,17 @@ npm run extract
 
 ```bash
 npm run extract
-node scripts/check-september.mjs  # 需要 Git 中的更新前基线 925d8af
+node scripts/check-october.mjs  # 当前快照检查，基线 2fa3cd6；九月检查含旧固定数量，不适用于十月数据
 npm run build
 ./node_modules/.bin/tsc --noEmit
 ```
 
 复核页面后才执行 `npm run deploy` 发布；仅 push main 不会部署。
+
+## 2026-10-23 更新与复核
+
+- 保留原 47 项及顺序，追加小墨团（1 星，存禄 / 用奇）、降劫雨露（2 星，解燥）、敕律玉球（4 星，行度），共 50 项。三项均由 wiki.gg 简制手册表确认，里程碑均为 1/10/50；前两项另有用户截图确认。不新增奖励进度功能。
+- 三张图标为 wiki.gg 原始 PNG，保存在 `public/icons/item_drop_ink{biter,kirin,lion}_1.png`。物品、敌人中文名来自 wiki `cnname`，获取说明是来源摘要，不冒充官方中文原文。
+- 全量 Energy Alluvium 表 13 行：原前 10 行阵容与数量不变；北部禁区更新为 12/9/6/1/1，雪松林为 2/4/4/3/16。新增 Si's Painting：存禄、用奇、解燥数量均为 `N`（保存 `null`，显示 `×?`），行度为 1。
+- 新地图与四种敌人页均有独立淤积点证据，不从普通地图分布推断阵容；缺少 SpawnerConfig 证据，三项不生成大地图刷新点位、等级或数量。
+- `node scripts/check-october.mjs [证据目录]` 检查原 47 项保留、全量阵容/数量、未知编号、掉落与图标哈希；提供本次缓存目录时，额外逐项比对原始 API wikitext。任务证据与报告：`/home/sodalol/.hermes/workspace/tasks/endfield-20261023/`。核验日期按 Asia/Shanghai（UTC 抓取时间为 2026-10-22）。

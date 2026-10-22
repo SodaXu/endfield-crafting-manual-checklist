@@ -32,6 +32,7 @@ const MANUAL_ITEM_NAMES = [
   '异色油脂', '甜腻黑水', '大斧角',
   '百年陈皮', '尾尖金甲', '影兽衔石', '残影露滴', '破阵刀碎片',
   '柔嫩苔藓', '虫角嫩枝',
+  '小墨团', '降劫雨露', '敕律玉球',
 ]
 
 const MANUAL_ITEM_SET = new Set(MANUAL_ITEM_NAMES)

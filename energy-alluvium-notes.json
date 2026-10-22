@@ -2,8 +2,9 @@
   "source": {
     "title": "Energy Alluvium",
     "url": "https://endfield.wiki.gg/wiki/Energy_Alluvium",
-    "accessedAt": "2026-09-06",
-    "note": "Rechecked against the full wiki.gg MediaWiki parse API table on 2026-09-06: 12 rows, with enemy names and counts unchanged in the previous 11 rows (their row-level sources record the original import). Added Snowy Forest; all five counts are TBA, stored as null rather than inferred. wiki:snowy_forest is a local grouping key, not a verified game mapId."
+    "accessedAt": "2026-10-23T01:07:46+08:00",
+    "apiUrl": "https://endfield.wiki.gg/api.php?action=parse&page=Energy_Alluvium&prop=wikitext&format=json",
+    "note": "Full table rechecked on 2026-10-23 (Asia/Shanghai): 13 rows. First 10 rosters/counts unchanged; North Wuling EZ and Snowy Forest now have exact counts. Added Si's Painting: three N counts stored as null, Maned Measure count 1. Unknown game map IDs use explicit wiki: grouping keys, including replacement of the old provisional Yinglung/North Wuling numeric mappings. World-map distribution is not used to infer alluvium rosters."
   },
   "rows": [
     {
@@ -457,10 +458,10 @@
       "region": "Wuling",
       "locationEn": "Yinglung Pass",
       "locationZh": "应龙关",
-      "mapId": "map02_lv007",
+      "mapId": "wiki:yinglung_pass",
       "status": "verified",
-      "source": "wiki.gg Energy Alluvium, fetched 2026-08-07 via MediaWiki parse API; mapId is a local provisional mapping",
-      "note": "敌人名称与数量由 wiki.gg Energy Alluvium 表确认；mapId 待 AKEDatabase 更新确认。",
+      "source": "wiki.gg Energy Alluvium, rechecked 2026-10-23 via MediaWiki parse API; game mapId unknown",
+      "note": "敌人名称与数量由 wiki.gg Energy Alluvium 表确认；wiki:yinglung_pass 仅为本地分组键，替代此前未核验的 map02_lv007 猜测。地图编号待核验。",
       "enemies": [
         {
           "enName": "Tuskbeast Blightshade",
@@ -498,40 +499,40 @@
       "region": "Wuling",
       "locationEn": "North Wuling EZ",
       "locationZh": "北部禁区",
-      "mapId": "map02_lv008",
-      "status": "partial",
-      "source": "wiki.gg Energy Alluvium, fetched 2026-08-07 via MediaWiki parse API; the page marks every enemy count TBA; mapId is a local provisional mapping",
-      "note": "敌人名称由 wiki.gg 确认，但该表将五种敌人的数量全部标为 TBA；以 ×? 展示，不作推断。mapId 亦待 AKEDatabase 更新确认。",
+      "mapId": "wiki:north_wuling_ez",
+      "status": "verified",
+      "source": "wiki.gg Energy Alluvium, rechecked 2026-10-23 via MediaWiki parse API; all five counts now specified; game mapId unknown",
+      "note": "wiki.gg 已补齐五种敌人的数量。wiki:north_wuling_ez 仅为本地分组键，替代此前未核验的 map02_lv008 猜测。地图编号待核验。",
       "enemies": [
         {
           "enName": "Tuskbeast Blightshade",
           "zhName": "蚀影牙兽",
           "enemyId": "eny_0117_klhound",
-          "count": null
+          "count": 12
         },
         {
           "enName": "YSTF Vanguard Blightshade",
           "zhName": "蚀影应龙前锋",
           "enemyId": "eny_0121_klbud",
-          "count": null
+          "count": 9
         },
         {
           "enName": "YSTF Elite Blightshade",
           "zhName": "蚀影应龙尖兵",
           "enemyId": "eny_0122_kltdbud",
-          "count": null
+          "count": 6
         },
         {
           "enName": "YSTF Glaiver Blightshade",
           "zhName": "蚀影应龙破阵手",
           "enemyId": "eny_0123_klcap",
-          "count": null
+          "count": 1
         },
         {
           "enName": "YSTF Captain Blightshade",
           "zhName": "蚀影应龙队长",
           "enemyId": "eny_0124_kltdcap",
-          "count": null
+          "count": 1
         }
       ]
     },
@@ -540,39 +541,77 @@
       "locationEn": "Snowy Forest",
       "locationZh": "雪松林",
       "mapId": "wiki:snowy_forest",
-      "status": "partial",
-      "source": "wiki.gg Energy Alluvium and Snowy Forest, checked 2026-09-06 via MediaWiki parse API; Chinese map name supplied by user; mapId is unknown",
-      "note": "wiki:snowy_forest 仅为本地分组键，不是游戏地图编号；地图编号待核验。wiki.gg 确认五种敌人，数量全部为 TBA，以 ×? 展示，不作推断。",
+      "status": "verified",
+      "source": "wiki.gg Energy Alluvium and Snowy Forest, rechecked 2026-10-23 via MediaWiki parse API; Chinese map name supplied by user; game mapId unknown",
+      "note": "wiki:snowy_forest 仅为本地分组键，不是游戏地图编号；地图编号待核验。wiki.gg 已补齐五种敌人的数量。",
       "enemies": [
         {
           "enName": "Tunneling Nidwyrm",
           "zhName": "潜地虬兽",
           "enemyId": "eny_0007_mimicw",
-          "count": null
+          "count": 2
         },
         {
           "enName": "Acid Originium Slug",
           "zhName": "酸液源石虫",
           "enemyId": "eny_0073_slimerg",
-          "count": null
+          "count": 4
         },
         {
           "enName": "Acid Originium Slug α",
           "zhName": "酸液源石虫·α",
           "enemyId": "eny_0100_slimerg2",
-          "count": null
+          "count": 4
         },
         {
           "enName": "Woodcraft Wanderer",
           "zhName": "徘徊树傀",
           "enemyId": "eny_0128_babyents",
-          "count": null
+          "count": 3
         },
         {
           "enName": "Woodcraft Slug",
           "zhName": "虫体树傀",
           "enemyId": "eny_0129_slwood",
-          "count": null
+          "count": 16
+        }
+      ]
+    },
+    {
+      "region": "Wuling",
+      "locationEn": "Si's Painting",
+      "mapId": "wiki:sis_painting",
+      "status": "partial",
+      "source": "https://endfield.wiki.gg/wiki/Energy_Alluvium and https://endfield.wiki.gg/wiki/Si%27s_Painting, checked 2026-10-23 via MediaWiki parse API; enemy IDs and Chinese names from each enemy page",
+      "note": "wiki:sis_painting 仅为本地分组键，地图编号及中文名待核验，保留英文地图名。Energy Alluvium 表明确列出四种敌人：前三种数量为 N，保留 null / ×?；行度为 1。不从普通地图分布推断阵容或数量。",
+      "enemies": [
+        {
+          "enName": "Fortune's Stash",
+          "zhName": "存禄",
+          "enemyId": "eny_0130_inkbiter",
+          "count": null,
+          "sourceUrl": "https://endfield.wiki.gg/wiki/Fortune%27s_Stash"
+        },
+        {
+          "enName": "Scroll of Tactics",
+          "zhName": "用奇",
+          "enemyId": "eny_0131_inkscroll",
+          "count": null,
+          "sourceUrl": "https://endfield.wiki.gg/wiki/Scroll_of_Tactics"
+        },
+        {
+          "enName": "Simmer's Purge",
+          "zhName": "解燥",
+          "enemyId": "eny_0132_inkkirin",
+          "count": null,
+          "sourceUrl": "https://endfield.wiki.gg/wiki/Simmer%27s_Purge"
+        },
+        {
+          "enName": "Maned Measure",
+          "zhName": "行度",
+          "enemyId": "eny_0133_inklion",
+          "count": 1,
+          "sourceUrl": "https://endfield.wiki.gg/wiki/Maned_Measure"
         }
       ]
     }

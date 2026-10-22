@@ -2,7 +2,7 @@
   "source": {
     "site": "Endfield Talos Wiki (wiki.gg)",
     "accessedAt": "2026-08-07T13:38:00Z",
-    "note": "Item and enemy metadata fetched through the MediaWiki parse API. Homecoming records accessed 2026-08-07; September additions carry per-item accessedAt dates. Used as a local fallback for records absent from the pinned AKEDatabase cache."
+    "note": "Item and enemy metadata fetched through the MediaWiki parse API. Homecoming records accessed 2026-08-07; September and October additions carry per-item accessedAt dates. Used as a local fallback for records absent from the pinned AKEDatabase cache."
   },
   "items": [
     {
@@ -143,6 +143,96 @@
       ],
       "icon": "./icons/item_drop_slwood_1.png",
       "iconSourceUrl": "https://endfield.wiki.gg/images/Slug_Sprig.png"
+    },
+    {
+      "id": "item_drop_inkbiter_1",
+      "name": "小墨团",
+      "enName": "Ink Droplet",
+      "sourceUrl": "https://endfield.wiki.gg/wiki/Ink_Droplet",
+      "accessedAt": "2026-10-23T01:10:25+08:00",
+      "manualSourceUrl": "https://endfield.wiki.gg/wiki/Crafting/Crafting_Manual",
+      "sourceNote": "物品页、敌人页和简制手册表经 MediaWiki parse API 核验；中文名亦由用户截图确认，手册里程碑为 1/10/50。物品 Acquisition 段仅列存禄，但描述、用奇敌人页及手册表均确认用奇也掉落。描述为来源摘要，非官方中文原文。",
+      "rarity": 1,
+      "type": 8,
+      "description": "击败存禄、用奇的掉落物，可用于精制食药制作。",
+      "obtainWays": [
+        {
+          "desc": "在武陵 Si's Painting 击败存禄、用奇有概率掉落；wiki.gg 分别确认普通地图分布与该地重度能量淤积点阵容，淤积点数量待补。地图中文名待核验。"
+        }
+      ],
+      "droppedBy": [
+        {
+          "enemyId": "eny_0130_inkbiter",
+          "zhName": "存禄",
+          "enName": "Fortune's Stash",
+          "sourceUrl": "https://endfield.wiki.gg/wiki/Fortune%27s_Stash"
+        },
+        {
+          "enemyId": "eny_0131_inkscroll",
+          "zhName": "用奇",
+          "enName": "Scroll of Tactics",
+          "sourceUrl": "https://endfield.wiki.gg/wiki/Scroll_of_Tactics"
+        }
+      ],
+      "icon": "./icons/item_drop_inkbiter_1.png",
+      "iconSourceUrl": "https://endfield.wiki.gg/images/Ink_Droplet.png",
+      "iconSha256": "0ab4bceb7e76975e4d1500afc7634143c8e926cc1fa3ed730d47a28f295c29df"
+    },
+    {
+      "id": "item_drop_inkkirin_1",
+      "name": "降劫雨露",
+      "enName": "Calamity's Raindew",
+      "sourceUrl": "https://endfield.wiki.gg/wiki/Calamity%27s_Raindew",
+      "accessedAt": "2026-10-23T01:10:26+08:00",
+      "manualSourceUrl": "https://endfield.wiki.gg/wiki/Crafting/Crafting_Manual",
+      "sourceNote": "物品页、敌人页和简制手册表经 MediaWiki parse API 核验；中文名亦由用户截图确认，手册里程碑为 1/10/50。描述为来源摘要，非官方中文原文。",
+      "rarity": 2,
+      "type": 8,
+      "description": "击败解燥的掉落物，可用于精制食药制作。",
+      "obtainWays": [
+        {
+          "desc": "在武陵 Si's Painting 击败解燥有概率掉落；wiki.gg 分别确认普通地图分布与该地重度能量淤积点阵容，淤积点数量待补。地图中文名待核验。"
+        }
+      ],
+      "droppedBy": [
+        {
+          "enemyId": "eny_0132_inkkirin",
+          "zhName": "解燥",
+          "enName": "Simmer's Purge",
+          "sourceUrl": "https://endfield.wiki.gg/wiki/Simmer%27s_Purge"
+        }
+      ],
+      "icon": "./icons/item_drop_inkkirin_1.png",
+      "iconSourceUrl": "https://endfield.wiki.gg/images/Calamity%27s_Raindew.png",
+      "iconSha256": "c2fd039eb9d8e6afc26f8e4d9d3ab4ee4ec23067a60da781e062234658e4996f"
+    },
+    {
+      "id": "item_drop_inklion_1",
+      "name": "敕律玉球",
+      "enName": "Edified Jade Orb",
+      "sourceUrl": "https://endfield.wiki.gg/wiki/Edified_Jade_Orb",
+      "accessedAt": "2026-10-23T01:10:44+08:00",
+      "manualSourceUrl": "https://endfield.wiki.gg/wiki/Crafting/Crafting_Manual",
+      "sourceNote": "物品页、行度敌人页和简制手册表经 MediaWiki parse API 核验；中文名来自物品页 cnname，手册表明确收录，里程碑为 1/10/50。描述为来源摘要，非官方中文原文。",
+      "rarity": 4,
+      "type": 8,
+      "description": "击败行度的掉落物，可用于仓储节点装箱运送。",
+      "obtainWays": [
+        {
+          "desc": "在武陵 Si's Painting 击败行度有概率掉落；wiki.gg 分别确认普通地图分布与该地重度能量淤积点阵容，淤积点行度数量为 1。地图中文名待核验。"
+        }
+      ],
+      "droppedBy": [
+        {
+          "enemyId": "eny_0133_inklion",
+          "zhName": "行度",
+          "enName": "Maned Measure",
+          "sourceUrl": "https://endfield.wiki.gg/wiki/Maned_Measure"
+        }
+      ],
+      "icon": "./icons/item_drop_inklion_1.png",
+      "iconSourceUrl": "https://endfield.wiki.gg/images/Edified_Jade_Orb.png",
+      "iconSha256": "44e66b27001bcab4249c48d0770972d44108de51f240db67c1c2744801681b39"
     }
   ]
 }

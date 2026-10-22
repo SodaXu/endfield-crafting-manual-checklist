@@ -4,6 +4,24 @@ import type { DataFile, Item, SourceGroup } from './types'
 const STARS = '★'
 const ALLUVIUM_PREFIX = '重度能量淤积点 - '
 
+const TOOL_LINKS = [
+  { href: 'https://opendfieldmap.org/', title: 'Open Endfield Map', label: '终末地交互地图', domain: 'opendfieldmap.org' },
+  { href: 'https://end.canmoe.com/zh-CN', title: 'CEP 终末地规划器', label: '原终末地基质规划器', domain: 'end.canmoe.com' },
+  { href: 'https://ef.exgamer.top/', title: '超级玩家', label: 'exgamer.top', domain: 'ef.exgamer.top' },
+  { href: 'https://maaend.com/', title: 'MaaEnd', label: '终末地小助手', domain: 'maaend.com' },
+]
+
+const WIKI_REFERENCES = [
+  ['Blightshade_Bezoar', '影兽衔石'], ['Shadow_Dew', '残影露滴'],
+  ['Glaive_Fragment', '破阵刀碎片'], ['Tender_Moss', '柔嫩苔藓'],
+  ['Slug_Sprig', '虫角嫩枝'], ['Woodcraft_Wanderer', 'Woodcraft Wanderer'],
+  ['Woodcraft_Slug', 'Woodcraft Slug'], ['Snowy_Forest', 'Snowy Forest'],
+  ['Ink_Droplet', 'Ink Droplet'], ['Edified_Jade_Orb', 'Edified Jade Orb'],
+  ['Calamity%27s_Raindew', 'Calamity’s Raindew'], ['Si%27s_Painting', 'Si’s Painting'],
+  ['Fortune%27s_Stash', 'Fortune’s Stash'], ['Maned_Measure', 'Maned Measure'],
+  ['Scroll_of_Tactics', 'Scroll of Tactics'], ['Simmer%27s_Purge', 'Simmer’s Purge'],
+]
+
 function sourceGroupsForItem(item: Item) {
   return [
     ...(item.alluviumSourceSummary?.grouped || []),
@@ -177,6 +195,7 @@ export default function App() {
         <div className="rail-links">
           <a href="#overview"><span aria-hidden="true">01</span>概览</a>
           <a href="#materials"><span aria-hidden="true">02</span>材料索引</a>
+          <a href="#resources"><span aria-hidden="true">03</span>工具 / Wiki</a>
           <button className="about-button" onClick={() => setShowAbout(true)}><span aria-hidden="true">[ i ]</span>数据说明</button>
         </div>
         <span className="rail-note" aria-hidden="true">TALOS-II / UNOFFICIAL HANDBOOK</span>
@@ -187,8 +206,8 @@ export default function App() {
           <span className="unofficial-label">非官方材料查询</span>
         </div>
         <div className="hero">
-          <div className="hero-art" aria-hidden="true">
-            <img src="./official-inspired/frontier-kv.webp" alt="" width="1920" height="1536" fetchPriority="high" />
+          <div className="hero-art">
+            <img src="./official-inspired/si-splash.webp" alt="干员祀（Si）完整立绘" width="1600" height="1600" fetchPriority="high" />
           </div>
           <div className="hero-copy">
             <div className="eyebrow"><span>[ 01 / OVERVIEW ]</span> TALOS-II</div>
@@ -197,18 +216,11 @@ export default function App() {
             <a className="primary-link" href="#materials">查找材料 <span aria-hidden="true">↘</span></a>
             <div className="hero-links">
               <a href="https://www.bilibili.com/video/BV1xhd5B9EFd" target="_blank" rel="noreferrer">挂机视频 ↗</a>
-              <a href="https://opendfieldmap.cn/" target="_blank" rel="noreferrer">大地图 ↗</a>
+              <a href="https://opendfieldmap.org/" target="_blank" rel="noreferrer noopener">大地图 ↗</a>
+              <a href="#resources">工具与 Wiki ↓</a>
             </div>
           </div>
-          <span className="hero-marker" aria-hidden="true">[ ENDFIELD / FIELD ARCHIVE ]</span>
-        </div>
-        <div className="operator-strip">
-          <div className="roster-label"><span aria-hidden="true">[ OPERATORS ]</span><span>同行干员</span></div>
-          <div className="operator-roster" aria-label="终末地干员">
-            <img className="roster-card tangtang-card" src="./operator-banners/tangtang.png" alt="唐唐" loading="lazy" />
-            <img className="roster-card gilberta-card" src="./operator-banners/gilberta.png" alt="Gilberta" loading="lazy" />
-            <img className="roster-card avywenna-card" src="./operator-banners/avywenna.png" alt="Avywenna" loading="lazy" />
-          </div>
+          <span className="hero-marker" aria-hidden="true">[ SI / 祀 ]</span>
         </div>
       </header>
 
@@ -232,7 +244,7 @@ export default function App() {
             {data.energyAlluviumRows && data.energyAlluviumRows.length > 0 && (
               <>
                 <h3>淤积点地图与刷怪比对表</h3>
-                <p>下表来自 wiki.gg Energy Alluvium；本地备注只补中文地图名、mapId 与来源说明，wiki 尚标为 TBA 的数量显示 ×?。</p>
+                <p>下表来自 wiki.gg Energy Alluvium；本地备注只补中文地图名、mapId 与来源说明，wiki 尚标为 TBA / N 的数量显示 ×?。</p>
                 <div className="alluvium-table">
                   {data.energyAlluviumRows.map(row => (
                     <div className="alluvium-row" key={row.mapId}>
@@ -261,9 +273,8 @@ export default function App() {
               <li><a href="https://github.com/nagiyume/AKEDatabase" target="_blank" rel="noreferrer">AKEDatabase</a>：物品、图标、敌人名称等本地静态数据。</li>
               <li><a href="https://wiki.biligame.com/zmd/%E7%89%A9%E5%93%81%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer">Bilibili 游戏 Wiki · 物品图鉴</a>：少量物品掉落口径交叉校验。</li>
               <li><a href="https://endfield.wiki.gg/wiki/Energy_Alluvium" target="_blank" rel="noreferrer">wiki.gg · Energy Alluvium</a>：淤积点地图、刷怪阵容与数量。</li>
-              <li>wiki.gg 物品页：<a href="https://endfield.wiki.gg/wiki/Blightshade_Bezoar" target="_blank" rel="noreferrer">影兽衔石</a>、<a href="https://endfield.wiki.gg/wiki/Shadow_Dew" target="_blank" rel="noreferrer">残影露滴</a>、<a href="https://endfield.wiki.gg/wiki/Glaive_Fragment" target="_blank" rel="noreferrer">破阵刀碎片</a>、<a href="https://endfield.wiki.gg/wiki/Tender_Moss" target="_blank" rel="noreferrer">柔嫩苔藓</a>、<a href="https://endfield.wiki.gg/wiki/Slug_Sprig" target="_blank" rel="noreferrer">虫角嫩枝</a>。</li>
-              <li>首页主视觉：<a href="https://endfield.gryphline.com/en-us#home" target="_blank" rel="noreferrer">《明日方舟：终末地》官网</a>，使用本地压缩副本；本页为非官方手册，与官方无隶属或背书关系。</li>
-              <li>角色立绘：<a href="https://endfield.wiki.gg/wiki/Gilberta" target="_blank" rel="noreferrer">Gilberta</a>、<a href="https://endfield.wiki.gg/wiki/Tangtang" target="_blank" rel="noreferrer">唐唐</a>、<a href="https://endfield.wiki.gg/wiki/Avywenna" target="_blank" rel="noreferrer">Avywenna</a>（wiki.gg）。</li>
+              <li>wiki.gg 物品页：<a href="https://endfield.wiki.gg/wiki/Blightshade_Bezoar" target="_blank" rel="noreferrer">影兽衔石</a>、<a href="https://endfield.wiki.gg/wiki/Shadow_Dew" target="_blank" rel="noreferrer">残影露滴</a>、<a href="https://endfield.wiki.gg/wiki/Glaive_Fragment" target="_blank" rel="noreferrer">破阵刀碎片</a>、<a href="https://endfield.wiki.gg/wiki/Tender_Moss" target="_blank" rel="noreferrer">柔嫩苔藓</a>、<a href="https://endfield.wiki.gg/wiki/Slug_Sprig" target="_blank" rel="noreferrer">虫角嫩枝</a>、<a href="https://endfield.wiki.gg/wiki/Ink_Droplet" target="_blank" rel="noreferrer">小墨团</a>、<a href="https://endfield.wiki.gg/wiki/Calamity%27s_Raindew" target="_blank" rel="noreferrer">降劫雨露</a>、<a href="https://endfield.wiki.gg/wiki/Edified_Jade_Orb" target="_blank" rel="noreferrer">敕律玉球</a>。</li>
+              <li>首页主视觉：<a href="https://endfield.wiki.gg/wiki/File:Si_Splash_Art.png" target="_blank" rel="noreferrer noopener">祀 · Si Splash Art（wiki.gg）</a>，使用本地压缩副本；本页为非官方手册，与官方无隶属或背书关系。</li>
               <li><a href="https://wiki.biligame.com/zmd/%E6%95%8C%E5%AF%B9%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer">Bilibili 游戏 Wiki · 敌对图鉴</a>：少量敌人分布区域交叉校验。</li>
             </ul>
             <p className="copyright-note">游戏数据与图片版权归鹰角网络 / Gryphline 所有。本页面仅作个人整理与查询使用。</p>
@@ -335,6 +346,46 @@ export default function App() {
           {filtered.map(item => <ItemCard key={item.id} item={item} />)}
         </div>
         {filtered.length === 0 && <div className="empty-state"><h3>未找到匹配材料</h3><p>试试其他物品、怪物或地区名称，或清除筛选重新查看。</p><button className="reset-button" onClick={resetFilters}>清除筛选</button></div>}
+        <section className="resources-panel" id="resources" aria-labelledby="resources-title" tabIndex={-1}>
+          <div className="section-heading">
+            <h2 id="resources-title"><span className="index-label" aria-hidden="true">03 /</span> 实用工具与 Wiki</h2>
+            <span className="resource-note">外部站点 · 链接在新标签页打开 ↗</span>
+          </div>
+          <div className="tool-grid">
+            {TOOL_LINKS.map(tool => (
+              <a className="tool-link" key={tool.href} href={tool.href} target="_blank" rel="noreferrer noopener">
+                <span className="tool-title">{tool.title}<span aria-hidden="true">↗</span></span>
+                <span className="tool-description">{tool.label}</span>
+                <span className="tool-domain">{tool.domain}</span>
+              </a>
+            ))}
+          </div>
+          <div className="wiki-sources">
+            <div className="source-directory">
+              <h3>Wiki 与数据来源</h3>
+              <p>本手册使用的资料入口；页面查询仍使用本地静态数据。</p>
+              <ul>
+                <li><a href="https://endfield.wiki.gg/" target="_blank" rel="noreferrer noopener">Endfield Talos Wiki · wiki.gg ↗</a></li>
+                <li><a href="https://endfield.wiki.gg/wiki/Energy_Alluvium" target="_blank" rel="noreferrer noopener">Energy Alluvium · 能量淤积点 ↗</a></li>
+                <li><a href="https://endfield.wiki.gg/wiki/Crafting/Crafting_Manual" target="_blank" rel="noreferrer noopener">Crafting Manual · 简制手册 ↗</a></li>
+                <li><a href="https://wiki.biligame.com/zmd/" target="_blank" rel="noreferrer noopener">Bilibili 游戏 Wiki · 终末地 ↗</a></li>
+                <li className="source-pair"><a href="https://wiki.biligame.com/zmd/%E7%89%A9%E5%93%81%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer noopener">BWIKI · 物品图鉴 ↗</a><a href="https://wiki.biligame.com/zmd/%E6%95%8C%E5%AF%B9%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer noopener">BWIKI · 敌对图鉴 ↗</a></li>
+                <li><a href="https://github.com/nagiyume/AKEDatabase" target="_blank" rel="noreferrer noopener">AKEDatabase · 静态数据源（非 Wiki）↗</a></li>
+              </ul>
+            </div>
+            <div className="source-directory">
+              <h3>wiki.gg 条目参考</h3>
+              <p>物品、敌人与地图的交叉核验来源。</p>
+              <ul className="reference-links">
+                {WIKI_REFERENCES.map(([slug, title]) => (
+                  <li key={slug}><a href={`https://endfield.wiki.gg/wiki/${slug}`} target="_blank" rel="noreferrer noopener">{title} <span aria-hidden="true">↗</span></a></li>
+                ))}
+              </ul>
+              <a className="art-source" href="https://endfield.wiki.gg/wiki/File:Si_Splash_Art.png" target="_blank" rel="noreferrer noopener">主视觉来源：祀 · Si Splash Art ↗</a>
+            </div>
+          </div>
+          <p className="resource-note resource-disclaimer">感谢社区维护者。外部工具由各站独立提供，本页不代表官方或任何站点背书。Wiki 文本遵循其来源许可；游戏图片版权归原权利人所有。</p>
+        </section>
       </main>
       <footer className="footer"><span>终末地 / MATERIAL FIELD GUIDE</span><span>非官方整理 · 游戏数据与图片 © 鹰角网络 / Gryphline</span></footer>
     </div>
