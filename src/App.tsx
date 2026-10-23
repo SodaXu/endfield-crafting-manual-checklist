@@ -17,7 +17,7 @@ const WIKI_REFERENCES = [
   ['Slug_Sprig', '虫角嫩枝'], ['Woodcraft_Wanderer', 'Woodcraft Wanderer'],
   ['Woodcraft_Slug', 'Woodcraft Slug'], ['Snowy_Forest', 'Snowy Forest'],
   ['Ink_Droplet', 'Ink Droplet'], ['Edified_Jade_Orb', 'Edified Jade Orb'],
-  ['Calamity%27s_Raindew', 'Calamity’s Raindew'], ['Si%27s_Painting', 'Si’s Painting'],
+  ['Calamity%27s_Raindew', 'Calamity’s Raindew'], ['Si%27s_Painting', '祀的画 / Si’s Painting'],
   ['Fortune%27s_Stash', 'Fortune’s Stash'], ['Maned_Measure', 'Maned Measure'],
   ['Scroll_of_Tactics', 'Scroll of Tactics'], ['Simmer%27s_Purge', 'Simmer’s Purge'],
 ]

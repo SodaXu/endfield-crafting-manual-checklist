@@ -22,8 +22,16 @@ npm install
 npm run extract   # 从本地 AKEDatabase 提取简制手册条目
 npm run dev       # 启动本地预览 (Vite)
 npm run build     # 构建静态文件到 dist/
-npm run deploy    # 发布到 GitHub Pages
+npm run deploy    # 本地抽取 / 构建，更新 gh-pages 后排队 Pages 工作流
 ```
+
+### GitHub Pages 发布
+
+- 一次性前置条件：将 `.github/workflows/pages.yml` 提交并推送到 `main`，由维护者将仓库 Pages 的 Source 从分支发布切换为 **GitHub Actions**，并预先确认 `github-pages` environment 的部署分支策略允许 `main`（工作流从 `main` 调度，站点内容取自 `gh-pages`）。
+- 本地需要现有 Node/npm 构建环境、推送 `gh-pages` 的 Git 权限，以及已安装并通过 `gh auth login` 登录、具备工作流调度权限的 GitHub CLI（`gh`）。
+- `npm run deploy` 依次执行 `npm run extract`、`npm run build`、`gh-pages -d dist`，最后执行 `gh workflow run pages.yml --ref main`。保留本地构建与 `gh-pages` 预构建产物分支，不在 CI 中安装依赖或重新构建。
+- 工作流仅支持 `workflow_dispatch`，且只在 `main` 上运行；仅 push `main` 或更新 `gh-pages` 不会自动部署（须先完成上述 Pages Source 切换）。工作流检出 `gh-pages` 到 `site/`，上传并部署；使用 Node24 兼容的 checkout / upload-pages-artifact / deploy-pages，无警告屏蔽或运行时环境覆盖。
+- 命令成功只表示工作流已排队，不代表站点已发布。用 `gh run list --workflow pages.yml --branch main --event workflow_dispatch --limit 5` 找到本次 run ID，再执行 `gh run watch <run-id> --exit-status` 检查最终结果；必要时用 `gh run view <run-id> --log-failed` 查看失败日志。若调度失败，修复权限或配置后可直接重新执行调度命令，无需重复构建。
 
 
 ## 数据处理目标
@@ -131,7 +139,7 @@ npm run extract
 - `wiki:yinglung_pass` = 应龙关 / Yinglung Pass
 - `wiki:north_wuling_ez` = 北部禁区 / North Wuling EZ
 - `wiki:snowy_forest` = 雪松林 / Snowy Forest
-- `wiki:sis_painting` = Si's Painting（中文名待核验，暂保留英文，不作翻译）
+- `wiki:sis_painting` = 祀的画 / Si's Painting（中文名由用户于 2026-10-23 明确确认；游戏地图编号仍待核验）
 - 以上 `wiki:` 均仅为本地分组键，不是游戏 mapId；数据说明显示「地图编号待核验」。十月复核移除了此前未经证实的 `map02_lv007` / `map02_lv008` 暂定编号。
 
 ## 手工补充
@@ -175,6 +183,6 @@ npm run build
 
 - 保留原 47 项及顺序，追加小墨团（1 星，存禄 / 用奇）、降劫雨露（2 星，解燥）、敕律玉球（4 星，行度），共 50 项。三项均由 wiki.gg 简制手册表确认，里程碑均为 1/10/50；前两项另有用户截图确认。不新增奖励进度功能。
 - 三张图标为 wiki.gg 原始 PNG，保存在 `public/icons/item_drop_ink{biter,kirin,lion}_1.png`。物品、敌人中文名来自 wiki `cnname`，获取说明是来源摘要，不冒充官方中文原文。
-- 全量 Energy Alluvium 表 13 行：原前 10 行阵容与数量不变；北部禁区更新为 12/9/6/1/1，雪松林为 2/4/4/3/16。新增 Si's Painting：存禄、用奇、解燥数量均为 `N`（保存 `null`，显示 `×?`），行度为 1。
+- 全量 Energy Alluvium 表 13 行：原前 10 行阵容与数量不变；北部禁区更新为 12/9/6/1/1，雪松林为 2/4/4/3/16。新增祀的画 / Si's Painting（中文名由用户明确确认）：存禄、用奇、解燥数量均为 `N`（保存 `null`，显示 `×?`），行度为 1。
 - 新地图与四种敌人页均有独立淤积点证据，不从普通地图分布推断阵容；缺少 SpawnerConfig 证据，三项不生成大地图刷新点位、等级或数量。
 - `node scripts/check-october.mjs [证据目录]` 检查原 47 项保留、全量阵容/数量、未知编号、掉落与图标哈希；提供本次缓存目录时，额外逐项比对原始 API wikitext。任务证据与报告：`/home/sodalol/.hermes/workspace/tasks/endfield-20261023/`。核验日期按 Asia/Shanghai（UTC 抓取时间为 2026-10-22）。

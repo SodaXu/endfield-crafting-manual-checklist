@@ -580,10 +580,11 @@
     {
       "region": "Wuling",
       "locationEn": "Si's Painting",
+      "locationZh": "祀的画",
       "mapId": "wiki:sis_painting",
       "status": "partial",
-      "source": "https://endfield.wiki.gg/wiki/Energy_Alluvium and https://endfield.wiki.gg/wiki/Si%27s_Painting, checked 2026-10-23 via MediaWiki parse API; enemy IDs and Chinese names from each enemy page",
-      "note": "wiki:sis_painting 仅为本地分组键，地图编号及中文名待核验，保留英文地图名。Energy Alluvium 表明确列出四种敌人：前三种数量为 N，保留 null / ×?；行度为 1。不从普通地图分布推断阵容或数量。",
+      "source": "https://endfield.wiki.gg/wiki/Energy_Alluvium and https://endfield.wiki.gg/wiki/Si%27s_Painting, checked 2026-10-23 via MediaWiki parse API; enemy IDs and Chinese names from each enemy page; Chinese map name 祀的画 explicitly confirmed by user on 2026-10-23",
+      "note": "wiki:sis_painting 仅为本地分组键，地图编号待核验；中文地图名「祀的画」由用户于 2026-10-23 明确确认，对应 wiki 英文名 Si's Painting。Energy Alluvium 表明确列出四种敌人：前三种数量为 N，保留 null / ×?；行度为 1。不从普通地图分布推断阵容或数量。",
       "enemies": [
         {
           "enName": "Fortune's Stash",

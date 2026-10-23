@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "npm run extract && npm run build && gh-pages -d dist"
+    "deploy": "npm run extract && npm run build && gh-pages -d dist && gh workflow run pages.yml --ref main"
   },
   "dependencies": {
     "react": "^19.0.0",

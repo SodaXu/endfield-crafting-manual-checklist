@@ -70,8 +70,9 @@
     "source": "https://endfield.wiki.gg/wiki/Energy_Alluvium checked 2026-10-23. Replaces unverified map02_lv008 guess; local grouping key only, game mapId unknown. Chinese name retained from prior notes."
   },
   "wiki:sis_painting": {
+    "zh": "祀的画",
     "status": "local_key",
-    "source": "https://endfield.wiki.gg/wiki/Si%27s_Painting checked 2026-10-23. Local grouping key only; game mapId and Chinese map name unknown. Keep the source English name without inventing a translation."
+    "source": "https://endfield.wiki.gg/wiki/Si%27s_Painting checked 2026-10-23. Chinese map name 祀的画 explicitly confirmed by user on 2026-10-23; wiki English name retained. Local grouping key only; game mapId unknown."
   },
   "wiki:snowy_forest": {
     "zh": "雪松林",

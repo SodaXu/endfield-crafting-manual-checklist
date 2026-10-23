@@ -60,7 +60,10 @@ for (const row of notes.rows) {
   const output = data.energyAlluviumRows.find(r => r.mapId === row.mapId)
   assert.deepEqual(output.enemies.map(e => [e.id, e.count]), row.enemies.map(e => [e.enemyId, e.count]))
 }
-assert.equal(data.energyAlluviumRows.find(r => r.mapId === 'wiki:sis_painting').locationZh, null)
+// Chinese name is user-confirmed; cached wiki evidence remains the original English.
+assert.equal(locations['wiki:sis_painting'].zh, '祀的画')
+assert.equal(notes.rows.find(r => r.mapId === 'wiki:sis_painting').locationZh, '祀的画')
+assert.equal(data.energyAlluviumRows.find(r => r.mapId === 'wiki:sis_painting').locationZh, '祀的画')
 console.log('PASS: 13 alluvia; previous rosters preserved; exact count updates; only 3 unknown counts; unknown map IDs use wiki keys')
 
 const additions = [
@@ -78,7 +81,7 @@ for (const [name, id, rarity, enemies, use] of additions) {
   assert.ok(item.description.includes(use))
   assert.deepEqual(item.droppedBy, enemies.map(([id, name]) => ({ id, name })))
   assert.deepEqual(item.alluviumSourceSummary.grouped, [{
-    area: "重度能量淤积点 - Si's Painting",
+    area: '重度能量淤积点 - 祀的画',
     enemies: enemies.map(([id, name, count]) => ({ id, name, levels: [], count })),
   }])
   assert.deepEqual(item.mapSourceSummary.grouped, [])
