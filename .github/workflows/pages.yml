@@ -31,6 +31,9 @@ jobs:
         uses: actions/upload-pages-artifact@v5.0.0
         with:
           path: site
+      # Finalized uploads can take a few seconds to appear in artifact-service listings.
+      - name: Allow artifact metadata to propagate
+        run: sleep 10
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5.0.1
