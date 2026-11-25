@@ -2,7 +2,18 @@
 
 This is an unofficial Endfield material handbook, not an official product or an endorsed site.
 
-## Current hero: 祀 / Si
+## Current hero: 小刻 / Kay
+
+- Source file page: https://endfield.wiki.gg/wiki/File:Kay_Splash_Art.png
+- Original file: https://endfield.wiki.gg/images/Kay_Splash_Art.png?f33317&format=original
+- Retrieved through the browser from the original-file link; verified RGBA PNG, 1654 × 1513 pixels, 3,033,300 bytes.
+- Local optimized file: `kay-splash.webp`, 1600 × 1464 pixels, 557,676 bytes; Pillow Lanczos resize, WebP quality 87, method 6. Alpha transparency retained; no cropping or recoloring.
+- SHA-256 (WebP): `1a957572a2ae4ee23e24f95736a578dde9d9afe1537b8adfeda873c66545b18e`.
+- Display: full artwork with `object-fit: contain`, local image only. Desktop separates artwork and copy; mobile stacks them.
+- Attribution appears in the tools / Wiki module and the data-info dialog.
+- Copyright: game artwork © Hypergryph / Gryphline. The wiki describes its use as fair use; its text license does not grant an open-content license for the artwork.
+
+## Previous hero: 祀 / Si (retained, not rendered)
 
 - Source file page: https://endfield.wiki.gg/wiki/File:Si_Splash_Art.png
 - Original image URL resolved from that page's original-file link: https://endfield.wiki.gg/images/Si_Splash_Art.png?fe694e

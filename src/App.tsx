@@ -212,7 +212,7 @@ export default function App() {
         </div>
         <div className="hero">
           <div className="hero-art">
-            <img src="./official-inspired/si-splash.webp" alt="干员祀（Si）完整立绘" width="1600" height="1600" fetchPriority="high" />
+            <img src="./official-inspired/kay-splash.webp" alt="干员小刻（Kay）完整立绘" width="1600" height="1464" fetchPriority="high" />
           </div>
           <div className="hero-copy">
             <div className="eyebrow"><span>[ 01 / OVERVIEW ]</span> TALOS-II</div>
@@ -282,7 +282,7 @@ export default function App() {
               <li><a href="https://endfield.wiki.gg/wiki/Energy_Alluvium" target="_blank" rel="noreferrer">wiki.gg · Energy Alluvium</a>：淤积点地图、刷怪阵容与数量。</li>
               <li>wiki.gg 物品页：<a href="https://endfield.wiki.gg/wiki/Blightshade_Bezoar" target="_blank" rel="noreferrer">影兽衔石</a>、<a href="https://endfield.wiki.gg/wiki/Shadow_Dew" target="_blank" rel="noreferrer">残影露滴</a>、<a href="https://endfield.wiki.gg/wiki/Glaive_Fragment" target="_blank" rel="noreferrer">破阵刀碎片</a>、<a href="https://endfield.wiki.gg/wiki/Tender_Moss" target="_blank" rel="noreferrer">柔嫩苔藓</a>、<a href="https://endfield.wiki.gg/wiki/Slug_Sprig" target="_blank" rel="noreferrer">虫角嫩枝</a>、<a href="https://endfield.wiki.gg/wiki/Ink_Droplet" target="_blank" rel="noreferrer">小墨团</a>、<a href="https://endfield.wiki.gg/wiki/Calamity%27s_Raindew" target="_blank" rel="noreferrer">降劫雨露</a>、<a href="https://endfield.wiki.gg/wiki/Edified_Jade_Orb" target="_blank" rel="noreferrer">敕律玉球</a>。</li>
               <li><a href="https://endfieldtools.dev/" target="_blank" rel="noreferrer noopener">EndfieldTools</a>：健谈的蘑菇、菌王之尘、异彩菌块三张本地 PNG 图标；原图 URL 与 SHA-256 记录于项目物品备注。</li>
-              <li>首页主视觉：<a href="https://endfield.wiki.gg/wiki/File:Si_Splash_Art.png" target="_blank" rel="noreferrer noopener">祀 · Si Splash Art（wiki.gg）</a>，使用本地压缩副本；本页为非官方手册，与官方无隶属或背书关系。</li>
+              <li>首页主视觉：<a href="https://endfield.wiki.gg/wiki/File:Kay_Splash_Art.png" target="_blank" rel="noreferrer noopener">小刻 · Kay Splash Art（wiki.gg）</a>，使用本地压缩副本；本页为非官方手册，与官方无隶属或背书关系。</li>
               <li><a href="https://wiki.biligame.com/zmd/%E6%95%8C%E5%AF%B9%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer">Bilibili 游戏 Wiki · 敌对图鉴</a>：少量敌人分布区域交叉校验。</li>
             </ul>
             <p className="copyright-note">游戏数据与图片版权归鹰角网络 / Gryphline 所有。本页面仅作个人整理与查询使用。</p>
@@ -389,7 +389,7 @@ export default function App() {
                   <li key={slug}><a href={`https://endfield.wiki.gg/wiki/${slug}`} target="_blank" rel="noreferrer noopener">{title} <span aria-hidden="true">↗</span></a></li>
                 ))}
               </ul>
-              <a className="art-source" href="https://endfield.wiki.gg/wiki/File:Si_Splash_Art.png" target="_blank" rel="noreferrer noopener">主视觉来源：祀 · Si Splash Art ↗</a>
+              <a className="art-source" href="https://endfield.wiki.gg/wiki/File:Kay_Splash_Art.png" target="_blank" rel="noreferrer noopener">主视觉来源：小刻 · Kay Splash Art ↗</a>
             </div>
           </div>
           <p className="resource-note resource-disclaimer">感谢社区维护者。外部工具由各站独立提供，本页不代表官方或任何站点背书。Wiki 文本遵循其来源许可；游戏图片版权归原权利人所有。</p>

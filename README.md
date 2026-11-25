@@ -9,7 +9,7 @@
 ## 视觉设计与图片来源
 
 - 页面为**非官方材料查询手册**，视觉参考 [《明日方舟：终末地》官网](https://endfield.gryphline.com/en-us#home) 的亮黄 `#fffa00`、黑色主视觉、浅灰分区、技术细线和方形控件，不代表官方制作或背书。
-- 首页主视觉：[祀 / Si Splash Art](https://endfield.wiki.gg/wiki/File:Si_Splash_Art.png)，使用本地压缩副本 `public/official-inspired/si-splash.webp`（1600 × 1600，747,224 字节）。桌面图文分栏，手机纵向排列，完整展示立绘。
+- 首页主视觉：[小刻 / Kay Splash Art](https://endfield.wiki.gg/wiki/File:Kay_Splash_Art.png)，使用本地压缩副本 `public/official-inspired/kay-splash.webp`（1600 × 1464，557,676 字节）。桌面图文分栏，手机纵向排列，完整展示立绘。
 - 页面仅加载本地图像，未引入远程字体、视频或新依赖。图片原始来源与版权说明见 [SOURCES.md](public/official-inspired/SOURCES.md)。
 - 桌面左侧导航与移动端顶部导航提供概览、材料索引、工具 / Wiki 和数据说明入口；保留关键词、星级、来源与可切换区域筛选、清除筛选、空结果提示及原生数据说明弹窗。
 - 常驻「实用工具与 Wiki」模块提供 [Open Endfield Map](https://opendfieldmap.org/)、[CEP 终末地规划器](https://end.canmoe.com/zh-CN)、[超级玩家](https://ef.exgamer.top/)、[MaaEnd](https://maaend.com/)，以及 wiki.gg、BWIKI、AKEDatabase 与具体参考条目。
