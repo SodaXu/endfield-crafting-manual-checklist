@@ -225,7 +225,7 @@ export default function App() {
               <a href="#resources">工具与 Wiki ↓</a>
             </div>
           </div>
-          <span className="hero-marker" aria-hidden="true">[ SI / 祀 ]</span>
+          <span className="hero-marker" aria-hidden="true">[ KAY / 小刻 ]</span>
         </div>
       </header>
 
