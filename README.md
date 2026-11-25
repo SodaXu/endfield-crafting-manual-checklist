@@ -104,7 +104,7 @@ npm run extract
 6. 对 AKEDatabase 尚未收录的新物品，读取 `wiki-item-notes.json` 中的 wiki.gg 物品/敌人数据作为构建期 fallback。
 7. 将物品掉落怪分别与两类 scope 聚合：
    - 大地图刷新：AKEDatabase `SpawnerConfig`，表示怪物在某个大地图内出现。
-   - 淤积点来源：wiki.gg Energy Alluvium 表或明确标注淤积点的敌人页，表示怪物在该大地图内的重度能量淤积点挑战中出现。部分阵容通过 `rosterCompleteness: "partial"` 与来源说明传递到卡片和弹窗，不以「数量待补」冒充完整阵容。
+   - 淤积点来源：wiki.gg Energy Alluvium 表或明确标注淤积点的敌人页。数据保留 `rosterCompleteness: "partial"` 与来源备注；页面只展示已知地点、敌人和数量，未知数量显示 `×?`。
    - 手工采集来源：物品页确认的采集区域写入 `manualSourceGroups`，沿用 `manualSourceSummary` 展示与区域检索；不伪造掉落怪或 SpawnerConfig。
 8. 写出 `public/data/items.json`。
 
@@ -205,7 +205,7 @@ npm run build
 
 - 本次缓存的 [Energy Alluvium 原始总表](https://endfield.wiki.gg/wiki/Energy_Alluvium?action=raw) 仍有 **13 行**。逐行比对后，前 12 行全部不变；祀的画的存禄、用奇、解燥从 `N/N/N` 更新为 **12/12/3**，行度仍为 **1**。这是原 50 项唯一数据变化（对应卡片计数及两项原「数量待补」描述同步修正）。保留此前核验记录，新核验另记于备注。
 - 旧水坝是第 **14 个本地分组**，仅由 [储菌](https://endfield.wiki.gg/wiki/Bolete_Prince?action=raw)、[碾菇虬兽](https://endfield.wiki.gg/wiki/Shroomkrusher_Nidwyrm?action=raw)、[碾菇破城者](https://endfield.wiki.gg/wiki/Shroomkrusher_Sporeknuckles?action=raw)、[碾菇先锋](https://endfield.wiki.gg/wiki/Shroomkrusher_Sporeguard?action=raw) 四个敌人页的 `Energy Alluvium: Old Dam` 位置证据支持。**已确认部分敌人，完整阵容及数量待核验**；四项数量全部 `null` / `×?`。总表没有旧水坝行，独立淤积点页尚缺失，不能宣称四种敌人就是完整阵容。
-- 上述不完整说明同时出现在两件掉落材料来源卡片与数据说明弹窗。普通地图分布与淤积点位置是两种证据；不把资料站普通地图人口数字当作淤积点数量，也不补新敌人的刷新点、等级或计数。
+- 来源与完整性说明保留在数据备注中；材料卡片和弹窗采用简洁展示，列出已知地点、敌人及数量，后续版本再补齐缺口。普通地图分布与淤积点位置分别举证，不补造刷新点、等级或计数。
 - 健谈的蘑菇用已有手工来源路径记录旧水坝采集区域及物品页链接，敌人列表为空，可按区域与「采集/种植」筛选。wiki 分类为 **Naturals**；项目 `type:8` 沿用固定缓存中锦草等植物的本地表示，并非本次取得了新物品的游戏枚举证据。
 - 未知：旧水坝游戏 mapId、完整淤积点阵容及数量、首档配方的未核验名称、异彩菌块被截图遮挡的首档奖励数量。不猜补、不新增奖励进度功能。
 

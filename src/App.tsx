@@ -46,7 +46,7 @@ function SourceGroups({ title, groups, kind }: { title: string, groups: SourceGr
       {groups.map(group => (
         <div className="source-group" key={`${title}:${group.area}`}>
           <div className="area">{kind === 'alluvium' && group.area.startsWith(ALLUVIUM_PREFIX) ? group.area.slice(ALLUVIUM_PREFIX.length) : group.area}</div>
-          {group.note && <p className="pending-note">{group.note}{group.sourceUrl && <> <a href={group.sourceUrl} target="_blank" rel="noreferrer noopener">来源 ↗</a></>}</p>}
+          {group.note && group.rosterCompleteness !== 'partial' && <p className="pending-note">{group.note}{group.sourceUrl && <> <a href={group.sourceUrl} target="_blank" rel="noreferrer noopener">来源 ↗</a></>}</p>}
           <div className="enemy-list">
             {group.enemies.map(enemy => (
               <span className="enemy-pill" key={enemy.id}>
@@ -250,16 +250,16 @@ export default function App() {
             {data.energyAlluviumRows && data.energyAlluviumRows.length > 0 && (
               <>
                 <h3>淤积点地图与刷怪比对表</h3>
-                <p>2026-11-26 复核：wiki.gg Energy Alluvium 总表仍为 13 行（祀的画数量现为 12/12/3/1）；第 14 个本地分组「旧水坝」来自四个敌人页的明确淤积点位置证据，不是总表新增行。旧水坝已确认部分敌人，完整阵容及数量待核验。未知数量显示 ×?，不使用普通地图分布数量推算。</p>
+                <p>列出已整理的淤积点敌人及数量，未知数量显示 ×?。</p>
                 <div className="alluvium-table">
                   {data.energyAlluviumRows.map(row => (
                     <div className="alluvium-row" key={row.mapId}>
                       <div className="alluvium-place">
                         <strong>重度能量淤积点 - {row.locationZh || row.locationEn || row.mapId}</strong>
                         <span>{row.mapId.startsWith('wiki:') ? '地图编号待核验' : row.mapId}{row.locationEn ? ` · ${row.locationEn}` : ''}</span>
-                        {row.rosterCompleteness === 'partial' ? <span className="pending-badge">部分敌人已确认 · 阵容及数量待核验</span> : row.status === 'partial' && <span className="pending-badge">数量待补</span>}
+
                         {row.status === 'pending_verification' && <span className="pending-badge">阵容待核验</span>}
-                        {row.rosterCompleteness === 'partial' && <p className="pending-note">{row.note}</p>}
+
                       </div>
                       {row.enemies.length > 0 ? (
                         <div className="enemy-list">
