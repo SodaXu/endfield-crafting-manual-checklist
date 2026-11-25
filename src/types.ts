@@ -21,6 +21,9 @@ export interface SourceEnemy {
 
 export interface SourceGroup {
   area: string
+  rosterCompleteness?: 'partial'
+  note?: string
+  sourceUrl?: string
   enemies: SourceEnemy[]
 }
 
@@ -55,6 +58,7 @@ export interface EnergyAlluviumRow {
   locationZh: string | null
   mapId: string
   status: 'verified' | 'partial' | 'pending_verification'
+  rosterCompleteness?: 'partial'
   note: string
   enemies: EnergyAlluviumEnemy[]
 }

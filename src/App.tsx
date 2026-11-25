@@ -20,6 +20,10 @@ const WIKI_REFERENCES = [
   ['Calamity%27s_Raindew', 'Calamity’s Raindew'], ['Si%27s_Painting', '祀的画 / Si’s Painting'],
   ['Fortune%27s_Stash', 'Fortune’s Stash'], ['Maned_Measure', 'Maned Measure'],
   ['Scroll_of_Tactics', 'Scroll of Tactics'], ['Simmer%27s_Purge', 'Simmer’s Purge'],
+  ['Old_Dam', '旧水坝 / Old Dam'], ['Loquacious_Shroom', '健谈的蘑菇'],
+  ['Fungal_King%27s_Dust', '菌王之尘'], ['Shiny_Mycelial_Mass', '异彩菌块'],
+  ['Bolete_Prince', '储菌'], ['Shroomkrusher_Nidwyrm', '碾菇虬兽'],
+  ['Shroomkrusher_Sporeknuckles', '碾菇破城者'], ['Shroomkrusher_Sporeguard', '碾菇先锋'],
 ]
 
 function sourceGroupsForItem(item: Item) {
@@ -42,6 +46,7 @@ function SourceGroups({ title, groups, kind }: { title: string, groups: SourceGr
       {groups.map(group => (
         <div className="source-group" key={`${title}:${group.area}`}>
           <div className="area">{kind === 'alluvium' && group.area.startsWith(ALLUVIUM_PREFIX) ? group.area.slice(ALLUVIUM_PREFIX.length) : group.area}</div>
+          {group.note && <p className="pending-note">{group.note}{group.sourceUrl && <> <a href={group.sourceUrl} target="_blank" rel="noreferrer noopener">来源 ↗</a></>}</p>}
           <div className="enemy-list">
             {group.enemies.map(enemy => (
               <span className="enemy-pill" key={enemy.id}>
@@ -89,7 +94,7 @@ function ItemCard({ item }: { item: Item }) {
 
       <SourceGroups title="淤积点来源" groups={alluviumGroups} kind="alluvium" />
       <SourceGroups title="大地图刷新" groups={mapGroups} kind="open-world" />
-      <SourceGroups title="手工补充" groups={manualGroups} kind="manual" />
+      <SourceGroups title={hasDrops ? '手工补充' : '采集来源（手工补充）'} groups={manualGroups} kind="manual" />
 
       {hasDrops && !hasAnySource && (
         <>
@@ -237,22 +242,24 @@ export default function App() {
             <p>页面展示当前版本整理的简制手册材料条目。构建时从本地 AKEDatabase 缓存提取物品、图标、敌人和大地图刷怪配置，生成静态 JSON；浏览器运行时不会请求外部 wiki 或 API。</p>
             <ul>
               <li>物品描述 = <code>description</code> + <code>obtainWays.desc</code> 合并展示。</li>
-              <li>淤积点来源 = 物品掉落怪 → wiki.gg Energy Alluvium 对比表 → 地图中文备注聚合。</li>
+              <li>淤积点来源 = 物品掉落怪 → wiki.gg Energy Alluvium 对比表或明确标注淤积点的敌人页补充 → 地图中文备注聚合。</li>
               <li>大地图 SpawnerConfig 只表示普通大地图刷怪，与淤积点来源分开展示。</li>
-              <li>少量缺口使用人工备注修正，例如地图编号与「彪兽的长绒」位置。</li>
+              <li>少量缺口使用人工备注补充，例如地图编号与物品页明确确认的旧水坝采集来源；不虚构采集数量或刷怪配置。</li>
+              <li>2026-11-26 新增三项的手册收录与里程碑来自用户游戏截图；wiki 手册总表尚未更新。物品、掉落与地点由独立条目核验，真实图标来自 EndfieldTools。</li>
             </ul>
             {data.energyAlluviumRows && data.energyAlluviumRows.length > 0 && (
               <>
                 <h3>淤积点地图与刷怪比对表</h3>
-                <p>下表来自 wiki.gg Energy Alluvium；本地备注只补中文地图名、mapId 与来源说明，wiki 尚标为 TBA / N 的数量显示 ×?。</p>
+                <p>2026-11-26 复核：wiki.gg Energy Alluvium 总表仍为 13 行（祀的画数量现为 12/12/3/1）；第 14 个本地分组「旧水坝」来自四个敌人页的明确淤积点位置证据，不是总表新增行。旧水坝已确认部分敌人，完整阵容及数量待核验。未知数量显示 ×?，不使用普通地图分布数量推算。</p>
                 <div className="alluvium-table">
                   {data.energyAlluviumRows.map(row => (
                     <div className="alluvium-row" key={row.mapId}>
                       <div className="alluvium-place">
                         <strong>重度能量淤积点 - {row.locationZh || row.locationEn || row.mapId}</strong>
                         <span>{row.mapId.startsWith('wiki:') ? '地图编号待核验' : row.mapId}{row.locationEn ? ` · ${row.locationEn}` : ''}</span>
-                        {row.status === 'partial' && <span className="pending-badge">数量待补</span>}
+                        {row.rosterCompleteness === 'partial' ? <span className="pending-badge">部分敌人已确认 · 阵容及数量待核验</span> : row.status === 'partial' && <span className="pending-badge">数量待补</span>}
                         {row.status === 'pending_verification' && <span className="pending-badge">阵容待核验</span>}
+                        {row.rosterCompleteness === 'partial' && <p className="pending-note">{row.note}</p>}
                       </div>
                       {row.enemies.length > 0 ? (
                         <div className="enemy-list">
@@ -274,6 +281,7 @@ export default function App() {
               <li><a href="https://wiki.biligame.com/zmd/%E7%89%A9%E5%93%81%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer">Bilibili 游戏 Wiki · 物品图鉴</a>：少量物品掉落口径交叉校验。</li>
               <li><a href="https://endfield.wiki.gg/wiki/Energy_Alluvium" target="_blank" rel="noreferrer">wiki.gg · Energy Alluvium</a>：淤积点地图、刷怪阵容与数量。</li>
               <li>wiki.gg 物品页：<a href="https://endfield.wiki.gg/wiki/Blightshade_Bezoar" target="_blank" rel="noreferrer">影兽衔石</a>、<a href="https://endfield.wiki.gg/wiki/Shadow_Dew" target="_blank" rel="noreferrer">残影露滴</a>、<a href="https://endfield.wiki.gg/wiki/Glaive_Fragment" target="_blank" rel="noreferrer">破阵刀碎片</a>、<a href="https://endfield.wiki.gg/wiki/Tender_Moss" target="_blank" rel="noreferrer">柔嫩苔藓</a>、<a href="https://endfield.wiki.gg/wiki/Slug_Sprig" target="_blank" rel="noreferrer">虫角嫩枝</a>、<a href="https://endfield.wiki.gg/wiki/Ink_Droplet" target="_blank" rel="noreferrer">小墨团</a>、<a href="https://endfield.wiki.gg/wiki/Calamity%27s_Raindew" target="_blank" rel="noreferrer">降劫雨露</a>、<a href="https://endfield.wiki.gg/wiki/Edified_Jade_Orb" target="_blank" rel="noreferrer">敕律玉球</a>。</li>
+              <li><a href="https://endfieldtools.dev/" target="_blank" rel="noreferrer noopener">EndfieldTools</a>：健谈的蘑菇、菌王之尘、异彩菌块三张本地 PNG 图标；原图 URL 与 SHA-256 记录于项目物品备注。</li>
               <li>首页主视觉：<a href="https://endfield.wiki.gg/wiki/File:Si_Splash_Art.png" target="_blank" rel="noreferrer noopener">祀 · Si Splash Art（wiki.gg）</a>，使用本地压缩副本；本页为非官方手册，与官方无隶属或背书关系。</li>
               <li><a href="https://wiki.biligame.com/zmd/%E6%95%8C%E5%AF%B9%E5%9B%BE%E9%89%B4" target="_blank" rel="noreferrer">Bilibili 游戏 Wiki · 敌对图鉴</a>：少量敌人分布区域交叉校验。</li>
             </ul>

@@ -33,6 +33,7 @@ const MANUAL_ITEM_NAMES = [
   '百年陈皮', '尾尖金甲', '影兽衔石', '残影露滴', '破阵刀碎片',
   '柔嫩苔藓', '虫角嫩枝',
   '小墨团', '降劫雨露', '敕律玉球',
+  '健谈的蘑菇', '菌王之尘', '异彩菌块',
 ]
 
 const MANUAL_ITEM_SET = new Set(MANUAL_ITEM_NAMES)
@@ -169,6 +170,7 @@ function buildEnergyAlluviumSources(energyAlluvium, locationNotes) {
         enemyName: enemy.zhName || enemy.enName || enemyId,
         level: null,
         count: enemy.count ?? null,
+        ...(row.rosterCompleteness ? { rosterCompleteness: row.rosterCompleteness, note: row.note } : {}),
         released: row.status !== 'pending_verification',
       })
     }
@@ -203,7 +205,11 @@ function summarizeSources(dropEnemies, sourcesByEnemy) {
 
   const byArea = new Map()
   for (const source of sourceAppearances) {
-    if (!byArea.has(source.area)) byArea.set(source.area, { area: source.area, enemies: new Map() })
+    if (!byArea.has(source.area)) byArea.set(source.area, {
+      area: source.area,
+      ...(source.rosterCompleteness ? { rosterCompleteness: source.rosterCompleteness, note: source.note } : {}),
+      enemies: new Map(),
+    })
     const group = byArea.get(source.area)
     const enemyId = normalizeEnemyId(source.enemyId)
     if (!group.enemies.has(enemyId)) group.enemies.set(enemyId, {
@@ -217,6 +223,7 @@ function summarizeSources(dropEnemies, sourcesByEnemy) {
 
   const grouped = [...byArea.values()].map(group => ({
     area: group.area,
+    ...(group.rosterCompleteness ? { rosterCompleteness: group.rosterCompleteness, note: group.note } : {}),
     enemies: [...group.enemies.values()].map(enemy => ({
       id: enemy.id,
       name: enemy.name,
@@ -352,7 +359,8 @@ async function main() {
       droppedBy,
       alluviumSourceSummary: summarizeSources(droppedBy, energyAlluviumSourcesByEnemy),
       mapSourceSummary: summarizeSources(droppedBy, mapSourcesByEnemy),
-      manualSourceSummary: { grouped: [] },
+      // Manually sourced gathering areas are not enemy spawns or alluvia.
+      manualSourceSummary: { grouped: raw.manualSourceGroups || [] },
     })
   }
 
@@ -369,6 +377,7 @@ async function main() {
       locationZh: row.locationZh || locationNotes[row.mapId]?.zh || null,
       mapId: row.mapId || '',
       status: row.status || 'verified',
+      ...(row.rosterCompleteness ? { rosterCompleteness: row.rosterCompleteness } : {}),
       note: row.note || '',
       enemies: (row.enemies || []).map(enemy => ({
         id: normalizeEnemyId(enemy.enemyId),

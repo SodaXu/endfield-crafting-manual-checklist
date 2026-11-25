@@ -4,7 +4,10 @@
     "url": "https://endfield.wiki.gg/wiki/Energy_Alluvium",
     "accessedAt": "2026-10-23T01:07:46+08:00",
     "apiUrl": "https://endfield.wiki.gg/api.php?action=parse&page=Energy_Alluvium&prop=wikitext&format=json",
-    "note": "Full table rechecked on 2026-10-23 (Asia/Shanghai): 13 rows. First 10 rosters/counts unchanged; North Wuling EZ and Snowy Forest now have exact counts. Added Si's Painting: three N counts stored as null, Maned Measure count 1. Unknown game map IDs use explicit wiki: grouping keys, including replacement of the old provisional Yinglung/North Wuling numeric mappings. World-map distribution is not used to infer alluvium rosters."
+    "note": "Full table rechecked on 2026-10-23 (Asia/Shanghai): 13 rows. First 10 rosters/counts unchanged; North Wuling EZ and Snowy Forest now have exact counts. Added Si's Painting: three N counts stored as null, Maned Measure count 1. Unknown game map IDs use explicit wiki: grouping keys, including replacement of the old provisional Yinglung/North Wuling numeric mappings. World-map distribution is not used to infer alluvium rosters.",
+    "recheckedAt": "2026-11-26",
+    "recheckedUrl": "https://endfield.wiki.gg/wiki/Energy_Alluvium?action=raw",
+    "recheckNote": "2026-11-26 Asia/Shanghai: cached raw-via-web_extract table still has 13 rows. First 12 rows unchanged; Si's Painting now has counts 12/12/3/1. The 14th local grouping, Old Dam, is a separate supplement supported ONLY by four enemy pages explicitly listing Energy Alluvium: Old Dam. Its full roster is unconfirmed and all four counts are null; the standalone alluvium page is missing. No world-population counts used."
   },
   "rows": [
     {
@@ -582,29 +585,29 @@
       "locationEn": "Si's Painting",
       "locationZh": "祀的画",
       "mapId": "wiki:sis_painting",
-      "status": "partial",
+      "status": "verified",
       "source": "https://endfield.wiki.gg/wiki/Energy_Alluvium and https://endfield.wiki.gg/wiki/Si%27s_Painting, checked 2026-10-23 via MediaWiki parse API; enemy IDs and Chinese names from each enemy page; Chinese map name 祀的画 explicitly confirmed by user on 2026-10-23",
-      "note": "wiki:sis_painting 仅为本地分组键，地图编号待核验；中文地图名「祀的画」由用户于 2026-10-23 明确确认，对应 wiki 英文名 Si's Painting。Energy Alluvium 表明确列出四种敌人：前三种数量为 N，保留 null / ×?；行度为 1。不从普通地图分布推断阵容或数量。",
+      "note": "wiki:sis_painting 仅为本地分组键，地图编号待核验；中文地图名「祀的画」由用户于 2026-10-23 明确确认。2026-11-26 经 https://endfield.wiki.gg/wiki/Energy_Alluvium?action=raw 总表复核，数量由 N/N/N/1 更新为 12/12/3/1。不从普通地图分布推断阵容或数量。",
       "enemies": [
         {
           "enName": "Fortune's Stash",
           "zhName": "存禄",
           "enemyId": "eny_0130_inkbiter",
-          "count": null,
+          "count": 12,
           "sourceUrl": "https://endfield.wiki.gg/wiki/Fortune%27s_Stash"
         },
         {
           "enName": "Scroll of Tactics",
           "zhName": "用奇",
           "enemyId": "eny_0131_inkscroll",
-          "count": null,
+          "count": 12,
           "sourceUrl": "https://endfield.wiki.gg/wiki/Scroll_of_Tactics"
         },
         {
           "enName": "Simmer's Purge",
           "zhName": "解燥",
           "enemyId": "eny_0132_inkkirin",
-          "count": null,
+          "count": 3,
           "sourceUrl": "https://endfield.wiki.gg/wiki/Simmer%27s_Purge"
         },
         {
@@ -614,6 +617,22 @@
           "count": 1,
           "sourceUrl": "https://endfield.wiki.gg/wiki/Maned_Measure"
         }
+      ]
+    },
+    {
+      "region": "Wuling",
+      "locationEn": "Old Dam",
+      "locationZh": "旧水坝",
+      "mapId": "wiki:old_dam",
+      "status": "partial",
+      "rosterCompleteness": "partial",
+      "source": "2026-11-26: supplement from the four enemy sourceUrls below, each explicitly listing Energy Alluvium: Old Dam; NOT a row in the 13-row Energy Alluvium total table.",
+      "note": "已确认部分敌人，完整阵容及数量待核验。来源为四个敌人页明确标注的 Energy Alluvium: Old Dam，而非尚未收录旧水坝的淤积点总表。wiki:old_dam 仅为本地分组键，游戏地图编号未知；不使用普通地图分布数量推断淤积点数量。",
+      "enemies": [
+        {"enName": "Bolete Prince", "zhName": "储菌", "enemyId": "eny_0159_mushman", "count": null, "sourceUrl": "https://endfield.wiki.gg/wiki/Bolete_Prince?action=raw"},
+        {"enName": "Shroomkrusher Nidwyrm", "zhName": "碾菇虬兽", "enemyId": "eny_0158_mushbug", "count": null, "sourceUrl": "https://endfield.wiki.gg/wiki/Shroomkrusher_Nidwyrm?action=raw"},
+        {"enName": "Shroomkrusher Sporeknuckles", "zhName": "碾菇破城者", "enemyId": "eny_0160_mushro", "count": null, "sourceUrl": "https://endfield.wiki.gg/wiki/Shroomkrusher_Sporeknuckles?action=raw"},
+        {"enName": "Shroomkrusher Sporeguard", "zhName": "碾菇先锋", "enemyId": "eny_0161_mushshd", "count": null, "sourceUrl": "https://endfield.wiki.gg/wiki/Shroomkrusher_Sporeguard?action=raw"}
       ]
     }
   ]

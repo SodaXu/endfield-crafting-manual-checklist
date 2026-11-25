@@ -100,11 +100,12 @@ npm run extract
    - `icon`
 3. 复制物品图标到 `public/icons/`，避免页面直接引用整个 AKEDatabase 图片目录。
 4. 从 `AKEDatabase/public/CH/enemy/*.json` 建立敌人 ID → 中文名映射。
-5. 读取 `energy-alluvium-notes.json` 中整理的 wiki.gg Energy Alluvium 表。
+5. 读取 `energy-alluvium-notes.json` 中整理的 wiki.gg Energy Alluvium 表，以及有明确淤积点位置证据的敌人页补充（旧水坝完整阵容未确认）。
 6. 对 AKEDatabase 尚未收录的新物品，读取 `wiki-item-notes.json` 中的 wiki.gg 物品/敌人数据作为构建期 fallback。
 7. 将物品掉落怪分别与两类 scope 聚合：
    - 大地图刷新：AKEDatabase `SpawnerConfig`，表示怪物在某个大地图内出现。
-   - 淤积点来源：wiki.gg Energy Alluvium 表，表示怪物在该大地图内的重度能量淤积点挑战中出现。
+   - 淤积点来源：wiki.gg Energy Alluvium 表或明确标注淤积点的敌人页，表示怪物在该大地图内的重度能量淤积点挑战中出现。部分阵容通过 `rosterCompleteness: "partial"` 与来源说明传递到卡片和弹窗，不以「数量待补」冒充完整阵容。
+   - 手工采集来源：物品页确认的采集区域写入 `manualSourceGroups`，沿用 `manualSourceSummary` 展示与区域检索；不伪造掉落怪或 SpawnerConfig。
 8. 写出 `public/data/items.json`。
 
 ## 页面展示逻辑
@@ -140,11 +141,12 @@ npm run extract
 - `wiki:north_wuling_ez` = 北部禁区 / North Wuling EZ
 - `wiki:snowy_forest` = 雪松林 / Snowy Forest
 - `wiki:sis_painting` = 祀的画 / Si's Painting（中文名由用户于 2026-10-23 明确确认；游戏地图编号仍待核验）
+- `wiki:old_dam` = 旧水坝 / Old Dam（武陵；游戏地图编号未知）
 - 以上 `wiki:` 均仅为本地分组键，不是游戏 mapId；数据说明显示「地图编号待核验」。十月复核移除了此前未经证实的 `map02_lv007` / `map02_lv008` 暂定编号。
 
 ## 手工补充
 
-`energy-alluvium-notes.json` 当前按 wiki.gg Operational Manual / Energy Alluvium 的正式表维护；手工部分只补中文名、mapId 与来源说明，不用大地图 SpawnerConfig 推断淤积点组成。
+`energy-alluvium-notes.json` 保留 wiki.gg Energy Alluvium 总表的 13 行；另以四个敌人页明确的淤积点位置补充第 14 个本地分组旧水坝（不是总表新增行）。手工部分记录中文名、本地分组键与来源说明，不用大地图 SpawnerConfig 或普通地图分布数量推断淤积点组成。
 
 - `map02_lv004` 首墩 / Marker Stone：wiki.gg 正式数量。
 - `map02_lv005` 试验园区 / Test Area：wiki.gg 正式数量；中文名和 mapId 由 AKEDatabase / Soda 截图确认。
@@ -172,17 +174,58 @@ npm run extract
 
 ```bash
 npm run extract
-node scripts/check-october.mjs  # 当前快照检查，基线 2fa3cd6；九月检查含旧固定数量，不适用于十月数据
+node scripts/check-november.mjs  # 当前快照，基线 6769780；九月/十月检查含历史固定数量，不适用于十一月数据
 npm run build
 ./node_modules/.bin/tsc --noEmit
 ```
 
 复核页面后才执行 `npm run deploy` 发布；仅 push main 不会部署。
 
-## 2026-10-23 更新与复核
+## 2026-10-23 更新与复核（历史快照）
 
 - 保留原 47 项及顺序，追加小墨团（1 星，存禄 / 用奇）、降劫雨露（2 星，解燥）、敕律玉球（4 星，行度），共 50 项。三项均由 wiki.gg 简制手册表确认，里程碑均为 1/10/50；前两项另有用户截图确认。不新增奖励进度功能。
 - 三张图标为 wiki.gg 原始 PNG，保存在 `public/icons/item_drop_ink{biter,kirin,lion}_1.png`。物品、敌人中文名来自 wiki `cnname`，获取说明是来源摘要，不冒充官方中文原文。
 - 全量 Energy Alluvium 表 13 行：原前 10 行阵容与数量不变；北部禁区更新为 12/9/6/1/1，雪松林为 2/4/4/3/16。新增祀的画 / Si's Painting（中文名由用户明确确认）：存禄、用奇、解燥数量均为 `N`（保存 `null`，显示 `×?`），行度为 1。
 - 新地图与四种敌人页均有独立淤积点证据，不从普通地图分布推断阵容；缺少 SpawnerConfig 证据，三项不生成大地图刷新点位、等级或数量。
-- `node scripts/check-october.mjs [证据目录]` 检查原 47 项保留、全量阵容/数量、未知编号、掉落与图标哈希；提供本次缓存目录时，额外逐项比对原始 API wikitext。任务证据与报告：`/home/sodalol/.hermes/workspace/tasks/endfield-20261023/`。核验日期按 Asia/Shanghai（UTC 抓取时间为 2026-10-22）。
+- `node scripts/check-october.mjs [证据目录]` 检查原 47 项保留、全量阵容/数量、未知编号、掉落与图标哈希；提供本次缓存目录时，额外逐项比对原始 API wikitext。原始任务证据与报告保留在维护者本地，不随站点发布。核验日期按 Asia/Shanghai（UTC 抓取时间为 2026-10-22）。
+
+## 2026-11-26 更新与复核（Asia/Shanghai）
+
+- 原 50 项 ID 与顺序保留，末尾仅追加 **健谈的蘑菇、菌王之尘、异彩菌块**，共 **53 项**。三项手册收录与里程碑来自**用户游戏截图/2026-11-26**，不是尚未更新的 wiki 手册总表。未扩展奖励清单；未添加其他未经批准的新条目。
+- 物品名、filename、稀有度、获取用途来自 wiki.gg 物品 `?action=raw` 模板；敌人名、filename、掉落和地点来自敌人模板。缓存抽取中的 `\_` 是 Markdown 转义，实际 ID 使用 `_`。描述为来源摘要，不冒充官方中文原文。
+- [旧水坝 / Old Dam](https://endfield.wiki.gg/wiki/Old_Dam?action=raw) 属武陵；英文名交叉核验 [官方英文指南](https://x.com/AKEndfield/status/2124352177325949278)，中文名来自 [机核前瞻报道](https://www.gcores.com/articles/222631) 与 [官方指南转载](https://www.233leyuan.com/post-detail/2124681708271755264)（后者是第三方转载，不冒充官方直发）。使用 `wiki:old_dam`，不猜游戏 mapId。
+
+| 新物品（wiki 原始模板） | 稀有度 | 获取与用途 | 截图里程碑 |
+|---|---|---|---|
+| [健谈的蘑菇 / Loquacious Shroom](https://endfield.wiki.gg/wiki/Loquacious_Shroom?action=raw) | 1 | 旧水坝采集，制作蜂蜜华夫饼；不是敌人掉落 | 1/50/100 |
+| [菌王之尘 / Fungal King's Dust](https://endfield.wiki.gg/wiki/Fungal_King%27s_Dust?action=raw) | 4 | 储菌、碾菇虬兽概率掉落，精制食药 | 1/10/50 |
+| [异彩菌块 / Shiny Mycelial Mass](https://endfield.wiki.gg/wiki/Shiny_Mycelial_Mass?action=raw) | 4 | 碾菇破城者、碾菇先锋概率掉落，装箱运送 | 1/10/50 |
+
+### 淤积点与采集证据边界
+
+- 本次缓存的 [Energy Alluvium 原始总表](https://endfield.wiki.gg/wiki/Energy_Alluvium?action=raw) 仍有 **13 行**。逐行比对后，前 12 行全部不变；祀的画的存禄、用奇、解燥从 `N/N/N` 更新为 **12/12/3**，行度仍为 **1**。这是原 50 项唯一数据变化（对应卡片计数及两项原「数量待补」描述同步修正）。保留此前核验记录，新核验另记于备注。
+- 旧水坝是第 **14 个本地分组**，仅由 [储菌](https://endfield.wiki.gg/wiki/Bolete_Prince?action=raw)、[碾菇虬兽](https://endfield.wiki.gg/wiki/Shroomkrusher_Nidwyrm?action=raw)、[碾菇破城者](https://endfield.wiki.gg/wiki/Shroomkrusher_Sporeknuckles?action=raw)、[碾菇先锋](https://endfield.wiki.gg/wiki/Shroomkrusher_Sporeguard?action=raw) 四个敌人页的 `Energy Alluvium: Old Dam` 位置证据支持。**已确认部分敌人，完整阵容及数量待核验**；四项数量全部 `null` / `×?`。总表没有旧水坝行，独立淤积点页尚缺失，不能宣称四种敌人就是完整阵容。
+- 上述不完整说明同时出现在两件掉落材料来源卡片与数据说明弹窗。普通地图分布与淤积点位置是两种证据；不把资料站普通地图人口数字当作淤积点数量，也不补新敌人的刷新点、等级或计数。
+- 健谈的蘑菇用已有手工来源路径记录旧水坝采集区域及物品页链接，敌人列表为空，可按区域与「采集/种植」筛选。wiki 分类为 **Naturals**；项目 `type:8` 沿用固定缓存中锦草等植物的本地表示，并非本次取得了新物品的游戏枚举证据。
+- 未知：旧水坝游戏 mapId、完整淤积点阵容及数量、首档配方的未核验名称、异彩菌块被截图遮挡的首档奖励数量。不猜补、不新增奖励进度功能。
+
+### 三张真实图标
+
+图标来自 **EndfieldTools 对应物品页引用的原始 PNG**（254×254），不是 wiki File 页（本次返回 404），未生成或借用图标。实际下载 URL 与 SHA-256 同时记于 `wiki-item-notes.json`，本地文件为 `public/icons/<物品ID>.png`。游戏图片版权仍归原权利人。
+
+| 实际原图 URL（文件名即物品 ID） | SHA-256 |
+|---|---|
+| [item_plant_grass_spmushroom_1.png](https://endfieldtools.dev/assets/images/endfield/itemiconbig/item_plant_grass_spmushroom_1.png) | `089e280aae4eda2c224117ff962cf25ed4b36c895588013edc6584e0d044d8ca` |
+| [item_drop_mushbug_1.png](https://endfieldtools.dev/assets/images/endfield/itemiconbig/item_drop_mushbug_1.png) | `425e4a458ed4c2c509f4e75ec1eae84b69d8519e3e44b25c62ed8394ccba7b7c` |
+| [item_drop_mushro_1.png](https://endfieldtools.dev/assets/images/endfield/itemiconbig/item_drop_mushro_1.png) | `3449404fcf6e2dce31137d993f1ad5f85feaa6d1c5c23ab24e662f9d6eb87903` |
+
+复核命令（不需要新依赖、不更新固定 AKEDatabase 缓存）：
+
+```bash
+npm run extract
+node scripts/check-november.mjs /path/to/local-evidence
+npm run build
+./node_modules/.bin/tsc --noEmit
+```
+
+新检查以 `6769780` 为基线验证原 50 项仅有上述明确变化、53 个唯一 ID/PNG、三张图标哈希、手工采集与掉落/刷怪 scope 分离、14 个本地淤积点分组与四个未知计数；传入本地证据目录时，额外逐行比对全部 13 行原始表、三物品与四敌人模板及实际图标 URL。证据目录包含本次 `research-raw.json`、`research-raw-enemies.json`、`research-final-evidence.json`、`research-item-crosscheck.json`，不传目录则明确跳过原始证据比对。原始研究日志及用户截图不随站点发布。

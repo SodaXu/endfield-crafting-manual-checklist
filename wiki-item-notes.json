@@ -157,7 +157,7 @@
       "description": "击败存禄、用奇的掉落物，可用于精制食药制作。",
       "obtainWays": [
         {
-          "desc": "在武陵祀的画（Si's Painting）击败存禄、用奇有概率掉落；wiki.gg 分别确认普通地图分布与该地重度能量淤积点阵容，淤积点数量待补。地图中文名由用户明确确认。"
+          "desc": "在武陵祀的画（Si's Painting）击败存禄、用奇有概率掉落；wiki.gg 分别确认普通地图分布与该地重度能量淤积点阵容，2026-11-26 淤积点总表复核数量分别为 12、12。地图中文名由用户明确确认。"
         }
       ],
       "droppedBy": [
@@ -191,7 +191,7 @@
       "description": "击败解燥的掉落物，可用于精制食药制作。",
       "obtainWays": [
         {
-          "desc": "在武陵祀的画（Si's Painting）击败解燥有概率掉落；wiki.gg 分别确认普通地图分布与该地重度能量淤积点阵容，淤积点数量待补。地图中文名由用户明确确认。"
+          "desc": "在武陵祀的画（Si's Painting）击败解燥有概率掉落；wiki.gg 分别确认普通地图分布与该地重度能量淤积点阵容，2026-11-26 淤积点总表复核数量为 3。地图中文名由用户明确确认。"
         }
       ],
       "droppedBy": [
@@ -233,6 +233,72 @@
       "icon": "./icons/item_drop_inklion_1.png",
       "iconSourceUrl": "https://endfield.wiki.gg/images/Edified_Jade_Orb.png",
       "iconSha256": "44e66b27001bcab4249c48d0770972d44108de51f240db67c1c2744801681b39"
+    },
+    {
+      "id": "item_plant_grass_spmushroom_1",
+      "name": "健谈的蘑菇",
+      "enName": "Loquacious Shroom",
+      "sourceUrl": "https://endfield.wiki.gg/wiki/Loquacious_Shroom?action=raw",
+      "accessedAt": "2026-11-26",
+      "manualSource": "用户游戏截图/2026-11-26",
+      "manualMilestones": [1, 50, 100],
+      "sourceNote": "手册收录及里程碑由用户游戏截图确认；wiki 手册总表尚未更新，不作为这三项的收录证据。物品 raw 模板确认名称、filename、稀有度与旧水坝采集。wiki 分类为 Naturals；type:8 沿用本项目现有植物（如 item_plant_grass_1 锦草）的本地表示，不声称已取得本物品游戏枚举证据。描述为来源摘要。首档蜂蜜华夫饼配方中文名未核验，不补奖励数据。",
+      "rarity": 1,
+      "type": 8,
+      "description": "生长于旧水坝的特殊菌类，可用于制作蜂蜜华夫饼。",
+      "obtainWays": [{"desc": "在武陵旧水坝采集；来源为 wiki.gg 物品页，不是敌人掉落或 SpawnerConfig 刷怪点位。"}],
+      "droppedBy": [],
+      "manualSourceGroups": [{
+        "area": "旧水坝",
+        "enemies": [],
+        "note": "采集来源由 wiki.gg 健谈的蘑菇物品页确认；未提供采集点数量或刷新数据。",
+        "sourceUrl": "https://endfield.wiki.gg/wiki/Loquacious_Shroom?action=raw"
+      }],
+      "icon": "./icons/item_plant_grass_spmushroom_1.png",
+      "iconSourceUrl": "https://endfieldtools.dev/assets/images/endfield/itemiconbig/item_plant_grass_spmushroom_1.png",
+      "iconSha256": "089e280aae4eda2c224117ff962cf25ed4b36c895588013edc6584e0d044d8ca"
+    },
+    {
+      "id": "item_drop_mushbug_1",
+      "name": "菌王之尘",
+      "enName": "Fungal King's Dust",
+      "sourceUrl": "https://endfield.wiki.gg/wiki/Fungal_King%27s_Dust?action=raw",
+      "accessedAt": "2026-11-26",
+      "manualSource": "用户游戏截图/2026-11-26",
+      "manualMilestones": [1, 10, 50],
+      "sourceNote": "手册收录及里程碑由用户游戏截图确认，wiki 手册总表尚未更新。物品与敌人 raw 模板双向确认掉落，四敌人 location 明确区分 Old Dam 与 Energy Alluvium: Old Dam。总表没有旧水坝行；已确认部分敌人，完整阵容及数量待核验。不用普通地图分布数量代替淤积点数量。首档配方名未核验，不补奖励数据。描述为来源摘要。",
+      "rarity": 4,
+      "type": 8,
+      "description": "击败储菌、碾菇虬兽有概率掉落，可用于精制食药制作。",
+      "obtainWays": [{"desc": "wiki.gg 敌人页确认分布于武陵旧水坝及该地重度能量淤积点；普通地图未取得 SpawnerConfig 点位或等级数据。"}],
+      "droppedBy": [
+        {"enemyId": "eny_0159_mushman", "zhName": "储菌", "enName": "Bolete Prince", "sourceUrl": "https://endfield.wiki.gg/wiki/Bolete_Prince?action=raw"},
+        {"enemyId": "eny_0158_mushbug", "zhName": "碾菇虬兽", "enName": "Shroomkrusher Nidwyrm", "sourceUrl": "https://endfield.wiki.gg/wiki/Shroomkrusher_Nidwyrm?action=raw"}
+      ],
+      "icon": "./icons/item_drop_mushbug_1.png",
+      "iconSourceUrl": "https://endfieldtools.dev/assets/images/endfield/itemiconbig/item_drop_mushbug_1.png",
+      "iconSha256": "425e4a458ed4c2c509f4e75ec1eae84b69d8519e3e44b25c62ed8394ccba7b7c"
+    },
+    {
+      "id": "item_drop_mushro_1",
+      "name": "异彩菌块",
+      "enName": "Shiny Mycelial Mass",
+      "sourceUrl": "https://endfield.wiki.gg/wiki/Shiny_Mycelial_Mass?action=raw",
+      "accessedAt": "2026-11-26",
+      "manualSource": "用户游戏截图/2026-11-26",
+      "manualMilestones": [1, 10, 50],
+      "sourceNote": "手册收录及里程碑由用户游戏截图确认，wiki 手册总表尚未更新。物品与敌人 raw 模板双向确认掉落，四敌人 location 明确区分 Old Dam 与 Energy Alluvium: Old Dam。总表没有旧水坝行；已确认部分敌人，完整阵容及数量待核验。不用普通地图分布数量代替淤积点数量。截图首档奖励已领取遮挡，数量未知，不补奖励数据。描述为来源摘要。",
+      "rarity": 4,
+      "type": 8,
+      "description": "击败碾菇破城者、碾菇先锋有概率掉落，可用于仓储节点装箱运送。",
+      "obtainWays": [{"desc": "wiki.gg 敌人页确认分布于武陵旧水坝及该地重度能量淤积点；普通地图未取得 SpawnerConfig 点位或等级数据。"}],
+      "droppedBy": [
+        {"enemyId": "eny_0160_mushro", "zhName": "碾菇破城者", "enName": "Shroomkrusher Sporeknuckles", "sourceUrl": "https://endfield.wiki.gg/wiki/Shroomkrusher_Sporeknuckles?action=raw"},
+        {"enemyId": "eny_0161_mushshd", "zhName": "碾菇先锋", "enName": "Shroomkrusher Sporeguard", "sourceUrl": "https://endfield.wiki.gg/wiki/Shroomkrusher_Sporeguard?action=raw"}
+      ],
+      "icon": "./icons/item_drop_mushro_1.png",
+      "iconSourceUrl": "https://endfieldtools.dev/assets/images/endfield/itemiconbig/item_drop_mushro_1.png",
+      "iconSha256": "3449404fcf6e2dce31137d993f1ad5f85feaa6d1c5c23ab24e662f9d6eb87903"
     }
   ]
 }
